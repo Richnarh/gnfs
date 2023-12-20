@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="176.0" prefWidth="365.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <children>
+      <Button fx:id="btnLogin" layoutX="103.0" layoutY="130.0" mnemonicParsing="false" onAction="#doLoginAction" prefHeight="36.0" prefWidth="144.0" style="-fx-background-color: #333;" text="Login" textFill="#f5ec0a">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label layoutX="132.0" layoutY="5.0" style="-fx-text-fill: #333;" text="GNFS - LOGIN" textFill="#f50c4f">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="textFieldPassword" alignment="CENTER" layoutX="9.0" layoutY="84.0" prefHeight="31.0" prefWidth="353.0" promptText="Enter password" styleClass="login-css" stylesheets="@../css/login.css" text="s">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </PasswordField>
+      <TextField fx:id="textFieldUsername" alignment="CENTER" layoutX="8.0" layoutY="37.0" prefHeight="31.0" prefWidth="353.0" promptText="Enter username" styleClass="login-css" stylesheets="@../css/login.css" text="s">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>
