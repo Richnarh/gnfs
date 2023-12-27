@@ -10,8 +10,6 @@ import com.gnfs.model.BaseKey;
 import static com.gnfs.util.FxUtil.genId;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -23,7 +21,7 @@ import org.hibernate.Session;
 public class DefaultManager {
       
     public static boolean delete(BaseKey model) {
-        Session sess = HibernateUtil.getSession();
+        Session sess = HibernateUtil.open();
         if (model == null) {
             return false;
         }
@@ -37,7 +35,7 @@ public class DefaultManager {
     }
     
     public static <T> T find(Class<T> t, Object id) {
-        Session sess = HibernateUtil.getSession();
+        Session sess = HibernateUtil.open();
         if (id == null) {
             return null;
         }
@@ -51,12 +49,11 @@ public class DefaultManager {
     }
     
     public static <T> T findAll(Class<T> t, Number id) {
-        Session sess = HibernateUtil.getSession();
+        Session sess = HibernateUtil.open();
         return (T) sess.load(t, id);
     }
 
-    public static <T> T save(Object obj) {
-        BaseModel model = (BaseModel)obj;
+    public static <T> T save(BaseModel model) {
         Session sess = HibernateUtil.open();
         try {
             if (model.getCreatedDate() == null) {
@@ -65,13 +62,15 @@ public class DefaultManager {
             if (model.getId() == null) {
                 model.setId(genId());
                 System.out.println("saving.......");
-                sess.save(obj);
+                sess.save(model);
                 sess.getTransaction().commit();
             } else if (find(model.getClass(), model.getId()) != null) {
-                System.out.println("Updaating.......");
+                System.out.println("Updating.......");
                 sess.update(model);
+                sess.getTransaction().commit();
             } else {
                 sess.persist(model);
+                sess.getTransaction().commit();
             }
             return (T) model;
         } catch (HibernateException e) {

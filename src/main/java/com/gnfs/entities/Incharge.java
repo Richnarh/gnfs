@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "incharge")
 public class Incharge extends BaseModel{
+    public static final String _officerInCharge = "officerInCharge";
     @Column(name = "officer_in_charge")
     private String officerInCharge;
     
@@ -26,6 +27,7 @@ public class Incharge extends BaseModel{
     @Temporal(TemporalType.DATE)
     private Date dateOfCollection;
     
+    public static final String _signature = "signature";
     @Column(name = "signature")
     private String signature;
 

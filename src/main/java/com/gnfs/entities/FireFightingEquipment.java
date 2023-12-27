@@ -67,7 +67,6 @@ public class FireFightingEquipment extends BaseModel{
     private Date smokeDetectorServiceDate;
     
     @Column(name = "smoke_detector_service_by")
-    @Temporal(TemporalType.DATE)
     private String smokeDetectorServiceby;
         
     

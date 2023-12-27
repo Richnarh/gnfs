@@ -23,12 +23,12 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <PasswordField fx:id="textFieldPassword" alignment="CENTER" layoutX="9.0" layoutY="84.0" prefHeight="31.0" prefWidth="353.0" promptText="Enter password" styleClass="login-css" stylesheets="@../css/login.css">
+      <PasswordField fx:id="textFieldPassword" alignment="CENTER" layoutX="9.0" layoutY="84.0" prefHeight="31.0" prefWidth="353.0" promptText="Enter password" styleClass="login-css" stylesheets="@../css/login.css" text="x">
          <font>
             <Font size="14.0" />
          </font>
       </PasswordField>
-      <TextField fx:id="textFieldUsername" alignment="CENTER" layoutX="8.0" layoutY="37.0" prefHeight="31.0" prefWidth="353.0" promptText="Enter username" styleClass="login-css" stylesheets="@../css/login.css">
+      <TextField fx:id="textFieldUsername" alignment="CENTER" layoutX="8.0" layoutY="37.0" prefHeight="31.0" prefWidth="353.0" promptText="Enter username" styleClass="login-css" stylesheets="@../css/login.css" text="x">
          <font>
             <Font size="14.0" />
          </font>

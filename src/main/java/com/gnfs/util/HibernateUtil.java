@@ -33,44 +33,48 @@ public class HibernateUtil {
     private static SessionFactory sessionFactory;
 
     public static SessionFactory init() {
+        System.out.println("sessionFactory #1: "+sessionFactory);
         if (sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration();
 
-                // Hibernate settings equivalent to hibernate.cfg.xml's properties
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, DbUtil.JDBC_DRIVER);
                 settings.put(Environment.URL, DbUtil.DB_URL);
                 settings.put(Environment.USER, DbUtil.DB_USER);
                 settings.put(Environment.PASS, DbUtil.DB_PASSWORD);
                 settings.put(Environment.SHOW_SQL, DbUtil.SHOW_SQL);
-//                settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5InnoDBDialect");
+                settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
                 settings.put(Environment.AUTOCOMMIT, "true");
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+                settings.put(Environment.POOL_SIZE, 3);
 
                 settings.put(Environment.HBM2DDL_AUTO, "update");
 
                 configuration.setProperties(settings);
 
+                configuration.addAnnotatedClass(Incharge.class);
+                configuration.addAnnotatedClass(UserData.class);
                 configuration.addAnnotatedClass(Sender.class);
                 configuration.addAnnotatedClass(FireFightingEquipment.class);
-                configuration.addAnnotatedClass(Incharge.class);
                 configuration.addAnnotatedClass(ParticularOccupyers.class);
                 configuration.addAnnotatedClass(ParticularOwners.class);
                 configuration.addAnnotatedClass(ParticularPremises.class);
                 configuration.addAnnotatedClass(SafetyCertificate.class);
                 configuration.addAnnotatedClass(SpecialInstallation.class);
                 configuration.addAnnotatedClass(TrainedFireSafetyStaff.class);
-                configuration.addAnnotatedClass(UserData.class);
                 
                 ServiceRegistry serviceRegistry = (ServiceRegistry) new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();
 
                 sessionFactory = configuration.buildSessionFactory(serviceRegistry);
             } catch (HibernateException e) {
+                System.out.println("ERROR");
+                e.printStackTrace();
                 e.getMessage();
             }
         }
+        System.out.println("sessionFactory #2: "+sessionFactory);
         return sessionFactory;
     }
 
