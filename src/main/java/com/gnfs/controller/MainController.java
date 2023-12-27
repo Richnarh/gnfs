@@ -1,11 +1,20 @@
-package controller;
+package com.gnfs.controller;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.gnfs.entities.FireFightingEquipment;
+import com.gnfs.entities.Incharge;
+import com.gnfs.entities.ParticularPremises;
+import com.gnfs.entities.SafetyCertificate;
+import com.gnfs.entities.SpecialInstallation;
 import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,10 +22,13 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import util.FxPageLoader;
@@ -27,39 +39,117 @@ import util.Popup;
  * @author Richard Narh
  */
 public class MainController implements Initializable {
-
+    @FXML
+    private Button btnSettings;
     @FXML
     private GridPane ownerGridPane;
-
     @FXML
     private GridPane occupyerGridPane;
-
     @FXML
     private GridPane staffGridPane;
-
     @FXML
     private TextField textFieldLandMark;
-
     @FXML
     private TextField textFieldLocation;
-
     @FXML
     private TextField textFieldName;
-
     @FXML
     private TextField textFieldTelephone;
-
     @FXML
     private TextField textFieldType;
-
     @FXML
     private TextField textFieldSearch;
+    @FXML
+    private TextField textFieldSignature;
+    @FXML
+    private TextField textFieldHydrant;
+    @FXML
+    private DatePicker collectionDateField;
+    @FXML
+    private TextField textFieldSmokeExtractor;
+    @FXML
+    private TextField textFieldOfficer;
+    @FXML
+    private TextField textFieldDryRisers;
+    @FXML
+    private TextField textFieldHeatExtractor;
+    @FXML
+    private TextField textFieldWetRisers;
+    @FXML
+    private TextField textFieldHoseRisers;
+    @FXML
+    private TextField textFieldSafetyName;
+    @FXML
+    private TextField textFieldHseNo;
+    @FXML
+    private TextField textFieldSafetyLocation;
+    @FXML
+    private TextField textFieldRiskType;
+    @FXML
+    private TextField textFieldGPRS;
+    @FXML
+    private DatePicker issueDateField;
+    @FXML
+    private DatePicker expiryDateField;
+    @FXML
+    private TextField textFieldCertNo;
+    @FXML
+    private TextField dcpQtyTextField;
+    @FXML
+    private TextField emergencyLightQtyTextField;
+    @FXML
+    private TextField smokeDetectorQtyTextField;
+    @FXML
+    private TextField heatDetectorQtyTextField;
+    @FXML
+    private TextField fireAlarmQtyTextField;
+    @FXML
+    private TextField generalNoticeQtyTextField;
+    @FXML
+    private TextField exitSignQtyTextField;
+    @FXML
+    private TextField assemblyPointQtyTextField;
+    @FXML
+    private TextField waterSrcTypeTextField;
+    @FXML
+    private TextField waterSrcQtyTextField;
+    @FXML
+    private DatePicker dcpInstDateField;
+    @FXML
+    private DatePicker emergencyLightInstDateField;
+    @FXML
+    private DatePicker smkDetectorInstDateField;
+    @FXML
+    private DatePicker heatDetectorInstDateField;
+    @FXML
+    private DatePicker fireAlarmInstDateField;
+    @FXML
+    private DatePicker dcpServDatefield;
+    @FXML
+    private DatePicker emergencyLightServDateField;
+    @FXML
+    private DatePicker smkDetectorServDateField;
+    @FXML
+    private DatePicker heatDetectorServDateField;
+    @FXML
+    private DatePicker fireAlarmServDateField;
+    @FXML
+    private TextField dcpServByTextField;
+    @FXML
+    private TextField emergencyLightServByTextField;
+    @FXML
+    private TextField smkDetectorServByTextField;
+    @FXML
+    private TextField heatDetectorServByTextField;
+    @FXML
+    private TextField fireAlarmServByTextField;
     
     private FxPageLoader pageLoader;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
       pageLoader = new FxPageLoader();
+      btnSettings.setGraphic(new ImageView(new Image("/icons/settings.png")));
 //      textFieldSearch.textProperty().addListener(((observable, oldValue, newValue) -> {
 //          filterData(newValue);
 //      }));
@@ -151,7 +241,7 @@ public class MainController implements Initializable {
         occupyTextField[4] = new TextField();
         occupyTextField[4].setLayoutX(340);
         occupyTextField[4].setId("occupyerPurposeTextField" + j);
-        occupyTextField[4].setPromptText("Purpose Field - " + j);
+        occupyTextField[4].setPromptText("Usage/Activity Field - " + j);
         GridPane.setMargin(occupyTextField[4], new Insets(0, 5, 0, 0));
 
         occupyLabel[1] = new Label();
@@ -222,13 +312,19 @@ public class MainController implements Initializable {
     @FXML
     public void initiateSMSAction(ActionEvent event) {
         FxPageLoader fxPageLoader = new FxPageLoader(((Node) event.getSource()).getScene().getWindow());
-        fxPageLoader.loadFxml("/fxml/Sms.fxml", "GNFS - SMS", Modality.APPLICATION_MODAL, false);
+        fxPageLoader.loadFxml("/fxml/Sms", "GNFS - SMS", Modality.APPLICATION_MODAL, false);
     }
     
     @FXML
     public void expiredListAction(ActionEvent event) {
         FxPageLoader fxPageLoader = new FxPageLoader(((Node) event.getSource()).getScene().getWindow());
-        fxPageLoader.loadFxml("/fxml/ExpiredList.fxml", "GNFS - Expired List", Modality.APPLICATION_MODAL, false);
+        fxPageLoader.loadFxml("/fxml/ExpiredList", "GNFS - Expired List", Modality.APPLICATION_MODAL, false);
+    }
+    
+    @FXML
+    public void smsIdAction(ActionEvent event) {
+        FxPageLoader fxPageLoader = new FxPageLoader(((Node) event.getSource()).getScene().getWindow());
+        fxPageLoader.loadFxml("/fxml/SmsId", "GNFS - Sender ID", Modality.APPLICATION_MODAL, false);
     }
     
     @FXML
@@ -239,6 +335,7 @@ public class MainController implements Initializable {
     @FXML
     public void saveAllAction(ActionEvent event) {
         Popup.info("Saving it all...........");
+        
     }
     
     @FXML
@@ -254,9 +351,79 @@ public class MainController implements Initializable {
         }
     }
     
-
     private void filterData(String newValue) {
         
     }
 
+    public ParticularPremises premisesData(){
+        ParticularPremises premises = new ParticularPremises();
+        premises.setName(textFieldName.getText());
+        premises.setPremType(textFieldType.getText());
+        premises.setLocation(textFieldLocation.getText());
+        premises.setLandMark(textFieldLandMark.getText());
+        premises.setTelephone(textFieldTelephone.getText());
+        return premises;
+    }
+    
+    public Incharge inchargeData(){
+        Incharge i = new Incharge();
+        i.setDateOfCollection(Date.from(Instant.from(collectionDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
+        i.setOfficerInCharge(textFieldOfficer.getText());
+        i.setSignature(textFieldSignature.getText());
+        return i;
+    }
+    
+    public SpecialInstallation specialInst(){
+        SpecialInstallation si = new SpecialInstallation();
+        si.setHydrant(textFieldHydrant.getText());
+        si.setSmokeExtractor(textFieldSmokeExtractor.getText());
+        si.setDryRisers(textFieldDryRisers.getText());
+        si.setHeatExtractor(textFieldHeatExtractor.getText());
+        si.setWetRisers(textFieldWetRisers.getText());
+        si.setHoseReel(textFieldHoseRisers.getText());
+        return si;
+    }
+    
+    public SafetyCertificate fireSafetyData(){
+        SafetyCertificate sc = new SafetyCertificate();
+        sc.setName(textFieldSafetyName.getText());
+        sc.setHouseNo(textFieldHseNo.getText());
+        sc.setLocation(textFieldSafetyLocation.getText());
+        sc.setTypeOfRisk(textFieldRiskType.getText());
+        sc.setGprs(textFieldGPRS.getText());
+        sc.setIssueDate(issueDateField.getValue());
+        sc.setExpiryDate(Date.from(Instant.from(expiryDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
+        sc.setCertificateNo(textFieldCertNo.getText());
+        return sc;
+    }
+    
+    public FireFightingEquipment fireEquipment(){
+        FireFightingEquipment ffe = new FireFightingEquipment();
+        ffe.setDcpQty(Integer.parseInt(dcpQtyTextField.getText()));
+        ffe.setEmergencyLightQty(Integer.parseInt(emergencyLightQtyTextField.getText()));
+        ffe.setSmokeDetectorQty(Integer.parseInt(smokeDetectorQtyTextField.getText()));
+        ffe.setHeatDetectorQty(Integer.parseInt(heatDetectorQtyTextField.getText()));
+        ffe.setFireAlarmQty(Integer.parseInt(fireAlarmQtyTextField.getText()));
+        ffe.setGeneralNoticeQty(Integer.parseInt(generalNoticeQtyTextField.getText()));
+        ffe.setExitSignQty(Integer.parseInt(exitSignQtyTextField.getText()));
+        ffe.setAssemblyPointQty(Integer.parseInt(assemblyPointQtyTextField.getText()));
+        ffe.setWaterSourceQty(Integer.parseInt(waterSrcQtyTextField.getText()));
+        ffe.setWaterSource(waterSrcTypeTextField.getText());
+        ffe.setDcpInstDate(Date.from(Instant.from(dcpInstDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
+        ffe.setEmergencyLightInstDate(Date.from(Instant.from(emergencyLightInstDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
+        ffe.setSmokeDetectorInstDate(Date.from(Instant.from(smkDetectorInstDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
+        ffe.setHeatDetectorInstDate(Date.from(Instant.from(heatDetectorInstDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
+        ffe.setFireAlarmInstDate(Date.from(Instant.from(fireAlarmInstDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
+        ffe.setDcpServiceDate(Date.from(Instant.from(dcpServDatefield.getValue().atStartOfDay(ZoneId.systemDefault()))));
+        ffe.setEmergencyLightServiceDate(Date.from(Instant.from(emergencyLightServDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
+        ffe.setSmokeDetectorServiceDate(Date.from(Instant.from(smkDetectorServDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
+        ffe.setHeatDetectorServiceDate(Date.from(Instant.from(heatDetectorServDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
+        ffe.setFireAlarmServiceDate(Date.from(Instant.from(fireAlarmServDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
+        ffe.setDcpServiceby(dcpServByTextField.getText());
+        ffe.setEmergencyLightServiceby(emergencyLightServByTextField.getText());
+        ffe.setSmokeDetectorServiceby(smkDetectorServByTextField.getText());
+        ffe.setHeatDetectorServiceby(heatDetectorServByTextField.getText());
+        ffe.setFireAlarmServiceby(fireAlarmServByTextField.getText());
+        return ffe;
+    }
 }

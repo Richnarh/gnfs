@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package com.gnfs.controller;
 
+import com.gnfs.entities.UserData;
+import com.gnfs.services.AuthService;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +17,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -30,10 +30,6 @@ import util.Popup;
  * @author Pascal
  */
 public class LoginController implements Initializable {
-
-    @FXML
-    private Button btnLogin;
-
     @FXML
     private PasswordField textFieldPassword;
 
@@ -49,8 +45,8 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void doLoginAction(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
-        Window owner = btnLogin.getScene().getWindow();
+    public void doLoginAction(ActionEvent event){
+        Window owner = ((Node) event.getSource()).getScene().getWindow();
 
         System.out.println(textFieldUsername.getText());
         System.out.println(textFieldPassword.getText());
@@ -66,24 +62,25 @@ public class LoginController implements Initializable {
         String emailId = textFieldUsername.getText();
         String password = textFieldPassword.getText();
 
-        boolean flag = true;
-//        boolean flag = AuthService.login(emailId, password);
-        if (!flag) {
-            Popup.confirm("Please enter correct Email and Password", null, "Failed");
+        UserData data = AuthService.doLogin(emailId, password);
+        if (data == null){
+            Popup.error(owner,"Please enter correct Email and Password");
         } else {
-            Node source = (Node) event.getSource();
-            Stage stage = (Stage) source.getScene().getWindow();
+            Stage stage = (Stage)owner;
             stage.close();
-
-            Window window = ((Node) event.getSource()).getScene().getWindow();
-
-            indexPage(window);
+            
+            mainPage(owner);
         }
     }
 
-    private void indexPage(Window window)throws IOException{
+    private void mainPage(Window window){
         Stage stage  = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
         Scene scene = new Scene(root);
         stage.initOwner(window);
         stage.initModality(Modality.WINDOW_MODAL);

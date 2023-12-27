@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="286.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SmsController">
+<AnchorPane id="AnchorPane" prefHeight="286.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gnfs.controller.SmsController">
    <children>
       <TextArea fx:id="textAreaFieldMessage" layoutX="4.0" layoutY="28.0" prefHeight="207.0" prefWidth="521.0" promptText="Type a message." />
       <Button fx:id="sendMessageAction" layoutX="203.0" layoutY="242.0" mnemonicParsing="false" onAction="#sendMessageAction" prefHeight="33.0" prefWidth="122.0" style="-fx-background-color: #333;" text="SEND MESSAGE" textFill="#f5ec0a">

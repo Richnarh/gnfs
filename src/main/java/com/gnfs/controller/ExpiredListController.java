@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package com.gnfs.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,6 +32,6 @@ public class ExpiredListController implements Initializable {
     @FXML
     public void initiateSMSAction(ActionEvent event){
         FxPageLoader fxPageLoader = new FxPageLoader(((Node) event.getSource()).getScene().getWindow());
-        fxPageLoader.loadFxml("/fxml/Sms.fxml", "GNFS - SMS", Modality.APPLICATION_MODAL, false);
+        fxPageLoader.loadFxml("/fxml/Sms", "GNFS - SMS", Modality.APPLICATION_MODAL, false);
     }
 }

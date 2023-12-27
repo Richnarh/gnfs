@@ -35,7 +35,7 @@ public class FxPageLoader {
     public void loadFxml() {
         Stage stage = new Stage();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxml));
+            Parent root = FXMLLoader.load(getClass().getResource(fxml+".fxml"));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setResizable(false);
             stage.setScene(new Scene(root));
@@ -48,7 +48,7 @@ public class FxPageLoader {
     public Stage loadFxml(String fxml, String title) {
          Stage stage = new Stage();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxml));
+            Parent root = FXMLLoader.load(getClass().getResource(fxml+".fxml"));
             stage.initModality(null);
             stage.setTitle(title);
             stage.setScene(new Scene(root));
@@ -61,7 +61,7 @@ public class FxPageLoader {
     public Stage loadFxml(String fxml, String title, Modality modality) {
         Stage stage = new Stage();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxml));
+            Parent root = FXMLLoader.load(getClass().getResource(fxml+".fxml"));
             stage.initModality(modality);
             stage.setTitle(title);
             stage.setScene(new Scene(root));
