@@ -26,7 +26,7 @@ public class FireFightingEquipment extends BaseModel{
     private Incharge incharge;
     
     @Column(name = "dcp_qty")
-    private int dcpQty;
+    private Integer dcpQty;
     
     @Column(name = "dcp_inst_date")
     @Temporal(TemporalType.DATE)
@@ -41,7 +41,7 @@ public class FireFightingEquipment extends BaseModel{
         
     
     @Column(name = "emergency_light_qty")
-    private int emergencyLightQty;
+    private Integer emergencyLightQty;
     
     @Column(name = "emergency_light_inst_date")
     @Temporal(TemporalType.DATE)
@@ -56,7 +56,7 @@ public class FireFightingEquipment extends BaseModel{
         
     
     @Column(name = "smoke_detector_qty")
-    private int smokeDetectorQty;
+    private Integer smokeDetectorQty;
     
     @Column(name = "smoke_detector_inst_date")
     @Temporal(TemporalType.DATE)
@@ -71,7 +71,7 @@ public class FireFightingEquipment extends BaseModel{
         
     
     @Column(name = "heat_detector_qty")
-    private int heatDetectorQty;
+    private Integer heatDetectorQty;
     
     @Column(name = "heat_detector_inst_date")
     @Temporal(TemporalType.DATE)
@@ -86,7 +86,7 @@ public class FireFightingEquipment extends BaseModel{
     
     
     @Column(name = "fire_alarm_qty")
-    private int fireAlarmQty;
+    private Integer fireAlarmQty;
     
     @Column(name = "fire_alarm_inst_date")
     @Temporal(TemporalType.DATE)
@@ -101,19 +101,19 @@ public class FireFightingEquipment extends BaseModel{
     
     
     @Column(name = "general_notice_qty")
-    private int generalNoticeQty;
+    private Integer generalNoticeQty;
     
     @Column(name = "exit_sign_qty")
-    private int exitSignQty;
+    private Integer exitSignQty;
     
     @Column(name = "assemble_point_qty")
-    private int assemblyPointQty;
+    private Integer assemblyPointQty;
     
     @Column(name = "water_source")
     private String waterSource;
     
     @Column(name = "water_source_qty")
-    private int waterSourceQty;
+    private Integer waterSourceQty;
 
     public Incharge getIncharge() {
         return incharge;
@@ -122,15 +122,7 @@ public class FireFightingEquipment extends BaseModel{
     public void setIncharge(Incharge incharge) {
         this.incharge = incharge;
     }
-
-    public int getDcpQty() {
-        return dcpQty;
-    }
-
-    public void setDcpQty(int dcpQty) {
-        this.dcpQty = dcpQty;
-    }
-
+    
     public Date getDcpInstDate() {
         return dcpInstDate;
     }
@@ -147,28 +139,12 @@ public class FireFightingEquipment extends BaseModel{
         this.dcpServiceby = dcpServiceby;
     }
 
-    public int getEmergencyLightQty() {
-        return emergencyLightQty;
-    }
-
-    public void setEmergencyLightQty(int emergencyLightQty) {
-        this.emergencyLightQty = emergencyLightQty;
-    }
-
     public String getEmergencyLightServiceby() {
         return emergencyLightServiceby;
     }
 
     public void setEmergencyLightServiceby(String emergencyLightServiceby) {
         this.emergencyLightServiceby = emergencyLightServiceby;
-    }
-
-    public int getSmokeDetectorQty() {
-        return smokeDetectorQty;
-    }
-
-    public void setSmokeDetectorQty(int smokeDetectorQty) {
-        this.smokeDetectorQty = smokeDetectorQty;
     }
 
     public String getSmokeDetectorServiceby() {
@@ -179,28 +155,12 @@ public class FireFightingEquipment extends BaseModel{
         this.smokeDetectorServiceby = smokeDetectorServiceby;
     }
 
-    public int getHeatDetectorQty() {
-        return heatDetectorQty;
-    }
-
-    public void setHeatDetectorQty(int heatDetectorQty) {
-        this.heatDetectorQty = heatDetectorQty;
-    }
-
     public String getHeatDetectorServiceby() {
         return heatDetectorServiceby;
     }
 
     public void setHeatDetectorServiceby(String heatDetectorServiceby) {
         this.heatDetectorServiceby = heatDetectorServiceby;
-    }
-
-    public int getFireAlarmQty() {
-        return fireAlarmQty;
-    }
-
-    public void setFireAlarmQty(int fireAlarmQty) {
-        this.fireAlarmQty = fireAlarmQty;
     }
 
     public String getFireAlarmServiceby() {
@@ -211,30 +171,6 @@ public class FireFightingEquipment extends BaseModel{
         this.fireAlarmServiceby = fireAlarmServiceby;
     }
 
-    public int getGeneralNoticeQty() {
-        return generalNoticeQty;
-    }
-
-    public void setGeneralNoticeQty(int generalNoticeQty) {
-        this.generalNoticeQty = generalNoticeQty;
-    }
-
-    public int getExitSignQty() {
-        return exitSignQty;
-    }
-
-    public void setExitSignQty(int exitSignQty) {
-        this.exitSignQty = exitSignQty;
-    }
-
-    public int getAssemblyPointQty() {
-        return assemblyPointQty;
-    }
-
-    public void setAssemblyPointQty(int assemblyPointQty) {
-        this.assemblyPointQty = assemblyPointQty;
-    }
-
     public String getWaterSource() {
         return waterSource;
     }
@@ -243,14 +179,6 @@ public class FireFightingEquipment extends BaseModel{
         this.waterSource = waterSource;
     }
     
-    public int getWaterSourceQty() {
-        return waterSourceQty;
-    }
-
-    public void setWaterSourceQty(int waterSourceQty) {
-        this.waterSourceQty = waterSourceQty;
-    }
-
     public Date getDcpServiceDate() {
         return dcpServiceDate;
     }
@@ -322,5 +250,76 @@ public class FireFightingEquipment extends BaseModel{
     public void setFireAlarmServiceDate(Date fireAlarmServiceDate) {
         this.fireAlarmServiceDate = fireAlarmServiceDate;
     }
-    
+
+    public Integer getDcpQty() {
+        return dcpQty;
+    }
+
+    public void setDcpQty(Integer dcpQty) {
+        this.dcpQty = dcpQty;
+    }
+
+    public Integer getEmergencyLightQty() {
+        return emergencyLightQty;
+    }
+
+    public void setEmergencyLightQty(Integer emergencyLightQty) {
+        this.emergencyLightQty = emergencyLightQty;
+    }
+
+    public Integer getSmokeDetectorQty() {
+        return smokeDetectorQty;
+    }
+
+    public void setSmokeDetectorQty(Integer smokeDetectorQty) {
+        this.smokeDetectorQty = smokeDetectorQty;
+    }
+
+    public Integer getHeatDetectorQty() {
+        return heatDetectorQty;
+    }
+
+    public void setHeatDetectorQty(Integer heatDetectorQty) {
+        this.heatDetectorQty = heatDetectorQty;
+    }
+
+    public Integer getFireAlarmQty() {
+        return fireAlarmQty;
+    }
+
+    public void setFireAlarmQty(Integer fireAlarmQty) {
+        this.fireAlarmQty = fireAlarmQty;
+    }
+
+    public Integer getGeneralNoticeQty() {
+        return generalNoticeQty;
+    }
+
+    public void setGeneralNoticeQty(Integer generalNoticeQty) {
+        this.generalNoticeQty = generalNoticeQty;
+    }
+
+    public Integer getExitSignQty() {
+        return exitSignQty;
+    }
+
+    public void setExitSignQty(Integer exitSignQty) {
+        this.exitSignQty = exitSignQty;
+    }
+
+    public Integer getAssemblyPointQty() {
+        return assemblyPointQty;
+    }
+
+    public void setAssemblyPointQty(Integer assemblyPointQty) {
+        this.assemblyPointQty = assemblyPointQty;
+    }
+
+    public Integer getWaterSourceQty() {
+        return waterSourceQty;
+    }
+
+    public void setWaterSourceQty(Integer waterSourceQty) {
+        this.waterSourceQty = waterSourceQty;
+    }    
 }

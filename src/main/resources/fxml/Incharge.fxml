@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="339.0" prefWidth="417.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gnfs.controller.InchargeController">
+   <children>
+      <Pane prefHeight="351.0" prefWidth="476.0">
+         <children>
+            <TableView fx:id="offcerTableView" blendMode="DARKEN" layoutY="162.0" prefHeight="189.0" prefWidth="476.0" tableMenuButtonVisible="true">
+              <columns>
+                <TableColumn fx:id="officerColumn" prefWidth="245.0" text="Officer in Charge" />
+                  <TableColumn fx:id="signatureColumn" prefWidth="218.0" text="Signature" />
+                  <TableColumn fx:id="idColumn" minWidth="0.0" prefWidth="0.0" />
+              </columns>
+            </TableView>
+            <Button fx:id="btnClearForm" layoutX="105.0" layoutY="98.0" mnemonicParsing="false" onAction="#clearFormAction" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #333; -fx-font-weight: bold;" text="Clear Form" textFill="#f5ec0a">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <TextField fx:id="searchTextField" layoutX="5.0" layoutY="135.0" prefHeight="25.0" prefWidth="464.0" promptText="Search something..." />
+            <Label layoutX="8.0" layoutY="14.0" text="Officer in Charge" />
+            <Label layoutX="13.0" layoutY="50.0" text="Sign" />
+            <TextField fx:id="textFieldOfficer" layoutX="134.0" layoutY="10.0" prefHeight="25.0" prefWidth="280.0" promptText="Name of Officer in Charge" />
+            <TextField fx:id="textFieldSignature" layoutX="134.0" layoutY="46.0" prefHeight="25.0" prefWidth="280.0" promptText="Officer Signature" />
+            <Button fx:id="btnSaveChange" layoutX="8.0" layoutY="98.0" mnemonicParsing="false" onAction="#saveOfficerAction" style="-fx-background-color: #333;" text="Save Changes" textFill="#f5ec0a">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

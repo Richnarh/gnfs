@@ -11,18 +11,18 @@ import java.time.LocalDate;
  *
  * @author Richard Narh
  */
-public class BaseKey {
-    private Integer id;
-    private LocalDate valueDate;
+public class BasePojo {
+    public String id;
+    public LocalDate valueDate;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
-
+    
     public LocalDate getValueDate() {
         return valueDate;
     }

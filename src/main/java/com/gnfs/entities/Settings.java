@@ -14,10 +14,13 @@ import javax.persistence.Table;
  * @author Richard Narh
  */
 @Entity
-@Table(name = "sender")
-public class Sender extends BaseModel{
+@Table(name = "settings")
+public class Settings extends BaseModel{
     @Column(name = "sender_id")
     private String senderId;
+    
+    @Column(name = "expiry_limit")
+    private String expiryLimit;
 
     public String getSenderId() {
         return senderId;
@@ -26,5 +29,12 @@ public class Sender extends BaseModel{
     public void setSenderId(String senderId) {
         this.senderId = senderId;
     }
-    
+
+    public String getExpiryLimit() {
+        return expiryLimit;
+    }
+
+    public void setExpiryLimit(String expiryLimit) {
+        this.expiryLimit = expiryLimit;
+    }
 }

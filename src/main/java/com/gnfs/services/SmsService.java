@@ -5,7 +5,7 @@
  */
 package com.gnfs.services;
 
-import com.gnfs.entities.Sender;
+import com.gnfs.entities.Settings;
 import com.gnfs.util.DefaultManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,14 +17,15 @@ import com.gnfs.util.DbUtil;
  */
 public class SmsService {
     public static boolean save(String strId){
-        Sender sender = new Sender();
-        sender.setSenderId(strId);
-        Sender s = DefaultManager.save(sender);
+        Settings settings = new Settings();
+        settings.setSenderId(strId);
+        settings.setExpiryLimit(strId);
+        Settings s = DefaultManager.save(settings);
         return s != null;
     }
 
     public static String getSenderId() throws SQLException {
-        String query = "SELECT * FROM sender LIMIT 1";
+        String query = "SELECT * FROM settings LIMIT 1";
         try {
             ResultSet rs = DbUtil.dbExecuteQuery(query);
             if(!rs.next()) return null;

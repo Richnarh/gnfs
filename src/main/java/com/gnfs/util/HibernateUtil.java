@@ -5,13 +5,14 @@
  */
 package com.gnfs.util;
 
+import com.gnfs.entities.CollectionDate;
 import com.gnfs.entities.FireFightingEquipment;
 import com.gnfs.entities.Incharge;
 import com.gnfs.entities.ParticularOccupyers;
 import com.gnfs.entities.ParticularOwners;
 import com.gnfs.entities.ParticularPremises;
 import com.gnfs.entities.SafetyCertificate;
-import com.gnfs.entities.Sender;
+import com.gnfs.entities.Settings;
 import com.gnfs.entities.SpecialInstallation;
 import com.gnfs.entities.TrainedFireSafetyStaff;
 import com.gnfs.entities.UserData;
@@ -45,7 +46,7 @@ public class HibernateUtil {
                 settings.put(Environment.PASS, DbUtil.DB_PASSWORD);
                 settings.put(Environment.SHOW_SQL, DbUtil.SHOW_SQL);
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
-                settings.put(Environment.AUTOCOMMIT, "true");
+                settings.put(Environment.AUTOCOMMIT, true);
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
                 settings.put(Environment.POOL_SIZE, 3);
 
@@ -55,7 +56,7 @@ public class HibernateUtil {
 
                 configuration.addAnnotatedClass(Incharge.class);
                 configuration.addAnnotatedClass(UserData.class);
-                configuration.addAnnotatedClass(Sender.class);
+                configuration.addAnnotatedClass(Settings.class);
                 configuration.addAnnotatedClass(FireFightingEquipment.class);
                 configuration.addAnnotatedClass(ParticularOccupyers.class);
                 configuration.addAnnotatedClass(ParticularOwners.class);
@@ -63,6 +64,7 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(SafetyCertificate.class);
                 configuration.addAnnotatedClass(SpecialInstallation.class);
                 configuration.addAnnotatedClass(TrainedFireSafetyStaff.class);
+                configuration.addAnnotatedClass(CollectionDate.class);
                 
                 ServiceRegistry serviceRegistry = (ServiceRegistry) new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

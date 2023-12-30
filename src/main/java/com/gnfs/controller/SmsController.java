@@ -8,6 +8,7 @@ package com.gnfs.controller;
 import Zenoph.SMSLib.Enums.MSGTYPE;
 import Zenoph.SMSLib.Enums.REQSTATUS;
 import Zenoph.SMSLib.ZenophSMS;
+import com.gnfs.util.Popup;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -18,7 +19,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Window;
-import util.Popup;
 
 /**
  * FXML Controller class

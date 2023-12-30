@@ -31,8 +31,8 @@ public class ParticularOwners extends BaseModel{
     @Column(name = "tele_office")
     private String teleOffice;
     
-    @Column(name = "purchase")
-    private String purchase;
+    @Column(name = "purpose")
+    private String purpose;
 
     public Incharge getIncharge() {
         return incharge;
@@ -66,11 +66,12 @@ public class ParticularOwners extends BaseModel{
         this.teleOffice = teleOffice;
     }
 
-    public String getPurchase() {
-        return purchase;
+    public String getPurpose() {
+        return purpose;
     }
 
-    public void setPurchase(String purchase) {
-        this.purchase = purchase;
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
     }
+    
 }

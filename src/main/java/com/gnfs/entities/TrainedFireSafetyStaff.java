@@ -5,7 +5,6 @@
  */
 package com.gnfs.entities;
 
-import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,11 +32,11 @@ public class TrainedFireSafetyStaff extends BaseModel{
     private String position;
     
     @Column(name = "type_of_training")
-    private String type_of_training;
+    private String typeOftraining;
     
-    @Column(name = "date")
+    @Column(name = "trained_date")
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private Date trainedDate;
     
     @Column(name = "telephone_no")
     private String telephoneNo;
@@ -66,20 +65,20 @@ public class TrainedFireSafetyStaff extends BaseModel{
         this.position = position;
     }
 
-    public String getType_of_training() {
-        return type_of_training;
+    public String getTypeOftraining() {
+        return typeOftraining;
     }
 
-    public void setType_of_training(String type_of_training) {
-        this.type_of_training = type_of_training;
+    public void setTypeOftraining(String typeOftraining) {
+        this.typeOftraining = typeOftraining;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getTrainedDate() {
+        return trainedDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTrainedDate(Date trainedDate) {
+        this.trainedDate = trainedDate;
     }
     
     public String getTelephoneNo() {

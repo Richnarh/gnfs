@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package util;
+package com.gnfs.util;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -12,7 +12,7 @@ import javafx.stage.Window;
 
 /**
  *
- * @author Pascal
+ * @author Khoders
  */
 public class Popup {
 

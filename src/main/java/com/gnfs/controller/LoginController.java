@@ -7,6 +7,7 @@ package com.gnfs.controller;
 
 import com.gnfs.entities.UserData;
 import com.gnfs.services.AuthService;
+import com.gnfs.util.Popup;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,7 +23,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import util.Popup;
 
 /**
  * FXML Controller class

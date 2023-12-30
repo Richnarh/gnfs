@@ -9,7 +9,7 @@ package com.gnfs.model;
  *
  * @author Richard Narh
  */
-public class Sender extends BaseKey{
+public class Sender extends BasePojo{
     private String senderId;
 
     public Sender() {

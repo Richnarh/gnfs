@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gnfs.controller.ExpiredServiceController">
+   <children>
+      <Pane layoutX="1.0" prefHeight="373.0" prefWidth="639.0">
+         <children>
+            <TableView fx:id="expiredListTableView" layoutX="-1.0" layoutY="78.0" prefHeight="296.0" prefWidth="640.0" tableMenuButtonVisible="true">
+              <columns>
+                  <TableColumn prefWidth="63.0" text="ID" />
+                <TableColumn fx:id="serviceDateColumn" prefWidth="115.0" text="DCP Service" />
+                <TableColumn fx:id="premNameColumn" prefWidth="119.0" text="Emergency Light" />
+                  <TableColumn fx:id="certNoColumn" prefWidth="109.0" text="Smoke Detector" />
+                  <TableColumn fx:id="officerInchargeColumn" prefWidth="113.0" text="Heat Detector" />
+                  <TableColumn prefWidth="131.0" text="Fire Alarm" />
+              </columns>
+            </TableView>
+            <Label layoutX="2.0" layoutY="37.0" text="Premises" />
+            <Label layoutX="2.0" layoutY="53.0" prefHeight="17.0" prefWidth="185.0" text="Adabraka OSU - 0541298897" textFill="#4caae4">
+               <font>
+                  <Font name="System Bold" size="9.0" />
+               </font>
+            </Label>
+            <Label layoutX="212.0" layoutY="54.0" prefHeight="17.0" prefWidth="110.0" text="GNFS-344N23" textFill="#4caae4">
+               <font>
+                  <Font name="System Bold" size="9.0" />
+               </font>
+            </Label>
+            <Label layoutX="209.0" layoutY="37.0" text="Certificate No." />
+            <Label layoutX="346.0" layoutY="37.0" text="House No." />
+            <Label layoutX="347.0" layoutY="54.0" prefHeight="17.0" prefWidth="100.0" text="GNFS-344N23" textFill="#4caae4">
+               <font>
+                  <Font name="System Bold" size="9.0" />
+               </font>
+            </Label>
+            <Label layoutX="471.0" layoutY="39.0" text="Officer in Charge" />
+            <Label layoutX="472.0" layoutY="56.0" prefHeight="17.0" prefWidth="165.0" text="GNFS-344N23" textFill="#4caae4">
+               <font>
+                  <Font name="System Bold" size="9.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="filterCmb" layoutX="109.0" layoutY="3.0" onAction="#filterCmbAction" prefHeight="25.0" prefWidth="185.0" promptText="Choose..." />
+            <Button fx:id="initiateSMSAction" layoutX="2.0" layoutY="3.0" mnemonicParsing="false" onAction="#initiateSMSAction" prefHeight="17.0" prefWidth="100.0" style="-fx-background-color: #333; -fx-font-weight: bold;" text="Send Message" textFill="#f5ec0a">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <TextField fx:id="searchTextField" layoutX="299.0" layoutY="3.0" prefHeight="25.0" prefWidth="336.0" promptText="Search somethng..." />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

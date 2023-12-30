@@ -23,7 +23,7 @@ public class ParticularOccupyers extends BaseModel{
     private Incharge incharge;
     
     @Column(name = "occupyer_name")
-    private String ownerName;
+    private String occupyerName;
     
     @Column(name = "tele_handy")
     private String teleHandy;
@@ -42,14 +42,14 @@ public class ParticularOccupyers extends BaseModel{
         this.incharge = incharge;
     }
 
-    public String getOwnerName() {
-        return ownerName;
+    public String getOccupyerName() {
+        return occupyerName;
     }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
+    public void setOccupyerName(String occupyerName) {
+        this.occupyerName = occupyerName;
     }
-
+    
     public String getTeleHandy() {
         return teleHandy;
     }

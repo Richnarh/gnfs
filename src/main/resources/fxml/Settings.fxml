@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="149.0" prefWidth="361.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gnfs.controller.SettingsController">
+   <children>
+      <Pane layoutY="-1.0" minHeight="142.0" prefHeight="142.0" prefWidth="361.0">
+         <children>
+            <Label layoutX="10.0" layoutY="12.0" text="Sender ID" />
+            <TextField fx:id="textFieldSenderId" layoutX="70.0" layoutY="7.0" prefHeight="25.0" prefWidth="286.0" promptText="Sender ID, Not more than 11 chars" />
+            <Button fx:id="btnSaveSettings" layoutX="126.0" layoutY="109.0" mnemonicParsing="false" onAction="#saveSettingsAction" style="-fx-background-color: #333; -fx-font-weight: bold;" text="Save Settings" textFill="#f5ec0a">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label layoutX="10.0" layoutY="44.0" text="Expired notification limit (days)" />
+            <TextField fx:id="expiredLimitTextField" layoutX="179.0" layoutY="40.0" prefHeight="25.0" prefWidth="177.0" promptText="Expiry notification" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

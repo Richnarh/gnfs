@@ -5,7 +5,10 @@
  */
 package com.gnfs.controller;
 
+import com.gnfs.entities.Settings;
 import com.gnfs.services.SmsService;
+import com.gnfs.util.DefaultManager;
+import com.gnfs.util.Popup;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -13,19 +16,25 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
-import util.Popup;
 
 /**
  * FXML Controller class
  *
  * @author Richard Narh
  */
-public class SmsIdController implements Initializable {
+public class SettingsController implements Initializable {
+    @FXML
+    private Button btnSaveSettings;
     @FXML
     private TextField textFieldSenderId;
+    @FXML
+    private TextField expiredLimitTextField;
     
+    private String settingsId = null;
+
     /**
      * Initializes the controller class.
      */
@@ -40,21 +49,30 @@ public class SmsIdController implements Initializable {
     }    
     
     @FXML
-    public void saveIdAction(ActionEvent event){
+    public void saveSettingsAction(ActionEvent event){
         Window owner = ((Node) event.getSource()).getScene().getWindow();
-        String senderId = textFieldSenderId.getText();
-        if(senderId == null || senderId.isEmpty()){
-            Popup.error(owner, "Sender ID is required.");
-            return;
-        }
         try {
-           boolean saved =  SmsService.save(senderId);
-           if(saved)
-               Popup.info(owner, "sender Id saved successfully.");
+           Settings settings = settings();
+            if(settings.getSenderId() == null){
+                Popup.error(owner, "Sender ID is required.");
+                return;
+            }
+           if(settings.getSenderId() == null && settings.getExpiryLimit() == null) return;
+           settings =  DefaultManager.save(settings);
+           if(settings != null)
+               Popup.info(owner, "Settings saved successfully.");
            else
-               Popup.error(owner, "Could not save sender ID");
+               Popup.error(owner, "Could not save settings");
         } catch (Exception e) {
             e.getMessage();
         }
+    }
+    
+    public Settings settings(){
+        Settings settings = new Settings();
+        settings.setId(settingsId);
+        settings.setSenderId(textFieldSenderId.getText());
+        settings.setExpiryLimit(expiredLimitTextField.getText());
+        return settings;
     }
 }

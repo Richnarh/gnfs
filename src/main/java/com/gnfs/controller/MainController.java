@@ -5,18 +5,27 @@ package com.gnfs.controller;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.gnfs.entities.CollectionDate;
 import com.gnfs.entities.FireFightingEquipment;
 import com.gnfs.entities.Incharge;
+import com.gnfs.entities.ParticularOccupyers;
+import com.gnfs.entities.ParticularOwners;
 import com.gnfs.entities.ParticularPremises;
 import com.gnfs.entities.SafetyCertificate;
 import com.gnfs.entities.SpecialInstallation;
-import com.gnfs.services.GnfsService;
+import com.gnfs.entities.TrainedFireSafetyStaff;
+import com.gnfs.model.InchargeDto;
+import com.gnfs.services.GnfsManager;
+import com.gnfs.util.DateUtil;
 import com.gnfs.util.DefaultManager;
 import java.net.URL;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,8 +42,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
-import util.FxPageLoader;
-import util.Popup;
+import com.gnfs.util.FxPageLoader;
+import com.gnfs.util.JavaUtils;
+import com.gnfs.util.Popup;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.stage.Window;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 /**
  *
@@ -62,15 +80,11 @@ public class MainController implements Initializable {
     @FXML
     private TextField textFieldSearch;
     @FXML
-    private TextField textFieldSignature;
-    @FXML
     private TextField textFieldHydrant;
     @FXML
     private DatePicker collectionDateField;
     @FXML
     private TextField textFieldSmokeExtractor;
-    @FXML
-    private TextField textFieldOfficer;
     @FXML
     private TextField textFieldDryRisers;
     @FXML
@@ -144,27 +158,72 @@ public class MainController implements Initializable {
     @FXML
     private TextField heatDetectorServByTextField;
     @FXML
-    private TextField fireAlarmServByTextField;
-    
+    private TextField fireAlarmServByTextField;  
+    @FXML
+    private ComboBox<InchargeDto> officerCmb;
+
     private FxPageLoader pageLoader;
+
+    private ObservableList fxList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      pageLoader = new FxPageLoader();
-      btnSettings.setGraphic(new ImageView(new Image("/icons/settings.png")));
-//      textFieldSearch.textProperty().addListener(((observable, oldValue, newValue) -> {
-//          filterData(newValue);
-//      }));
+        inchargeCmb();
+        pageLoader = new FxPageLoader();
+        btnSettings.setGraphic(new ImageView(new Image("/icons/settings.png")));
     }
 
-    TextField ownerTextField[] = new TextField[20];
-    Label ownerLabel[] = new Label[20];
+    public void inchargeCmb() {
+        List<Incharge> inchargeList = DefaultManager.findAll(Incharge.class);
+        Callback<ListView<InchargeDto>, ListCell<InchargeDto>> cellFactory = new Callback<ListView<InchargeDto>, ListCell<InchargeDto>>() {
+            @Override
+            public ListCell<InchargeDto> call(ListView<InchargeDto> l) {
+                return new ListCell<InchargeDto>() {
+                    @Override
+                    protected void updateItem(InchargeDto item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item == null || empty) {
+                            setGraphic(null);
+                        } else {
+                           setText(item.getOfficerInCharge());
+                        }
+                    }
+                };
+            }
+        };
+        officerCmb.setConverter(new StringConverter<InchargeDto>() {
+            @Override
+            public String toString(InchargeDto dto) {
+                if (dto == null) {
+                    return null;
+                } else {
+                    return dto.getId();
+                }
+            }
 
-    TextField occupyTextField[] = new TextField[20];
-    Label occupyLabel[] = new Label[20];
+            @Override
+            public InchargeDto fromString(String incharge) {
+                return InchargeDto.newInstance().officerInCharge(incharge);
+            }
+        });
+        
+        officerCmb.setCellFactory(cellFactory);
+        officerCmb.setButtonCell(cellFactory.call(null));
 
-    TextField staffTextField[] = new TextField[20];
-    DatePicker staffDateField[] = new DatePicker[20];
+        inchargeList.forEach(item -> {
+            fxList.add(new InchargeDto(item.getId(), item.getOfficerInCharge()));
+        });
+        officerCmb.setItems(fxList);
+    }
+
+    TextField[] ownerTextField = new TextField[20];
+    Label[] ownerLabel = new Label[20];
+
+    TextField[] occupyTextField = new TextField[20];
+    Label[] occupyLabel = new Label[20];
+
+    TextField[] staffTextField = new TextField[20];
+    DatePicker[] staffDateField = new DatePicker[20];
 
     int ownerRowIndex = 1;
     int occupyRowIndex = 1;
@@ -173,41 +232,42 @@ public class MainController implements Initializable {
     int j = 1;
     int k = 1;
     
-    LinkedHashMap<Integer, TextField> nameMap = new LinkedHashMap<>();
-    LinkedHashMap<Integer, TextField> teleHandyMap = new LinkedHashMap<>();
-    LinkedHashMap<Integer, TextField> teleOfficeMap = new LinkedHashMap<>();
-    LinkedHashMap<Integer, TextField> purposeMap = new LinkedHashMap<>();
-
+    LinkedHashMap<Integer, LinkedHashSet<TextField>> ownerMap = new LinkedHashMap<>();
+    LinkedHashMap<Integer, LinkedHashSet<TextField>> occupyerMap = new LinkedHashMap<>();
+    LinkedHashMap<Integer, LinkedHashSet<TextField>> trainedFireSafetyStaffMap = new LinkedHashMap<>();
+    
     @FXML
     public void btnAddOwnerRow(ActionEvent event) {
-//        System.out.println("Adding Owner Row....." + i);
+        System.out.println("Adding Owner Row....." + i);
+        LinkedHashSet<TextField> fieldList = new LinkedHashSet<>();
         ownerTextField[1] = new TextField();
         ownerTextField[1].setLayoutX(340);
         ownerTextField[1].setId("ownerNameField" + i);
         ownerTextField[1].setPromptText("Name Field - " + i);
         GridPane.setMargin(ownerTextField[1], new Insets(0, 5, 0, 0));
-        nameMap.put(i, ownerTextField[1]);
+        fieldList.add(ownerTextField[1]);
 
         ownerTextField[2] = new TextField();
         ownerTextField[2].setLayoutX(340);
         ownerTextField[2].setId("ownerTeleHandyField" + i);
         ownerTextField[2].setPromptText("Tele Handy Field - " + i);
         GridPane.setMargin(ownerTextField[2], new Insets(0, 5, 0, 0));
-        teleHandyMap.put(i, ownerTextField[2]);
+        fieldList.add(ownerTextField[2]);
+        
 
         ownerTextField[3] = new TextField();
         ownerTextField[3].setLayoutX(340);
         ownerTextField[3].setId("ownerTeleOfficeField" + i);
         ownerTextField[3].setPromptText("Tele Office Field - " + i);
         GridPane.setMargin(ownerTextField[3], new Insets(0, 5, 0, 0));
-        teleOfficeMap.put(i, ownerTextField[3]);
+        fieldList.add(ownerTextField[3]);
 
         ownerTextField[4] = new TextField();
         ownerTextField[4].setLayoutX(340);
         ownerTextField[4].setId("ownerPurposeField" + i);
         ownerTextField[4].setPromptText("Purpose Field - " + i);
         GridPane.setMargin(ownerTextField[4], new Insets(0, 5, 0, 0));
-        purposeMap.put(i, ownerTextField[4]);
+        fieldList.add(ownerTextField[4]);
 
         ownerLabel[1] = new Label();
         ownerLabel[1].setId("owner" + String.valueOf(i));
@@ -217,6 +277,8 @@ public class MainController implements Initializable {
             Popup.error("You cannot add more than 6 rows");
             return;
         }
+        
+        ownerMap.put(i, fieldList);
 
         ownerGridPane.add(ownerLabel[1], 0, ownerRowIndex);
         ownerGridPane.add(ownerTextField[1], 1, ownerRowIndex);
@@ -226,56 +288,51 @@ public class MainController implements Initializable {
 
         ownerRowIndex++;
         i++;
-        System.out.println("");
-        nameMap.entrySet().forEach(item ->{
-            System.out.println("Key: "+item.getKey() +"\t Value: "+item.getValue());
-        });
-        teleHandyMap.entrySet().forEach(item ->{
-            System.out.println("Key: "+item.getKey() +"\t Value: "+item.getValue());
-        });
-        teleOfficeMap.entrySet().forEach(item ->{
-            System.out.println("Key: "+item.getKey() +"\t Value: "+item.getValue());
-        });
-        purposeMap.entrySet().forEach(item ->{
-            System.out.println("Key: "+item.getKey() +"\t Value: "+item.getValue());
-        });
     }
 
     @FXML
     public void btnAddOccupyerRow(ActionEvent event) {
         System.out.println("Adding Occupyer Row....." + j);
+        LinkedHashSet<TextField> fieldList = new LinkedHashSet<>();
         occupyTextField[1] = new TextField();
         occupyTextField[1].setLayoutX(340);
         occupyTextField[1].setId("occupyerNameField" + j);
         occupyTextField[1].setPromptText("Name Field - " + j);
         GridPane.setMargin(occupyTextField[1], new Insets(0, 5, 0, 0));
+        fieldList.add(occupyTextField[1]);
 
         occupyTextField[2] = new TextField();
         occupyTextField[2].setLayoutX(340);
         occupyTextField[2].setId("occupyerTeleHandyField" + j);
         occupyTextField[2].setPromptText("Tele Handy Field - " + j);
         GridPane.setMargin(occupyTextField[2], new Insets(0, 5, 0, 0));
+        fieldList.add(occupyTextField[2]);
 
         occupyTextField[3] = new TextField();
         occupyTextField[3].setLayoutX(340);
         occupyTextField[3].setId("occupyerTeleOfficeField" + j);
         occupyTextField[3].setPromptText("Tele Office Field - " + j);
         GridPane.setMargin(occupyTextField[3], new Insets(0, 5, 0, 0));
+        fieldList.add(occupyTextField[3]);
 
         occupyTextField[4] = new TextField();
         occupyTextField[4].setLayoutX(340);
         occupyTextField[4].setId("occupyerPurposeField" + j);
         occupyTextField[4].setPromptText("Usage/Activity Field - " + j);
         GridPane.setMargin(occupyTextField[4], new Insets(0, 5, 0, 0));
+        fieldList.add(occupyTextField[4]);
 
         occupyLabel[1] = new Label();
         occupyLabel[1].setId("occupy" + String.valueOf(j));
         occupyLabel[1].setText(String.valueOf(j));
+        
 
         if (occupyRowIndex > 12) {
             Popup.error("You cannot add more than 12 rows");
             return;
         }
+        
+        occupyerMap.put(j, fieldList);
 
         occupyerGridPane.add(occupyLabel[1], 0, occupyRowIndex);
         occupyerGridPane.add(occupyTextField[1], 1, occupyRowIndex);
@@ -289,41 +346,49 @@ public class MainController implements Initializable {
     @FXML
     public void btnAddStaffRow(ActionEvent event) {
         System.out.println("Adding Staff Row....." + k);
+        LinkedHashSet<TextField> fieldList = new LinkedHashSet<>();
         staffTextField[1] = new TextField();
         staffTextField[1].setLayoutX(340);
         staffTextField[1].setId("staffNameField" + k);
         staffTextField[1].setPromptText("Name Field - " + k);
         GridPane.setMargin(staffTextField[1], new Insets(0, 5, 0, 0));
+        fieldList.add(staffTextField[1]);
 
         staffTextField[2] = new TextField();
         staffTextField[2].setLayoutX(340);
         staffTextField[2].setId("staffPositionField" + k);
         staffTextField[2].setPromptText("Postion Field - " + k);
         GridPane.setMargin(staffTextField[2], new Insets(0, 5, 0, 0));
+        fieldList.add(staffTextField[2]);
 
         staffTextField[3] = new TextField();
         staffTextField[3].setLayoutX(340);
         staffTextField[3].setId("staffTrainingField" + k);
         staffTextField[3].setPromptText("Training Field - " + k);
         GridPane.setMargin(staffTextField[3], new Insets(0, 5, 0, 0));
+        fieldList.add(staffTextField[3]);
 
         staffDateField[4] = new DatePicker();
         staffDateField[4].setLayoutX(340);
         staffDateField[4].setId("staffDateField" + k);
         staffDateField[4].setPromptText("Date Field - " + k);
         GridPane.setMargin(staffDateField[4], new Insets(0, 5, 0, 0));
+        fieldList.add(staffTextField[4]);
 
         staffTextField[5] = new TextField();
         staffTextField[5].setLayoutX(340);
         staffTextField[5].setId("staffTelephoneField" + k);
         staffTextField[5].setPromptText("Telephone Field - " + k);
         GridPane.setMargin(staffTextField[5], new Insets(0, 5, 0, 0));
+        fieldList.add(staffTextField[5]);
 
         if (staffRowIndex > 5) {
             Popup.error("You cannot add more than 5 rows");
             return;
         }
 
+        trainedFireSafetyStaffMap.put(k, fieldList);
+        
         staffGridPane.add(staffTextField[1], 0, staffRowIndex);
         staffGridPane.add(staffTextField[2], 1, staffRowIndex);
         staffGridPane.add(staffTextField[3], 2, staffRowIndex);
@@ -342,13 +407,19 @@ public class MainController implements Initializable {
     @FXML
     public void expiredListAction(ActionEvent event) {
         FxPageLoader fxPageLoader = new FxPageLoader(((Node) event.getSource()).getScene().getWindow());
-        fxPageLoader.loadFxml("/fxml/ExpiredList", "GNFS - Expired List", Modality.APPLICATION_MODAL, false);
+        fxPageLoader.loadFxml("/fxml/ExpiredService", "GNFS - Fire fighting Services Expired Record", Modality.APPLICATION_MODAL, false);
     }
     
     @FXML
     public void smsIdAction(ActionEvent event) {
         FxPageLoader fxPageLoader = new FxPageLoader(((Node) event.getSource()).getScene().getWindow());
-        fxPageLoader.loadFxml("/fxml/SmsId", "GNFS - Sender ID", Modality.APPLICATION_MODAL, false);
+        fxPageLoader.loadFxml("/fxml/Settings", "GNFS - Settings", Modality.APPLICATION_MODAL, false);
+    }
+    
+    @FXML
+    public void addOfficerAction(ActionEvent event) {
+        FxPageLoader fxPageLoader = new FxPageLoader(((Node) event.getSource()).getScene().getWindow());
+        fxPageLoader.loadFxml("/fxml/Incharge", "GNFS - Officer in Charge", Modality.APPLICATION_MODAL, false);
     }
     
     @FXML
@@ -358,18 +429,47 @@ public class MainController implements Initializable {
 
     @FXML
     public void saveAllAction(ActionEvent event) {
-        Incharge incharge = inchargeData();
-        incharge = GnfsService.findIncharge(incharge.getOfficerInCharge(), incharge.getSignature());
-        if (incharge == null) {
-            incharge = inchargeData();
-            incharge = DefaultManager.save(incharge);
-        }else{
-            incharge = DefaultManager.save(incharge);
+        Window window = ((Node) event.getSource()).getScene().getWindow();
+        List<ParticularOwners> ownerList = new LinkedList<>();
+        List<ParticularOccupyers> occupyerList = new LinkedList<>();
+        List<TrainedFireSafetyStaff> trainedFireSafetyStaffList = new LinkedList<>();
+        
+        if(officerCmb.getValue() == null){
+            Popup.error(window, "Please select officer in charge.");
+            return;
         }
+        String inchargeId = officerCmb.getValue().getId();
+        Incharge incharge = DefaultManager.findById(Incharge.class, inchargeId);
         if (incharge != null) {
-            
-            Popup.info("Saving it all..........." + incharge.getId());
-        }
+            DefaultManager.save(premisesData(incharge));
+            DefaultManager.save(fireSafetyData(incharge));
+            DefaultManager.save(fireFightingEquipment(incharge));
+            DefaultManager.save(specialInst(incharge));
+            DefaultManager.save(collDate(incharge));
+            if (!ownerMap.isEmpty()) {
+                ownerList = GnfsManager.createOwners(ownerMap);
+                for (ParticularOwners owner : ownerList) {
+                    owner.setIncharge(incharge);
+                    DefaultManager.save(owner);
+                }
+            }
+            if (!occupyerMap.isEmpty()) {
+                occupyerList = GnfsManager.createOccupyers(occupyerMap);
+                for (ParticularOccupyers occupyer : occupyerList) {
+                    occupyer.setIncharge(incharge);
+                    DefaultManager.save(occupyer);
+                }
+            }
+            if (!trainedFireSafetyStaffMap.isEmpty()) {
+                trainedFireSafetyStaffList = GnfsManager.createTrainedFireSafetyStaff(trainedFireSafetyStaffMap);
+                for (TrainedFireSafetyStaff staff : trainedFireSafetyStaffList) {
+                    staff.setIncharge(incharge);
+                    DefaultManager.save(staff);
+                }
+            }
+            Popup.info("Your data is saved successfully!");
+        }else
+            Popup.error(window, "Sorry, Something went wrong, could not save data");
     }
     
     @FXML
@@ -385,10 +485,13 @@ public class MainController implements Initializable {
         }
     }
     
-    private void filterData(String newValue) {
-       
+    public CollectionDate collDate(Incharge incharge){
+        CollectionDate cd = new CollectionDate();
+        cd.setIncharge(incharge);
+        cd.setDateOfCollection(DateUtil.localDateToDate(collectionDateField.getValue()));
+        return cd; 
     }
-
+    
     public ParticularPremises premisesData(Incharge incharge){
         ParticularPremises premises = new ParticularPremises();
         premises.setName(textFieldName.getText());
@@ -398,15 +501,7 @@ public class MainController implements Initializable {
         premises.setTelephone(textFieldTelephone.getText());
         return premises;
     }
-    
-    public Incharge inchargeData(){
-        Incharge charge = new Incharge();
-        charge.setDateOfCollection(Date.from(Instant.from(collectionDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
-        charge.setOfficerInCharge(textFieldOfficer.getText());
-        charge.setSignature(textFieldSignature.getText());
-        return charge;
-    }
-    
+        
     public SpecialInstallation specialInst(Incharge incharge){
         SpecialInstallation si = new SpecialInstallation();
         si.setHydrant(textFieldHydrant.getText());
@@ -427,34 +522,34 @@ public class MainController implements Initializable {
         sc.setTypeOfRisk(textFieldRiskType.getText());
         sc.setGprs(textFieldGPRS.getText());
         sc.setIssueDate(issueDateField.getValue());
-        sc.setExpiryDate(Date.from(Instant.from(expiryDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
+        sc.setExpiryDate(DateUtil.localDateToDate(expiryDateField.getValue()));
         sc.setCertificateNo(textFieldCertNo.getText());
         sc.setIncharge(incharge);
         return sc;
     }
     
-    public FireFightingEquipment fireEquipment(Incharge incharge){
+    public FireFightingEquipment fireFightingEquipment(Incharge incharge){
         FireFightingEquipment ffe = new FireFightingEquipment();
-        ffe.setDcpQty(Integer.parseInt(dcpQtyTextField.getText()));
-        ffe.setEmergencyLightQty(Integer.parseInt(emergencyLightQtyTextField.getText()));
-        ffe.setSmokeDetectorQty(Integer.parseInt(smokeDetectorQtyTextField.getText()));
-        ffe.setHeatDetectorQty(Integer.parseInt(heatDetectorQtyTextField.getText()));
-        ffe.setFireAlarmQty(Integer.parseInt(fireAlarmQtyTextField.getText()));
-        ffe.setGeneralNoticeQty(Integer.parseInt(generalNoticeQtyTextField.getText()));
-        ffe.setExitSignQty(Integer.parseInt(exitSignQtyTextField.getText()));
-        ffe.setAssemblyPointQty(Integer.parseInt(assemblyPointQtyTextField.getText()));
-        ffe.setWaterSourceQty(Integer.parseInt(waterSrcQtyTextField.getText()));
+        ffe.setDcpQty(JavaUtils.toInteger(dcpQtyTextField.getText()));
+        ffe.setEmergencyLightQty(JavaUtils.toInteger(emergencyLightQtyTextField.getText()));
+        ffe.setSmokeDetectorQty(JavaUtils.toInteger(smokeDetectorQtyTextField.getText()));
+        ffe.setHeatDetectorQty(JavaUtils.toInteger(heatDetectorQtyTextField.getText()));
+        ffe.setFireAlarmQty(JavaUtils.toInteger(fireAlarmQtyTextField.getText()));
+        ffe.setGeneralNoticeQty(JavaUtils.toInteger(generalNoticeQtyTextField.getText()));
+        ffe.setExitSignQty(JavaUtils.toInteger(exitSignQtyTextField.getText()));
+        ffe.setAssemblyPointQty(JavaUtils.toInteger(assemblyPointQtyTextField.getText()));
+        ffe.setWaterSourceQty(JavaUtils.toInteger(waterSrcQtyTextField.getText()));
         ffe.setWaterSource(waterSrcTypeTextField.getText());
-        ffe.setDcpInstDate(Date.from(Instant.from(dcpInstDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
-        ffe.setEmergencyLightInstDate(Date.from(Instant.from(emergencyLightInstDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
-        ffe.setSmokeDetectorInstDate(Date.from(Instant.from(smkDetectorInstDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
-        ffe.setHeatDetectorInstDate(Date.from(Instant.from(heatDetectorInstDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
-        ffe.setFireAlarmInstDate(Date.from(Instant.from(fireAlarmInstDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
-        ffe.setDcpServiceDate(Date.from(Instant.from(dcpServDatefield.getValue().atStartOfDay(ZoneId.systemDefault()))));
-        ffe.setEmergencyLightServiceDate(Date.from(Instant.from(emergencyLightServDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
-        ffe.setSmokeDetectorServiceDate(Date.from(Instant.from(smkDetectorServDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
-        ffe.setHeatDetectorServiceDate(Date.from(Instant.from(heatDetectorServDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
-        ffe.setFireAlarmServiceDate(Date.from(Instant.from(fireAlarmServDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
+        ffe.setDcpInstDate(DateUtil.localDateToDate(dcpInstDateField.getValue()));
+        ffe.setEmergencyLightInstDate(DateUtil.localDateToDate(emergencyLightInstDateField.getValue()));
+        ffe.setSmokeDetectorInstDate(DateUtil.localDateToDate(smkDetectorInstDateField.getValue()));
+        ffe.setHeatDetectorInstDate(DateUtil.localDateToDate(heatDetectorInstDateField.getValue()));
+        ffe.setFireAlarmInstDate(DateUtil.localDateToDate(fireAlarmInstDateField.getValue()));
+        ffe.setDcpServiceDate(DateUtil.localDateToDate(dcpServDatefield.getValue()));
+        ffe.setEmergencyLightServiceDate(DateUtil.localDateToDate(emergencyLightServDateField.getValue()));
+        ffe.setSmokeDetectorServiceDate(DateUtil.localDateToDate(smkDetectorServDateField.getValue()));
+        ffe.setHeatDetectorServiceDate(DateUtil.localDateToDate(heatDetectorServDateField.getValue()));
+        ffe.setFireAlarmServiceDate(DateUtil.localDateToDate(fireAlarmServDateField.getValue()));
         ffe.setDcpServiceby(dcpServByTextField.getText());
         ffe.setEmergencyLightServiceby(emergencyLightServByTextField.getText());
         ffe.setSmokeDetectorServiceby(smkDetectorServByTextField.getText());
