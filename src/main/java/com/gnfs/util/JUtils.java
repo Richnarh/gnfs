@@ -19,7 +19,7 @@ import java.util.logging.Level;
  *
  * @author khoders
  */
-public class JavaUtils {
+public class JUtils {
 
     static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JavaUtils.class.getName());
 

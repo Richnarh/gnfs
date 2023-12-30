@@ -74,7 +74,7 @@ public class DefaultManager {
                 model.setCreatedDate(Date.from(Instant.now()));
             }
             if (model.getId() == null) {
-                model.setId(JavaUtils.genId());
+                model.setId(JUtils.genId());
                 System.out.println("saving.......");
                 sess.save(model);
                 sess.getTransaction().commit();

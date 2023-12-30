@@ -43,7 +43,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import com.gnfs.util.FxPageLoader;
-import com.gnfs.util.JavaUtils;
+import com.gnfs.util.JUtils;
 import com.gnfs.util.Popup;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -530,15 +530,15 @@ public class MainController implements Initializable {
     
     public FireFightingEquipment fireFightingEquipment(Incharge incharge){
         FireFightingEquipment ffe = new FireFightingEquipment();
-        ffe.setDcpQty(JavaUtils.toInteger(dcpQtyTextField.getText()));
-        ffe.setEmergencyLightQty(JavaUtils.toInteger(emergencyLightQtyTextField.getText()));
-        ffe.setSmokeDetectorQty(JavaUtils.toInteger(smokeDetectorQtyTextField.getText()));
-        ffe.setHeatDetectorQty(JavaUtils.toInteger(heatDetectorQtyTextField.getText()));
-        ffe.setFireAlarmQty(JavaUtils.toInteger(fireAlarmQtyTextField.getText()));
-        ffe.setGeneralNoticeQty(JavaUtils.toInteger(generalNoticeQtyTextField.getText()));
-        ffe.setExitSignQty(JavaUtils.toInteger(exitSignQtyTextField.getText()));
-        ffe.setAssemblyPointQty(JavaUtils.toInteger(assemblyPointQtyTextField.getText()));
-        ffe.setWaterSourceQty(JavaUtils.toInteger(waterSrcQtyTextField.getText()));
+        ffe.setDcpQty(JUtils.toInteger(dcpQtyTextField.getText()));
+        ffe.setEmergencyLightQty(JUtils.toInteger(emergencyLightQtyTextField.getText()));
+        ffe.setSmokeDetectorQty(JUtils.toInteger(smokeDetectorQtyTextField.getText()));
+        ffe.setHeatDetectorQty(JUtils.toInteger(heatDetectorQtyTextField.getText()));
+        ffe.setFireAlarmQty(JUtils.toInteger(fireAlarmQtyTextField.getText()));
+        ffe.setGeneralNoticeQty(JUtils.toInteger(generalNoticeQtyTextField.getText()));
+        ffe.setExitSignQty(JUtils.toInteger(exitSignQtyTextField.getText()));
+        ffe.setAssemblyPointQty(JUtils.toInteger(assemblyPointQtyTextField.getText()));
+        ffe.setWaterSourceQty(JUtils.toInteger(waterSrcQtyTextField.getText()));
         ffe.setWaterSource(waterSrcTypeTextField.getText());
         ffe.setDcpInstDate(DateUtil.localDateToDate(dcpInstDateField.getValue()));
         ffe.setEmergencyLightInstDate(DateUtil.localDateToDate(emergencyLightInstDateField.getValue()));
