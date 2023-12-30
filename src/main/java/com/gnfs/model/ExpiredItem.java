@@ -73,5 +73,4 @@ public class ExpiredItem {
     public void setInchargeName(String inchargeName) {
         this.inchargeName = inchargeName;
     }
-    
 }
