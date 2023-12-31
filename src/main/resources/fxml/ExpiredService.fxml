@@ -15,47 +15,51 @@
    <children>
       <Pane layoutX="1.0" prefHeight="373.0" prefWidth="639.0">
          <children>
-            <TableView fx:id="expiredListTableView" layoutX="-1.0" layoutY="78.0" prefHeight="296.0" prefWidth="640.0" tableMenuButtonVisible="true">
+            <TableView fx:id="expiredListTableView" layoutX="-1.0" layoutY="91.0" prefHeight="283.0" prefWidth="640.0" tableMenuButtonVisible="true">
               <columns>
-                  <TableColumn prefWidth="63.0" text="ID" />
-                <TableColumn fx:id="serviceDateColumn" prefWidth="115.0" text="DCP Service" />
-                <TableColumn fx:id="premNameColumn" prefWidth="119.0" text="Emergency Light" />
-                  <TableColumn fx:id="certNoColumn" prefWidth="109.0" text="Smoke Detector" />
-                  <TableColumn fx:id="officerInchargeColumn" prefWidth="113.0" text="Heat Detector" />
-                  <TableColumn prefWidth="131.0" text="Fire Alarm" />
+                  <TableColumn fx:id="idColumn" prefWidth="63.0" text="ID" />
+                <TableColumn fx:id="dcpColumn" prefWidth="115.0" text="DCP" />
+                <TableColumn fx:id="emergencyLightColumn" prefWidth="119.0" text="Emergency Light" />
+                  <TableColumn fx:id="smokeDetectorColumn" prefWidth="109.0" text="Smoke Detector" />
+                  <TableColumn fx:id="heatDetectorColumn" prefWidth="113.0" text="Heat Detector" />
+                  <TableColumn fx:id="fireAlarmColumn" prefWidth="131.0" text="Fire Alarm" />
               </columns>
             </TableView>
-            <Label layoutX="2.0" layoutY="37.0" text="Premises" />
-            <Label layoutX="2.0" layoutY="53.0" prefHeight="17.0" prefWidth="185.0" text="Adabraka OSU - 0541298897" textFill="#4caae4">
+            <Label layoutX="2.0" layoutY="47.0" text="Premises" />
+            <Label fx:id="premisesLabel" layoutX="2.0" layoutY="63.0" prefHeight="17.0" prefWidth="185.0" text="N/A" textFill="#4caae4">
                <font>
                   <Font name="System Bold" size="9.0" />
                </font>
             </Label>
-            <Label layoutX="212.0" layoutY="54.0" prefHeight="17.0" prefWidth="110.0" text="GNFS-344N23" textFill="#4caae4">
+            <Label fx:id="certificateNoLabel" layoutX="212.0" layoutY="64.0" prefHeight="17.0" prefWidth="110.0" text="N/A" textFill="#4caae4">
                <font>
                   <Font name="System Bold" size="9.0" />
                </font>
             </Label>
-            <Label layoutX="209.0" layoutY="37.0" text="Certificate No." />
-            <Label layoutX="346.0" layoutY="37.0" text="House No." />
-            <Label layoutX="347.0" layoutY="54.0" prefHeight="17.0" prefWidth="100.0" text="GNFS-344N23" textFill="#4caae4">
+            <Label layoutX="209.0" layoutY="47.0" text="Certificate No." />
+            <Label layoutX="346.0" layoutY="47.0" text="House No." />
+            <Label fx:id="houseNoLabel" layoutX="347.0" layoutY="64.0" prefHeight="17.0" prefWidth="100.0" text="N/A" textFill="#4caae4">
                <font>
                   <Font name="System Bold" size="9.0" />
                </font>
             </Label>
-            <Label layoutX="471.0" layoutY="39.0" text="Officer in Charge" />
-            <Label layoutX="472.0" layoutY="56.0" prefHeight="17.0" prefWidth="165.0" text="GNFS-344N23" textFill="#4caae4">
+            <Label layoutX="471.0" layoutY="49.0" text="Officer in Charge" />
+            <Label fx:id="officerInChargeLabel" layoutX="472.0" layoutY="66.0" prefHeight="17.0" prefWidth="165.0" text="N/A" textFill="#4caae4">
                <font>
                   <Font name="System Bold" size="9.0" />
                </font>
             </Label>
-            <ComboBox fx:id="filterCmb" layoutX="109.0" layoutY="3.0" onAction="#filterCmbAction" prefHeight="25.0" prefWidth="185.0" promptText="Choose..." />
-            <Button fx:id="initiateSMSAction" layoutX="2.0" layoutY="3.0" mnemonicParsing="false" onAction="#initiateSMSAction" prefHeight="17.0" prefWidth="100.0" style="-fx-background-color: #333; -fx-font-weight: bold;" text="Send Message" textFill="#f5ec0a">
+            <ComboBox fx:id="filterCmb" layoutX="109.0" layoutY="12.0" onAction="#filterCmbAction" prefHeight="25.0" prefWidth="185.0" promptText="Choose...">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ComboBox>
+            <Button fx:id="initiateSMSAction" layoutX="2.0" layoutY="12.0" mnemonicParsing="false" onAction="#initiateSMSAction" prefHeight="17.0" prefWidth="100.0" style="-fx-background-color: #333; -fx-font-weight: bold;" text="Send Message" textFill="#f5ec0a">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <TextField fx:id="searchTextField" layoutX="299.0" layoutY="3.0" prefHeight="25.0" prefWidth="336.0" promptText="Search somethng..." />
+            <TextField fx:id="searchTextField" layoutX="299.0" layoutY="12.0" prefHeight="25.0" prefWidth="336.0" promptText="Search somethng..." />
          </children>
       </Pane>
    </children>

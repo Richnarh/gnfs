@@ -12,6 +12,7 @@ package com.gnfs.model;
 public class ExpiredParams extends BasePojo{
     private String premisesName;
     private String telephone;
+    private String certificateNo;
 
     public ExpiredParams() {
     }
@@ -49,6 +50,14 @@ public class ExpiredParams extends BasePojo{
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public String getCertificateNo() {
+        return certificateNo;
+    }
+
+    public void setCertificateNo(String certificateNo) {
+        this.certificateNo = certificateNo;
     }
 
     @Override

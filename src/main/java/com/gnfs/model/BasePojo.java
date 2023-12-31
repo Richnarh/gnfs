@@ -13,6 +13,7 @@ import java.time.LocalDate;
  */
 public class BasePojo {
     public String id;
+    public String inchargeId;
     public LocalDate valueDate;
 
     public String getId() {
@@ -21,6 +22,14 @@ public class BasePojo {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getInchargeId() {
+        return inchargeId;
+    }
+
+    public void setInchargeId(String inchargeId) {
+        this.inchargeId = inchargeId;
     }
     
     public LocalDate getValueDate() {

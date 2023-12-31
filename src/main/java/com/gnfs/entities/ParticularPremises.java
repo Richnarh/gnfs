@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "particulars_premises")
 public class ParticularPremises extends BaseModel {
+    public static final String _incharge = "incharge";
     @JoinColumn(name = "incharge", referencedColumnName = "id")
     @ManyToOne
     private Incharge incharge;

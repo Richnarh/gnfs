@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane id="AnchorPane" prefHeight="286.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gnfs.controller.SmsController">
    <children>
       <TextArea fx:id="textAreaFieldMessage" layoutX="4.0" layoutY="28.0" prefHeight="207.0" prefWidth="521.0" promptText="Type a message." />
@@ -20,6 +19,6 @@
          </cursor>
       </Button>
       <Label layoutX="4.0" layoutY="7.0" text="Send Message to:" />
-      <Label fx:id="msgReceipient" layoutX="111.0" layoutY="7.0" prefHeight="17.0" prefWidth="115.0" style="-fx-font-weight: bold;" text="NO USER SELECTED" />
+      <Label fx:id="msgReceipient" layoutX="111.0" layoutY="7.0" prefHeight="17.0" prefWidth="318.0" style="-fx-font-weight: bold;" text="N/A" textFill="#4caae4" />
    </children>
 </AnchorPane>

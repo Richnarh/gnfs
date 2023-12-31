@@ -70,10 +70,9 @@ public class InchargeController implements Initializable {
     public void fetchIncharge(){
         System.out.println("Initialising table data.......");
         List<Incharge> inchargeList = DefaultManager.findAll(Incharge.class);
-        InchargeDto dto = null;
         List<InchargeDto> dtoList = new LinkedList<>();
         for (Incharge incharge : inchargeList) {
-            dto = InchargeDto.newInstance();
+            InchargeDto dto = InchargeDto.newInstance();
             dto.setId(incharge.getId());
             dto.setOfficerInCharge(incharge.getOfficerInCharge());
             dto.setSignature(incharge.getSignature());
@@ -81,13 +80,6 @@ public class InchargeController implements Initializable {
         }
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         officerColumn.setCellValueFactory(new PropertyValueFactory<>("officerInCharge"));
-//        dateColumn.setCellValueFactory(date ->{
-//            SimpleStringProperty property = new SimpleStringProperty();
-//            DateFormat d = new SimpleDateFormat("dd/MM/yyyy");
-//            property.setValue(d.format(date.getValue().getDateOfCollection()));
-//            return property;
-//            
-//        });
         signatureColumn.setCellValueFactory(new PropertyValueFactory<>("signature"));
         
         Collections.sort(dtoList, (a, b) -> {
@@ -142,7 +134,6 @@ public class InchargeController implements Initializable {
         inchargeId = dto.getId();
         textFieldOfficer.setText(dto.getOfficerInCharge());
         textFieldSignature.setText(dto.getSignature());
-//        collectionDateField.setValue(DateUtil.dateToLocalDate(dto.getDateOfCollection(), Pattern.mmddyyyy));
     }
     
     private void deleteIncharge(InchargeDto selected) {
@@ -177,7 +168,6 @@ public class InchargeController implements Initializable {
     public Incharge inchargeData(){
         Incharge charge = new Incharge();
         charge.setId(inchargeId);
-//        charge.setDateOfCollection(Date.from(Instant.from(collectionDateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
         charge.setOfficerInCharge(textFieldOfficer.getText());
         charge.setSignature(textFieldSignature.getText());
         return charge;

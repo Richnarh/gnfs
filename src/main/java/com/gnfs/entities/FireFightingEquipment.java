@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "fire_fighting_equipment")
 public class FireFightingEquipment extends BaseModel{
+    public static final String _incharge = "incharge";
     @JoinColumn(name = "incharge", referencedColumnName = "id")
     @ManyToOne
     private Incharge incharge;

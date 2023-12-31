@@ -161,8 +161,6 @@ public class MainController implements Initializable {
 
     private FxPageLoader pageLoader;
 
-    private ObservableList fxList = FXCollections.observableArrayList();
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         inchargeCmb();
@@ -207,6 +205,8 @@ public class MainController implements Initializable {
         officerCmb.setCellFactory(cellFactory);
         officerCmb.setButtonCell(cellFactory.call(null));
 
+        ObservableList fxList = FXCollections.observableArrayList();
+                
         inchargeList.forEach(item -> {
             fxList.add(new InchargeDto(item.getId(), item.getOfficerInCharge()));
         });
@@ -431,13 +431,24 @@ public class MainController implements Initializable {
         List<ParticularOccupyers> occupyerList = new LinkedList<>();
         List<TrainedFireSafetyStaff> trainedFireSafetyStaffList = new LinkedList<>();
         
-        if(officerCmb.getValue() == null){
+        boolean off = officerCmb.getValue() == null || officerCmb.getValue().getId().isEmpty();
+        if(off){
             Popup.error(window, "Please select officer in charge.");
             return;
         }
         String inchargeId = officerCmb.getValue().getId();
         Incharge incharge = DefaultManager.findById(Incharge.class, inchargeId);
         if (incharge != null) {
+            boolean nilName = textFieldName.getText() == null || textFieldName.getText().isEmpty();
+            boolean nilTel = textFieldTelephone.getText() == null || textFieldTelephone.getText().isEmpty();
+            if(nilName){
+                Popup.error(window, "Premises Name is Required");
+                return;
+            }
+            if(nilTel){
+                Popup.error(window, "Premises Telephone is Required");
+                return;
+            }
             DefaultManager.save(premisesData(incharge));
             DefaultManager.save(fireSafetyData(incharge));
             DefaultManager.save(fireFightingEquipment(incharge));
@@ -496,6 +507,7 @@ public class MainController implements Initializable {
         premises.setLocation(textFieldLocation.getText());
         premises.setLandMark(textFieldLandMark.getText());
         premises.setTelephone(textFieldTelephone.getText());
+        premises.setIncharge(incharge);
         return premises;
     }
         

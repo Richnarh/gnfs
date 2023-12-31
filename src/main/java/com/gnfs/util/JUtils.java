@@ -21,7 +21,7 @@ import java.util.logging.Level;
  */
 public class JUtils {
 
-    static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JavaUtils.class.getName());
+    static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JUtils.class.getName());
 
     public static String genId() {
         try {
@@ -54,6 +54,9 @@ public class JUtils {
 
     public static String generateShortCode() {
         return UUID.randomUUID().toString().substring(0, 5).toUpperCase();
+    }
+    public static String getCode(Integer size) {
+        return UUID.randomUUID().toString().substring(0, size).toUpperCase();
     }
 
     public static String generateId() {

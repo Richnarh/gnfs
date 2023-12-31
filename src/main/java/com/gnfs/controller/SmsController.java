@@ -8,6 +8,7 @@ package com.gnfs.controller;
 import Zenoph.SMSLib.Enums.MSGTYPE;
 import Zenoph.SMSLib.Enums.REQSTATUS;
 import Zenoph.SMSLib.ZenophSMS;
+import com.gnfs.model.Sms;
 import com.gnfs.util.Popup;
 import java.net.URL;
 import java.util.List;
@@ -17,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Window;
 
@@ -26,7 +28,9 @@ import javafx.stage.Window;
  * @author Richard Narh
  */
 public class SmsController implements Initializable {
-
+    @FXML
+    private Label msgReceipient;
+    
     @FXML
     private Button sendMessageAction;
 
@@ -35,10 +39,18 @@ public class SmsController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        boolean nil = Sms.newInstance().getReceipient() != null;
+        if(!nil){
+            msgReceipient.setStyle("-fx-text-fill: #D10000; -fx-font-weight: bold;");
+            msgReceipient.setText("No Receipient/Premises Selected");
+            sendMessageAction.setDisable(true);
+        }else
+            msgReceipient.setText(Sms.newInstance().getReceipient());
     }
 
     @FXML
