@@ -22,6 +22,11 @@ public class ParticularOccupyers extends BaseModel{
     @ManyToOne
     private Incharge incharge;
     
+    public static final String _particularPremises = "particularPremises";
+    @JoinColumn(name = "particulars_premises", referencedColumnName = "id")
+    @ManyToOne
+    private ParticularPremises particularPremises;
+    
     @Column(name = "occupyer_name")
     private String occupyerName;
     
@@ -72,6 +77,14 @@ public class ParticularOccupyers extends BaseModel{
 
     public void setUsageActivate(String usageActivate) {
         this.usageActivate = usageActivate;
+    }
+
+    public ParticularPremises getParticularPremises() {
+        return particularPremises;
+    }
+
+    public void setParticularPremises(ParticularPremises particularPremises) {
+        this.particularPremises = particularPremises;
     }
     
 }

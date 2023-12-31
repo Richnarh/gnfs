@@ -169,6 +169,9 @@ public class JUtils {
         }
         return intValue;
     }
+    public static String toString(Integer intVal) {
+        return intVal != null ? String.valueOf(intVal) : null;
+    }
     
     public static String removeTrailingZero(String input) 
     {

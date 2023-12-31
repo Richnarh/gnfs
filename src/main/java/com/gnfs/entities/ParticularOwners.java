@@ -22,6 +22,11 @@ public class ParticularOwners extends BaseModel{
     @ManyToOne
     private Incharge incharge;
     
+    public static final String _particularPremises = "particularPremises";
+    @JoinColumn(name = "particulars_premises", referencedColumnName = "id")
+    @ManyToOne
+    private ParticularPremises particularPremises;
+    
     @Column(name = "owner_name")
     private String ownerName;
     
@@ -72,6 +77,14 @@ public class ParticularOwners extends BaseModel{
 
     public void setPurpose(String purpose) {
         this.purpose = purpose;
+    }
+
+    public ParticularPremises getParticularPremises() {
+        return particularPremises;
+    }
+
+    public void setParticularPremises(ParticularPremises particularPremises) {
+        this.particularPremises = particularPremises;
     }
     
 }

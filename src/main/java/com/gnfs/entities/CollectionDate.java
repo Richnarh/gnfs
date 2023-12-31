@@ -25,6 +25,11 @@ public class CollectionDate extends BaseModel{
     @ManyToOne
     private Incharge incharge;
     
+    public static final String _particularPremises = "particularPremises";
+    @JoinColumn(name = "particulars_premises", referencedColumnName = "id")
+    @ManyToOne
+    private ParticularPremises particularPremises;
+    
     @Column(name = "date_of_collection")
     @Temporal(TemporalType.DATE)
     private Date dateOfCollection;
@@ -36,13 +41,21 @@ public class CollectionDate extends BaseModel{
     public void setIncharge(Incharge incharge) {
         this.incharge = incharge;
     }
-
+    
     public Date getDateOfCollection() {
         return dateOfCollection;
     }
 
     public void setDateOfCollection(Date dateOfCollection) {
         this.dateOfCollection = dateOfCollection;
+    }
+
+    public ParticularPremises getParticularPremises() {
+        return particularPremises;
+    }
+
+    public void setParticularPremises(ParticularPremises particularPremises) {
+        this.particularPremises = particularPremises;
     }
     
 }

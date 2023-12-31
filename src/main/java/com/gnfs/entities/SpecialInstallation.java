@@ -22,6 +22,11 @@ public class SpecialInstallation extends BaseModel{
     @ManyToOne
     private Incharge incharge;
     
+    public static final String _particularPremises = "particularPremises";
+    @JoinColumn(name = "particulars_premises", referencedColumnName = "id")
+    @ManyToOne
+    private ParticularPremises particularPremises;
+    
     @Column(name = "hydrant")
     private String hydrant;
     
@@ -94,6 +99,14 @@ public class SpecialInstallation extends BaseModel{
 
     public void setHoseReel(String hoseReel) {
         this.hoseReel = hoseReel;
+    }
+
+    public ParticularPremises getParticularPremises() {
+        return particularPremises;
+    }
+
+    public void setParticularPremises(ParticularPremises particularPremises) {
+        this.particularPremises = particularPremises;
     }
     
 }

@@ -30,6 +30,7 @@ public class ParticularPremises extends BaseModel {
     @Column(name = "land_mark")
     private String landMark;
     
+    public static final String _telephone = "telephone";
     @Column(name = "telephone")
     private String telephone;
 

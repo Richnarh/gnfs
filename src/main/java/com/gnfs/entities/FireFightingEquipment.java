@@ -26,6 +26,11 @@ public class FireFightingEquipment extends BaseModel{
     @ManyToOne
     private Incharge incharge;
     
+    public static final String _particularPremises = "particularPremises";
+    @JoinColumn(name = "particulars_premises", referencedColumnName = "id")
+    @ManyToOne
+    private ParticularPremises particularPremises;
+    
     @Column(name = "dcp_qty")
     private Integer dcpQty;
     
@@ -323,4 +328,13 @@ public class FireFightingEquipment extends BaseModel{
     public void setWaterSourceQty(Integer waterSourceQty) {
         this.waterSourceQty = waterSourceQty;
     }    
+
+    public ParticularPremises getParticularPremises() {
+        return particularPremises;
+    }
+
+    public void setParticularPremises(ParticularPremises particularPremises) {
+        this.particularPremises = particularPremises;
+    }
+    
 }

@@ -45,7 +45,7 @@
                   </AnchorPane>
               </content>
             </TitledPane>
-            <TextField layoutX="299.0" layoutY="31.0" prefHeight="25.0" prefWidth="627.0" promptText="Search by Certificate No. / House No. / Premises Telephone" />
+            <TextField fx:id="gloabelSearchTextField" layoutX="299.0" layoutY="31.0" prefHeight="25.0" prefWidth="627.0" promptText="Search by Certificate No. / House No. / Premises Telephone" />
             <Button fx:id="searchAction" layoutX="930.0" layoutY="31.0" mnemonicParsing="false" onAction="#searchAction" prefHeight="25.0" prefWidth="101.0" text="SEARCH">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -344,7 +344,7 @@
                         <Label layoutX="344.0" layoutY="58.0" text="Wet Risers" />
                         <TextField fx:id="textFieldWetRisers" layoutX="446.0" layoutY="54.0" prefWidth="200.0" promptText="Enter Wet Risers" />
                         <Label layoutX="715.0" layoutY="58.0" text="Hose Reel" />
-                        <TextField fx:id="textFieldHoseRisers" layoutX="779.0" layoutY="54.0" prefWidth="200.0" promptText="Enter Hose Reel" />
+                        <TextField fx:id="textFieldHoseReel" layoutX="779.0" layoutY="54.0" prefWidth="200.0" promptText="Enter Hose Reel" />
                      </children>
                   </AnchorPane>
               </content>

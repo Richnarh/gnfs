@@ -27,9 +27,15 @@ public class SafetyCertificate extends BaseModel{
     @ManyToOne
     private Incharge incharge;
     
+    public static final String _particularPremises = "particularPremises";
+    @JoinColumn(name = "particulars_premises", referencedColumnName = "id")
+    @ManyToOne
+    private ParticularPremises particularPremises;
+    
     @Column(name = "name")
     private String name;
     
+    public static final String _houseNo = "houseNo";
     @Column(name = "house_no")
     private String houseNo;
     
@@ -39,9 +45,10 @@ public class SafetyCertificate extends BaseModel{
     @Column(name = "type_of_risk")
     private String typeOfRisk;
     
-    
     @Column(name = "issued_date")
-    private LocalDate issueDate;
+    @Temporal(TemporalType.DATE)
+    private Date issueDate;
+    
     @Column(name = "gprs")
     private String gprs;
     
@@ -49,6 +56,7 @@ public class SafetyCertificate extends BaseModel{
     @Temporal(TemporalType.DATE)
     private Date expiryDate;
     
+    public static final String _certificateNo = "certificateNo";
     @Column(name = "certificate_no")
     private String certificateNo;
 
@@ -100,14 +108,14 @@ public class SafetyCertificate extends BaseModel{
         this.gprs = gprs;
     }
 
-    public LocalDate getIssueDate() {
+    public Date getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(LocalDate issueDate) {
+    public void setIssueDate(Date issueDate) {
         this.issueDate = issueDate;
     }
-
+    
     public Date getExpiryDate() {
         return expiryDate;
     }
@@ -123,4 +131,13 @@ public class SafetyCertificate extends BaseModel{
     public void setCertificateNo(String certificateNo) {
         this.certificateNo = certificateNo;
     }
+
+    public ParticularPremises getParticularPremises() {
+        return particularPremises;
+    }
+
+    public void setParticularPremises(ParticularPremises particularPremises) {
+        this.particularPremises = particularPremises;
+    }
+    
 }

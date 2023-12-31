@@ -15,6 +15,7 @@ import com.gnfs.entities.SafetyCertificate;
 import com.gnfs.entities.SpecialInstallation;
 import com.gnfs.entities.TrainedFireSafetyStaff;
 import com.gnfs.model.InchargeDto;
+import com.gnfs.model.Sms;
 import com.gnfs.services.GnfsManager;
 import com.gnfs.util.DateUtil;
 import com.gnfs.util.DefaultManager;
@@ -75,7 +76,7 @@ public class MainController implements Initializable {
     @FXML
     private TextField textFieldType;
     @FXML
-    private TextField textFieldSearch;
+    private TextField gloabelSearchTextField;
     @FXML
     private TextField textFieldHydrant;
     @FXML
@@ -89,7 +90,7 @@ public class MainController implements Initializable {
     @FXML
     private TextField textFieldWetRisers;
     @FXML
-    private TextField textFieldHoseRisers;
+    private TextField textFieldHoseReel;
     @FXML
     private TextField textFieldSafetyName;
     @FXML
@@ -159,12 +160,11 @@ public class MainController implements Initializable {
     @FXML
     private ComboBox<InchargeDto> officerCmb;
 
-    private FxPageLoader pageLoader;
+    private String receipient = null;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         inchargeCmb();
-        pageLoader = new FxPageLoader();
         btnSettings.setGraphic(new ImageView(new Image("/icons/settings.png")));
     }
 
@@ -251,7 +251,6 @@ public class MainController implements Initializable {
         GridPane.setMargin(ownerTextField[2], new Insets(0, 5, 0, 0));
         fieldList.add(ownerTextField[2]);
         
-
         ownerTextField[3] = new TextField();
         ownerTextField[3].setLayoutX(340);
         ownerTextField[3].setId("ownerTeleOfficeField" + i);
@@ -397,6 +396,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void initiateSMSAction(ActionEvent event) {
+        Sms.newInstance().addReceipient(receipient);
         FxPageLoader fxPageLoader = new FxPageLoader(((Node) event.getSource()).getScene().getWindow());
         fxPageLoader.loadFxml("/fxml/Sms", "GNFS - SMS", Modality.APPLICATION_MODAL, false);
     }
@@ -482,7 +482,82 @@ public class MainController implements Initializable {
     
     @FXML
     public void searchAction(ActionEvent event) {
-        Popup.info("Searching for something...........");
+        Window owner = ((Node) event.getSource()).getScene().getWindow();
+        System.out.println("Search: "+gloabelSearchTextField.getText());
+        if(gloabelSearchTextField.getText() == null || gloabelSearchTextField.getText().isEmpty()){
+            Popup.error(owner, "No search entry entered.");
+            return;
+        }
+        ParticularPremises pp = null;
+        Incharge incharge = null;
+        String searchKey = gloabelSearchTextField.getText();
+        SafetyCertificate sc = GnfsManager.searchCert(searchKey,null);
+        if(sc == null){
+            sc = GnfsManager.searchCert(null,searchKey);
+        }
+        if(sc == null){
+            pp = GnfsManager.searchPremises(searchKey);
+        }
+        if(sc == null && pp == null){
+            Popup.error(owner,"Your search entry does not match any record");
+            return;
+        }
+        if(sc != null){
+            incharge = sc.getIncharge();
+            pp = sc.getParticularPremises();
+            textFieldSafetyName.setText(sc.getName());
+            textFieldHseNo.setText(sc.getHouseNo());
+            textFieldSafetyLocation.setText(sc.getLocation());
+            textFieldRiskType.setText(sc.getTypeOfRisk());
+            issueDateField.setValue(DateUtil.dateToLocalDate(sc.getIssueDate()));
+            expiryDateField.setValue(DateUtil.dateToLocalDate(sc.getExpiryDate()));
+            textFieldCertNo.setText(sc.getCertificateNo());
+        }
+        if(pp != null){
+            incharge = pp.getIncharge();
+            textFieldName.setText(pp.getName());
+            textFieldType.setText(pp.getPremType());
+            textFieldLocation.setText(pp.getLocation());
+            textFieldLandMark.setText(pp.getLandMark());
+            textFieldTelephone.setText(pp.getTelephone());
+        }
+        officerCmb.setValue(new InchargeDto(incharge.getId(), incharge.getOfficerInCharge()));
+        if(pp != null){
+            FireFightingEquipment ffe = GnfsManager.getFireFightingEquipment(pp);
+            dcpQtyTextField.setText(JUtils.toString(ffe.getDcpQty()));
+            emergencyLightQtyTextField.setText(JUtils.toString(ffe.getEmergencyLightQty()));
+            smokeDetectorQtyTextField.setText(JUtils.toString(ffe.getSmokeDetectorQty()));
+            heatDetectorQtyTextField.setText(JUtils.toString(ffe.getHeatDetectorQty()));
+            fireAlarmQtyTextField.setText(JUtils.toString(ffe.getFireAlarmQty()));
+            generalNoticeQtyTextField.setText(JUtils.toString(ffe.getGeneralNoticeQty()));
+            exitSignQtyTextField.setText(JUtils.toString(ffe.getExitSignQty()));
+            assemblyPointQtyTextField.setText(JUtils.toString(ffe.getAssemblyPointQty()));
+            waterSrcQtyTextField.setText(JUtils.toString(ffe.getWaterSourceQty()));
+            waterSrcTypeTextField.setText(ffe.getWaterSource());
+            dcpInstDateField.setValue(DateUtil.dateToLocalDate(ffe.getDcpInstDate()));
+            emergencyLightInstDateField.setValue(DateUtil.dateToLocalDate(ffe.getEmergencyLightInstDate()));
+            smkDetectorInstDateField.setValue(DateUtil.dateToLocalDate(ffe.getSmokeDetectorInstDate()));
+            heatDetectorInstDateField.setValue(DateUtil.dateToLocalDate(ffe.getHeatDetectorInstDate()));
+            fireAlarmInstDateField.setValue(DateUtil.dateToLocalDate(ffe.getFireAlarmInstDate()));
+            dcpServDatefield.setValue(DateUtil.dateToLocalDate(ffe.getDcpServiceDate()));
+            emergencyLightServDateField.setValue(DateUtil.dateToLocalDate(ffe.getEmergencyLightServiceDate()));
+            smkDetectorServDateField.setValue(DateUtil.dateToLocalDate(ffe.getSmokeDetectorServiceDate()));
+            heatDetectorServDateField.setValue(DateUtil.dateToLocalDate(ffe.getHeatDetectorServiceDate()));
+            fireAlarmServDateField.setValue(DateUtil.dateToLocalDate(ffe.getFireAlarmServiceDate()));
+            dcpServByTextField.setText(ffe.getDcpServiceby());
+            emergencyLightServByTextField.setText(ffe.getEmergencyLightServiceby());
+            smkDetectorServByTextField.setText(ffe.getSmokeDetectorServiceby());
+            heatDetectorServByTextField.setText(ffe.getHeatDetectorServiceby());
+            fireAlarmServByTextField.setText(ffe.getFireAlarmServiceby());
+            
+            SpecialInstallation si = GnfsManager.getSpecialInstallation(pp);
+            textFieldHydrant.setText(si.getHydrant());
+            textFieldSmokeExtractor.setText(si.getSmokeExtractor());
+            textFieldDryRisers.setText(si.getDryRisers());
+            textFieldHeatExtractor.setText(si.getHeatExtractor());
+            textFieldWetRisers.setText(si.getWetRisers());
+            textFieldHoseReel.setText(si.getHoseReel());
+        }
     }
 
     @FXML
@@ -518,7 +593,7 @@ public class MainController implements Initializable {
         si.setDryRisers(textFieldDryRisers.getText());
         si.setHeatExtractor(textFieldHeatExtractor.getText());
         si.setWetRisers(textFieldWetRisers.getText());
-        si.setHoseReel(textFieldHoseRisers.getText());
+        si.setHoseReel(textFieldHoseReel.getText());
         si.setIncharge(incharge);
         return si;
     }
@@ -530,7 +605,7 @@ public class MainController implements Initializable {
         sc.setLocation(textFieldSafetyLocation.getText());
         sc.setTypeOfRisk(textFieldRiskType.getText());
         sc.setGprs(textFieldGPRS.getText());
-        sc.setIssueDate(issueDateField.getValue());
+        sc.setIssueDate(DateUtil.localDateToDate(issueDateField.getValue()));
         sc.setExpiryDate(DateUtil.localDateToDate(expiryDateField.getValue()));
         sc.setCertificateNo(textFieldCertNo.getText());
         sc.setIncharge(incharge);

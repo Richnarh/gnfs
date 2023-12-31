@@ -168,7 +168,7 @@ public class ExpiredServiceController implements Initializable {
                 premisesLabel.setText(pp.getName() + " - " + pp.getTelephone());
             }
             if (incharge != null) {
-                SafetyCertificate sc = GnfsManager.getSafetyCertificateByIncharge(incharge);
+                SafetyCertificate sc = GnfsManager.getSafetyCertificate(incharge);
                 certificateNoLabel.setText(sc != null && sc.getCertificateNo() != null && !sc.getCertificateNo().isEmpty() ? sc.getCertificateNo() : "N/A");
                 houseNoLabel.setText(sc != null && sc.getHouseNo() != null && !sc.getHouseNo().isEmpty() ? sc.getHouseNo() : "N/A");
                 officerInChargeLabel.setText(incharge.getOfficerInCharge());

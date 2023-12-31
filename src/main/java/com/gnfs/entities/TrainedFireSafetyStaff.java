@@ -25,6 +25,11 @@ public class TrainedFireSafetyStaff extends BaseModel{
     @ManyToOne
     private Incharge incharge;
     
+    public static final String _particularPremises = "particularPremises";
+    @JoinColumn(name = "particulars_premises", referencedColumnName = "id")
+    @ManyToOne
+    private ParticularPremises particularPremises;
+    
     @Column(name = "name")
     private String name;
     
@@ -88,6 +93,13 @@ public class TrainedFireSafetyStaff extends BaseModel{
     public void setTelephoneNo(String telephoneNo) {
         this.telephoneNo = telephoneNo;
     }
-    
+
+    public ParticularPremises getParticularPremises() {
+        return particularPremises;
+    }
+
+    public void setParticularPremises(ParticularPremises particularPremises) {
+        this.particularPremises = particularPremises;
+    }
     
 }
