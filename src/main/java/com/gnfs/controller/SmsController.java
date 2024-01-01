@@ -62,7 +62,7 @@ public class SmsController implements Initializable {
             Popup.error(owner, "Please type a message");
             return;
         }
-        try {
+        try { 
             ZenophSMS zsms = new ZenophSMS();
             zsms.setUser("pascal");
             zsms.setPassword("pascal001");

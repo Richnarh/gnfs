@@ -16,7 +16,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
 
@@ -26,8 +25,6 @@ import javafx.stage.Window;
  * @author Richard Narh
  */
 public class SettingsController implements Initializable {
-    @FXML
-    private Button btnSaveSettings;
     @FXML
     private TextField textFieldSenderId;
     @FXML

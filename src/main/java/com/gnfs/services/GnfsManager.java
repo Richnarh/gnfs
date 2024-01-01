@@ -5,6 +5,7 @@
  */
 package com.gnfs.services;
 
+import com.gnfs.entities.CollectionDate;
 import com.gnfs.entities.FireFightingEquipment;
 import com.gnfs.entities.Incharge;
 import com.gnfs.entities.ParticularOccupyers;
@@ -25,7 +26,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -124,7 +124,6 @@ public class GnfsManager {
         });
         return trainedFireSafetyStaffList;
     }
-    
     public static Incharge getIncharge(String officerName, String signature){
         Session s = HibernateUtil.open();
         Criteria crit = s.createCriteria(Incharge.class);
@@ -132,28 +131,24 @@ public class GnfsManager {
         crit.add(Restrictions.eq(Incharge._signature, signature));
         return (Incharge)crit.uniqueResult();
     }
-    
     public static Incharge getIncharge(String officerInChargeId){
         Session s = HibernateUtil.open();
         Criteria crit = s.createCriteria(Incharge.class);
         crit.add(Restrictions.eq(Incharge._id, officerInChargeId));
         return (Incharge)crit.uniqueResult();
     }
-    
     public static ParticularPremises getPremisesById(String premisesId){
         Session s = HibernateUtil.open();
         Criteria crit = s.createCriteria(ParticularPremises.class);
         crit.add(Restrictions.eq(ParticularPremises._id, premisesId));
         return (ParticularPremises)crit.uniqueResult();
     }
-    
     public static List<FireFightingEquipment> getFireFightingByIncharge(Incharge incharge){
         Session s = HibernateUtil.open();
         Criteria crit = s.createCriteria(FireFightingEquipment.class);
         crit.add(Restrictions.eq(FireFightingEquipment._incharge, incharge));
         return crit.list();
     }
-    
     public static ParticularPremises getParticularPremises(Incharge incharge){
         Session s = HibernateUtil.open();
         Criteria crit = s.createCriteria(ParticularPremises.class);
@@ -163,38 +158,58 @@ public class GnfsManager {
     public static ParticularPremises searchPremises(String telephone){
         Session s = HibernateUtil.open();
         Criteria crit = s.createCriteria(ParticularPremises.class);
-        crit.add(Restrictions.ilike(ParticularPremises._telephone, telephone, MatchMode.ANYWHERE));
+        crit.add(Restrictions.eq(ParticularPremises._telephone, telephone));
         return (ParticularPremises)crit.uniqueResult();
     }
-    
     public static SafetyCertificate getSafetyCertificate(Incharge incharge){
         Session s = HibernateUtil.open();
         Criteria crit = s.createCriteria(SafetyCertificate.class);
         crit.add(Restrictions.eq(SafetyCertificate._incharge, incharge));
         return (SafetyCertificate)crit.uniqueResult();
     }
-    
     public static SafetyCertificate searchCert(String cert, String hseNo){
         Session s = HibernateUtil.open();
         Criteria crit = s.createCriteria(SafetyCertificate.class);
         if(hseNo != null)
-            crit.add(Restrictions.ilike(SafetyCertificate._houseNo, hseNo, MatchMode.ANYWHERE));
+            crit.add(Restrictions.eq(SafetyCertificate._houseNo, hseNo));
         if(cert != null)
-            crit.add(Restrictions.ilike(SafetyCertificate._certificateNo, cert, MatchMode.ANYWHERE));
+            crit.add(Restrictions.eq(SafetyCertificate._certificateNo, cert));
         return (SafetyCertificate)crit.uniqueResult();
     }
-
     public static FireFightingEquipment getFireFightingEquipment(ParticularPremises particularPremises) {
         Session s = HibernateUtil.open();
         Criteria crit = s.createCriteria(FireFightingEquipment.class);
         crit.add(Restrictions.eq(FireFightingEquipment._particularPremises, particularPremises));
         return (FireFightingEquipment)crit.uniqueResult();
     }
-
     public static SpecialInstallation getSpecialInstallation(ParticularPremises particularPremises) {
         Session s = HibernateUtil.open();
         Criteria crit = s.createCriteria(SpecialInstallation.class);
         crit.add(Restrictions.eq(SpecialInstallation._particularPremises, particularPremises));
         return (SpecialInstallation)crit.uniqueResult();
+    }
+    public static CollectionDate getCollectionDate(ParticularPremises particularPremises) {
+        Session s = HibernateUtil.open();
+        Criteria crit = s.createCriteria(CollectionDate.class);
+        crit.add(Restrictions.eq(CollectionDate._particularPremises, particularPremises));
+        return (CollectionDate)crit.uniqueResult();
+    }
+    public static List<ParticularOwners> getParticularOwners(ParticularPremises particularPremises) {
+        Session s = HibernateUtil.open();
+        Criteria crit = s.createCriteria(ParticularOwners.class);
+        crit.add(Restrictions.eq(ParticularOwners._particularPremises, particularPremises));
+        return crit.list();
+    }
+    public static List<ParticularOccupyers> getParticularOccupyers(ParticularPremises particularPremises) {
+        Session s = HibernateUtil.open();
+        Criteria crit = s.createCriteria(ParticularOccupyers.class);
+        crit.add(Restrictions.eq(ParticularOccupyers._particularPremises, particularPremises));
+        return crit.list();
+    }
+    public static List<TrainedFireSafetyStaff> getTrainedFireSafetyStaff(ParticularPremises particularPremises) {
+        Session s = HibernateUtil.open();
+        Criteria crit = s.createCriteria(TrainedFireSafetyStaff.class);
+        crit.add(Restrictions.eq(TrainedFireSafetyStaff._particularPremises, particularPremises));
+        return crit.list();
     }
 }
