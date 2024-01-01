@@ -167,7 +167,7 @@ public class GnfsManager {
         crit.add(Restrictions.eq(SafetyCertificate._incharge, incharge));
         return (SafetyCertificate)crit.uniqueResult();
     }
-    public static SafetyCertificate searchCert(String cert, String hseNo){
+    public static SafetyCertificate getCertificate(String cert, String hseNo){
         Session s = HibernateUtil.open();
         Criteria crit = s.createCriteria(SafetyCertificate.class);
         if(hseNo != null)

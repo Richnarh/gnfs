@@ -11,7 +11,8 @@ package com.gnfs.model;
  */
 public final class Sms {
     private String receipient;
-     private final static Sms INSTANCE = new Sms();
+    private String telephone;
+    private final static Sms INSTANCE = new Sms();
 
     public Sms() {
     }
@@ -22,6 +23,10 @@ public final class Sms {
     
     public Sms addReceipient(String receipient){
         this.receipient = receipient;
+        return this;
+    }
+    public Sms addTelephone(String telephone){
+        this.telephone = telephone;
         return this;
     }
     
@@ -35,6 +40,14 @@ public final class Sms {
 
     public void setReceipient(String receipient) {
         this.receipient = receipient;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
     
 }

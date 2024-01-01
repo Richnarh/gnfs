@@ -37,12 +37,7 @@ public class SettingsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            textFieldSenderId.setText(SmsService.getSenderId());
-        } catch (SQLException ex) {
-            ex.getMessage();
-            Popup.error(ex.getMessage());
-        }
+        textFieldSenderId.setText(SmsService.getSenderId());
     }    
     
     @FXML

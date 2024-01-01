@@ -161,7 +161,7 @@ public class MainController implements Initializable {
     @FXML
     private ComboBox<InchargeDto> officerCmb;
 
-    private String receipient = null;
+    private String receipient,telephone = null;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -251,7 +251,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void initiateSMSAction(ActionEvent event) {
-        Sms.newInstance().addReceipient(receipient);
+        Sms.newInstance().addReceipient(receipient).addTelephone(telephone);
         FxPageLoader fxPageLoader = new FxPageLoader(((Node) event.getSource()).getScene().getWindow());
         fxPageLoader.loadFxml("/fxml/Sms", "GNFS - SMS", Modality.APPLICATION_MODAL, false);
     }
@@ -347,9 +347,9 @@ public class MainController implements Initializable {
         ParticularPremises pp = null;
         Incharge incharge = null;
         String searchKey = gloabelSearchTextField.getText();
-        SafetyCertificate sc = GnfsManager.searchCert(searchKey,null);
+        SafetyCertificate sc = GnfsManager.getCertificate(searchKey,null);
         if(sc == null){
-            sc = GnfsManager.searchCert(null,searchKey);
+            sc = GnfsManager.getCertificate(null,searchKey);
         }
         if(sc == null){
             pp = GnfsManager.searchPremises(searchKey);
@@ -382,6 +382,8 @@ public class MainController implements Initializable {
             officerCmb.setValue(new InchargeDto(incharge.getId(), incharge.getOfficerInCharge()));
         }
         if(pp != null){
+            receipient = pp.getName() +" - "+pp.getTelephone();
+            telephone = pp.getTelephone();
             FireFightingEquipment ffe = GnfsManager.getFireFightingEquipment(pp);
             dcpQtyTextField.setText(JUtils.toString(ffe.getDcpQty()));
             emergencyLightQtyTextField.setText(JUtils.toString(ffe.getEmergencyLightQty()));

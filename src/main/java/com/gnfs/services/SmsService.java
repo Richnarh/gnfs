@@ -24,14 +24,15 @@ public class SmsService {
         return s != null;
     }
 
-    public static String getSenderId() throws SQLException {
+    public static String getSenderId() {
         String query = "SELECT * FROM settings LIMIT 1";
         try {
             ResultSet rs = DbUtil.dbExecuteQuery(query);
             if(!rs.next()) return null;
             return rs.getString("sender_id");
         } catch (SQLException e) {
-            throw e;
+            e.getMessage();
         }
+        return null;
     }
 }

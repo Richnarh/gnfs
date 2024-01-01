@@ -9,6 +9,7 @@ import Zenoph.SMSLib.Enums.MSGTYPE;
 import Zenoph.SMSLib.Enums.REQSTATUS;
 import Zenoph.SMSLib.ZenophSMS;
 import com.gnfs.model.Sms;
+import com.gnfs.services.SmsService;
 import com.gnfs.util.Popup;
 import java.net.URL;
 import java.util.List;
@@ -36,6 +37,8 @@ public class SmsController implements Initializable {
 
     @FXML
     private TextArea textAreaFieldMessage;
+    
+    private String telephone = null;
 
     /**
      * Initializes the controller class.
@@ -49,8 +52,10 @@ public class SmsController implements Initializable {
             msgReceipient.setStyle("-fx-text-fill: #D10000; -fx-font-weight: bold;");
             msgReceipient.setText("No Receipient/Premises Selected");
             sendMessageAction.setDisable(true);
-        }else
+        }else{
             msgReceipient.setText(Sms.newInstance().getReceipient());
+            telephone = Sms.newInstance().getTelephone();
+        }
     }
 
     @FXML
@@ -62,6 +67,17 @@ public class SmsController implements Initializable {
             Popup.error(owner, "Please type a message");
             return;
         }
+        String senderId = SmsService.getSenderId();
+        if(senderId == null){
+            Popup.error(owner, "Sender ID not found!");
+            return;
+        }
+        System.out.println("SenderID: "+senderId);
+        System.out.println("Telephone: "+telephone);
+        if(telephone == null){
+            Popup.error(owner, "Premises telephone empty. SMS uses this number");
+            return;
+        }
         try { 
             ZenophSMS zsms = new ZenophSMS();
             zsms.setUser("pascal");
@@ -69,12 +85,12 @@ public class SmsController implements Initializable {
             zsms.authenticate();
             zsms.setMessageType(MSGTYPE.TEXT);
             zsms.setMessage(textMessage);
-            String phoneNumber = "0574417585";
+            String phoneNumber = telephone;
             List<String> numbers = zsms.extractPhoneNumbers(phoneNumber);
             for (String number : numbers) {
                 zsms.addRecipient(number);
             }
-            zsms.setSenderId("GNFS");
+            zsms.setSenderId(senderId);
             Popup.info(owner, "SMS sent successfully to: ");
             List<String[]> response = zsms.submit();
             for (String[] destination : response) {
