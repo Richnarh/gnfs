@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" fx:id="filePane" onDragDropped="#handleFileDrop" onDragOver="#handleFileOver" prefHeight="250.0" prefWidth="578.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gnfs.controller.UploadController">
+   <children>
+      <Button fx:id="btnSaveFiles" layoutX="100.0" layoutY="221.0" mnemonicParsing="false" onAction="#handleSaveFiles" prefHeight="25.0" prefWidth="81.0" style="-fx-font-weight: bold; -fx-background-color: #333;" text="Save Files" textFill="#f5ec0a">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="btnChoosFile" layoutX="14.0" layoutY="221.0" mnemonicParsing="false" onAction="#handleFilleChooser" style="-fx-background-color: #333;" text="Choose File" textFill="#f5ec0a">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <ListView fx:id="fileListView" onDragDropped="#handleFileDrop" onDragOver="#handleFileOver" prefHeight="214.0" prefWidth="579.0" style="-fx-border-color: transparent;" />
+      <Text layoutX="468.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Files Selected:" />
+      <Text fx:id="fileCount" layoutX="546.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fill="SILVER" layoutX="212.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drag files into the plain section" />
+   </children>
+</AnchorPane>

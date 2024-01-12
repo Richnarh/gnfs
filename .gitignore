@@ -5,6 +5,7 @@
 /dist/*
 /nbdist/*
 /target/**
+/gnfs_storage/**
 nbactions.xml
 nb-configuration.xml
 

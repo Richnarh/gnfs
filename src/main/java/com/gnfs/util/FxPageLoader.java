@@ -7,8 +7,10 @@ package com.gnfs.util;
 
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -81,5 +83,28 @@ public class FxPageLoader {
     private Stage startStage(Stage s){
         s.show();
         return s;
+    }
+    
+    public static int getRowIndexAsInteger(Node node) {
+        final Integer a = GridPane.getRowIndex(node);
+        if (a == null) {
+            return 0;
+        }
+        return a;
+    }
+    public static void removeRow(GridPane grid, Integer targetRowIndexIntegerObject) {
+        final int targetRowIndex = targetRowIndexIntegerObject == null ? 0 : targetRowIndexIntegerObject;
+
+        // Remove children from row
+        grid.getChildren().removeIf(node -> getRowIndexAsInteger(node) == targetRowIndex);
+
+        // Update indexes for elements in further rows
+        grid.getChildren().forEach(node -> {
+            final int rowIndex = getRowIndexAsInteger(node);
+            if (targetRowIndex < rowIndex) {
+                GridPane.setRowIndex(node, rowIndex - 1);
+            }
+        });
+        grid.getRowConstraints().remove(targetRowIndex);
     }
 }

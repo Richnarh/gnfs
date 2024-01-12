@@ -5,12 +5,19 @@
  */
 package com.gnfs.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -227,5 +234,33 @@ public class JUtils {
 
     public static String[] splitStr(String str, String charr) {
         return str != null ? str.split(charr) : null;
+    }
+
+    public Path getRootPath(String folderName) {
+        Path rootPath = Paths.get(System.getProperty("user.dir") + File.separator + "gnfs_storage" + File.separator + folderName);
+        System.out.println("rootPath: " + rootPath);
+        return rootPath;
+    }
+    public Path getRootPath() {
+        Path rootPath = Paths.get(System.getProperty("user.dir") + File.separator + "gnfs_storage");
+        System.out.println("rootPath: " + rootPath);
+        return rootPath;
+    }
+
+    public static List<String> listFiles(String dir, boolean isPaths) throws IOException {
+        List<String> fileList = new LinkedList<>();
+        Files.walkFileTree(Paths.get(dir), new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+                if (!Files.isDirectory(file)) {
+                    if(isPaths){
+                        fileList.add(file.toString());
+                    }else
+                        fileList.add(file.getFileName().toString());
+                }
+                return FileVisitResult.CONTINUE;
+            }
+        });
+        return fileList;
     }
 }

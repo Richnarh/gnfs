@@ -14,10 +14,8 @@ import com.gnfs.entities.ParticularPremises;
 import com.gnfs.entities.SafetyCertificate;
 import com.gnfs.entities.SpecialInstallation;
 import com.gnfs.entities.TrainedFireSafetyStaff;
+import com.gnfs.util.DateUtil;
 import com.gnfs.util.HibernateUtil;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -99,7 +97,7 @@ public class GnfsManager {
                 if (obj instanceof DatePicker) {
                     DatePicker dateField = (DatePicker) obj;
                     if (dateField.getId().equalsIgnoreCase("staffDateField" + key)) {
-                        safetyStaff.setTrainedDate(Date.from(Instant.from(dateField.getValue().atStartOfDay(ZoneId.systemDefault()))));
+                        safetyStaff.setTrainedDate(DateUtil.localDateToDate(dateField.getValue()));
                     }
                 } else {
                     TextField field = (TextField) obj;

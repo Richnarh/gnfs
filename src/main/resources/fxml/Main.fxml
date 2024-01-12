@@ -45,7 +45,7 @@
                   </AnchorPane>
               </content>
             </TitledPane>
-            <TextField fx:id="gloabelSearchTextField" layoutX="299.0" layoutY="31.0" prefHeight="25.0" prefWidth="627.0" promptText="Search by Certificate No. / House No. / Premises Telephone (Type in full)" />
+            <TextField fx:id="gloabelSearchTextField" layoutX="367.0" layoutY="31.0" prefHeight="25.0" prefWidth="557.0" promptText="Search by Certificate No. / House No. / Premises Telephone (Type in full)" />
             <Button fx:id="searchAction" layoutX="930.0" layoutY="31.0" mnemonicParsing="false" onAction="#searchAction" prefHeight="25.0" prefWidth="101.0" text="SEARCH">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -136,6 +136,11 @@
                            </cursor>
                         </Button>
                         <Separator layoutX="-29.0" layoutY="268.0" prefHeight="3.0" prefWidth="1169.0" />
+                        <Button fx:id="btnOwnerRow" layoutX="933.0" layoutY="236.0" mnemonicParsing="false" onAction="#removeOwnerRowAction" style="-fx-background-color: #D10000;" text="Remove Row" textFill="WHITESMOKE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
                      </children>
                   </AnchorPane>
               </content>
@@ -407,17 +412,17 @@
                   <Insets top="5.0" />
                </padding>
             </MenuBar>
-            <Button fx:id="initiateSMSAction" layoutX="2.0" layoutY="31.0" mnemonicParsing="false" onAction="#initiateSMSAction" prefHeight="25.0" prefWidth="118.0" style="-fx-background-color: #333; -fx-font-weight: bold;" text="Initiate SMS" textFill="#f5ec0a">
+            <Button fx:id="initiateSMSAction" layoutX="2.0" layoutY="31.0" mnemonicParsing="false" onAction="#initiateSMSAction" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: #333; -fx-font-weight: bold;" text="SMS" textFill="#f5ec0a">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="expiredListAction" layoutX="129.0" layoutY="31.0" mnemonicParsing="false" onAction="#expiredListAction" prefHeight="25.0" prefWidth="118.0" style="-fx-background-color: #333; -fx-font-weight: bold;" text="Expired Services" textFill="#f5ec0a">
+            <Button fx:id="expiredListAction" layoutX="62.0" layoutY="31.0" mnemonicParsing="false" onAction="#expiredListAction" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #333; -fx-font-weight: bold;" text="Expired Services" textFill="#f5ec0a">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnSettings" layoutX="254.0" layoutY="31.0" mnemonicParsing="false" onAction="#smsIdAction" />
+            <Button fx:id="btnSettings" layoutX="329.0" layoutY="31.0" mnemonicParsing="false" onAction="#smsIdAction" />
             <ComboBox fx:id="officerCmb" layoutX="6.0" layoutY="1860.0" prefHeight="25.0" prefWidth="238.0" promptText="Choose..." />
             <Label layoutX="9.0" layoutY="1837.0" text="Officer In Charge" />
             <Button fx:id="btnAddOfficer" layoutX="251.0" layoutY="1860.0" mnemonicParsing="false" onAction="#addOfficerAction" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #333;" text="Add Officer" textFill="#f5ec0a">
@@ -427,6 +432,12 @@
             </Button>
             <DatePicker fx:id="collectionDateField" layoutX="842.0" layoutY="1860.0" prefHeight="25.0" prefWidth="183.0" promptText="Collection Date" />
             <Label layoutX="749.0" layoutY="1864.0" text="Collection Date" />
+            <Button fx:id="btnMedia" layoutX="178.0" layoutY="31.0" mnemonicParsing="false" onAction="#mediaAction" prefHeight="25.0" prefWidth="62.0" style="-fx-background-color: #333; -fx-font-weight: bold;" text="Media" textFill="#f5ec0a">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnUploadFile" layoutX="248.0" layoutY="31.0" mnemonicParsing="false" onAction="#uploadAction" text="Upload" />
          </children>
       </AnchorPane>
    </content>

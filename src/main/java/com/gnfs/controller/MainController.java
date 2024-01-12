@@ -15,6 +15,7 @@ import com.gnfs.entities.SafetyCertificate;
 import com.gnfs.entities.SpecialInstallation;
 import com.gnfs.entities.TrainedFireSafetyStaff;
 import com.gnfs.model.InchargeDto;
+import com.gnfs.model.Params;
 import com.gnfs.model.Sms;
 import com.gnfs.services.GnfsManager;
 import com.gnfs.util.DateUtil;
@@ -49,6 +50,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -60,6 +62,8 @@ import javafx.util.StringConverter;
 public class MainController implements Initializable {
     @FXML
     private Button btnSettings;
+    @FXML
+    private Button btnUploadFile;
     @FXML
     private GridPane ownerGridPane;
     @FXML
@@ -161,12 +165,16 @@ public class MainController implements Initializable {
     @FXML
     private ComboBox<InchargeDto> officerCmb;
 
-    private String receipient,telephone = null;
+    private String receipient,telephone,id = null;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         inchargeCmb();
         btnSettings.setGraphic(new ImageView(new Image("/icons/settings.png")));
+        btnSettings.setTooltip(new Tooltip("Settings"));
+        
+        btnUploadFile.setGraphic(new ImageView(new Image("/icons/upload.png")));
+        btnUploadFile.setTooltip(new Tooltip("Upload Images/File"));
     }
 
     public void inchargeCmb() {
@@ -272,6 +280,23 @@ public class MainController implements Initializable {
     public void addOfficerAction(ActionEvent event) {
         FxPageLoader fxPageLoader = new FxPageLoader(((Node) event.getSource()).getScene().getWindow());
         fxPageLoader.loadFxml("/fxml/Incharge", "GNFS - Officer in Charge", Modality.APPLICATION_MODAL, false);
+    }
+    
+    @FXML
+    public void mediaAction(ActionEvent event) {
+        FxPageLoader fxPageLoader = new FxPageLoader(((Node) event.getSource()).getScene().getWindow());
+        fxPageLoader.loadFxml("/fxml/Media", "GNFS - Media Data", Modality.APPLICATION_MODAL, false);
+    }
+    @FXML
+    public void uploadAction(ActionEvent event) {
+        Window owner = ((Node)event.getSource()).getScene().getWindow();
+        if (receipient == null && id == null) {
+            Popup.error(owner,"There is no premises found for the upload");
+            return;
+        }
+        Params.newInstance().addId(id).addData(receipient);
+        FxPageLoader fxPageLoader = new FxPageLoader(((Node) event.getSource()).getScene().getWindow());
+        fxPageLoader.loadFxml("/fxml/Upload", "GNFS - Upload Files", Modality.APPLICATION_MODAL, false);
     }
     
     @FXML
@@ -382,6 +407,7 @@ public class MainController implements Initializable {
             officerCmb.setValue(new InchargeDto(incharge.getId(), incharge.getOfficerInCharge()));
         }
         if(pp != null){
+            id = pp.getId();
             receipient = pp.getName() +" - "+pp.getTelephone();
             telephone = pp.getTelephone();
             FireFightingEquipment ffe = GnfsManager.getFireFightingEquipment(pp);
@@ -442,6 +468,43 @@ public class MainController implements Initializable {
         Alert alert = Popup.confirm("Do you want to exit app ?", "Exiting...");
         if(alert.getResult() == ButtonType.YES){
             System.exit(0);
+        }
+    }
+    
+    @FXML
+    public void removeOwnerRowAction(ActionEvent event){
+        System.out.println("ownerMap: "+ownerMap.keySet());
+        LinkedHashSet<TextField> fieldList = new LinkedHashSet<>();
+        boolean fieldEmpty = false;
+        
+                
+        for (Integer key : ownerMap.keySet()) {
+        FxPageLoader.removeRow(ownerGridPane, key);
+//            fieldList = ownerMap.get(key);
+//            for (TextField field : fieldList) {
+//                if (field.getId().equalsIgnoreCase("ownerNameField" + key)) {
+//                    if(field.getText() == null || field.getText().isEmpty()){
+//                        fieldEmpty = true;
+//                    }
+//                } else if (field.getId().equalsIgnoreCase("ownerTeleHandyField" + key)) {
+//                    if(field.getText() == null || field.getText().isEmpty()){
+//                        fieldEmpty = true;
+//                    }
+//                } else if (field.getId().equalsIgnoreCase("ownerTeleOfficeField" + key)) {
+//                    if(field.getText() == null || field.getText().isEmpty()){
+//                        fieldEmpty = true;
+//                    }
+//                } else if (field.getId().equalsIgnoreCase("ownerPurposeField" + key)) {
+//                    if(field.getText() == null || field.getText().isEmpty()){
+//                        fieldEmpty = true;
+//                    }
+//                }
+//            }
+            if(fieldEmpty){
+                ownerMap.remove(key);
+                fieldList = new LinkedHashSet<>(); 
+                createOwners(null);
+            }
         }
     }
     
