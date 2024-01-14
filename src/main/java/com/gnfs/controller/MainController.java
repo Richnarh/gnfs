@@ -301,7 +301,7 @@ public class MainController implements Initializable {
     
     @FXML
     public void resetPageAction(ActionEvent event) {
-        Popup.confirm("Do you want to reset the page?", "Resetting", "Reset");
+        resetPage();
     }
 
     @FXML
@@ -339,6 +339,7 @@ public class MainController implements Initializable {
                 ownerList = GnfsManager.createOwners(ownerMap);
                 for (ParticularOwners owner : ownerList) {
                     owner.setIncharge(incharge);
+                    owner.setParticularPremises(pp);
                     DefaultManager.save(owner);
                 }
             }
@@ -346,6 +347,7 @@ public class MainController implements Initializable {
                 occupyerList = GnfsManager.createOccupyers(occupyerMap);
                 for (ParticularOccupyers occupyer : occupyerList) {
                     occupyer.setIncharge(incharge);
+                    occupyer.setParticularPremises(pp);
                     DefaultManager.save(occupyer);
                 }
             }
@@ -353,6 +355,7 @@ public class MainController implements Initializable {
                 trainedFireSafetyStaffList = GnfsManager.createTrainedFireSafetyStaff(trainedFireSafetyStaffMap);
                 for (TrainedFireSafetyStaff staff : trainedFireSafetyStaffList) {
                     staff.setIncharge(incharge);
+                    staff.setParticularPremises(pp);
                     DefaultManager.save(staff);
                 }
             }
@@ -411,42 +414,48 @@ public class MainController implements Initializable {
             receipient = pp.getName() +" - "+pp.getTelephone();
             telephone = pp.getTelephone();
             FireFightingEquipment ffe = GnfsManager.getFireFightingEquipment(pp);
-            dcpQtyTextField.setText(JUtils.toString(ffe.getDcpQty()));
-            emergencyLightQtyTextField.setText(JUtils.toString(ffe.getEmergencyLightQty()));
-            smokeDetectorQtyTextField.setText(JUtils.toString(ffe.getSmokeDetectorQty()));
-            heatDetectorQtyTextField.setText(JUtils.toString(ffe.getHeatDetectorQty()));
-            fireAlarmQtyTextField.setText(JUtils.toString(ffe.getFireAlarmQty()));
-            generalNoticeQtyTextField.setText(JUtils.toString(ffe.getGeneralNoticeQty()));
-            exitSignQtyTextField.setText(JUtils.toString(ffe.getExitSignQty()));
-            assemblyPointQtyTextField.setText(JUtils.toString(ffe.getAssemblyPointQty()));
-            waterSrcQtyTextField.setText(JUtils.toString(ffe.getWaterSourceQty()));
-            waterSrcTypeTextField.setText(ffe.getWaterSource());
-            dcpInstDateField.setValue(DateUtil.dateToLocalDate(ffe.getDcpInstDate(),Pattern.mmddyyyy));
-            emergencyLightInstDateField.setValue(DateUtil.dateToLocalDate(ffe.getEmergencyLightInstDate(),Pattern.mmddyyyy));
-            smkDetectorInstDateField.setValue(DateUtil.dateToLocalDate(ffe.getSmokeDetectorInstDate(),Pattern.mmddyyyy));
-            heatDetectorInstDateField.setValue(DateUtil.dateToLocalDate(ffe.getHeatDetectorInstDate(),Pattern.mmddyyyy));
-            fireAlarmInstDateField.setValue(DateUtil.dateToLocalDate(ffe.getFireAlarmInstDate(),Pattern.mmddyyyy));
-            dcpServDatefield.setValue(DateUtil.dateToLocalDate(ffe.getDcpServiceDate(),Pattern.mmddyyyy));
-            emergencyLightServDateField.setValue(DateUtil.dateToLocalDate(ffe.getEmergencyLightServiceDate(),Pattern.mmddyyyy));
-            smkDetectorServDateField.setValue(DateUtil.dateToLocalDate(ffe.getSmokeDetectorServiceDate(),Pattern.mmddyyyy));
-            heatDetectorServDateField.setValue(DateUtil.dateToLocalDate(ffe.getHeatDetectorServiceDate(),Pattern.mmddyyyy));
-            fireAlarmServDateField.setValue(DateUtil.dateToLocalDate(ffe.getFireAlarmServiceDate(),Pattern.mmddyyyy));
-            dcpServByTextField.setText(ffe.getDcpServiceby());
-            emergencyLightServByTextField.setText(ffe.getEmergencyLightServiceby());
-            smkDetectorServByTextField.setText(ffe.getSmokeDetectorServiceby());
-            heatDetectorServByTextField.setText(ffe.getHeatDetectorServiceby());
-            fireAlarmServByTextField.setText(ffe.getFireAlarmServiceby());
+            if(ffe != null){
+                dcpQtyTextField.setText(JUtils.toString(ffe.getDcpQty()));
+                emergencyLightQtyTextField.setText(JUtils.toString(ffe.getEmergencyLightQty()));
+                smokeDetectorQtyTextField.setText(JUtils.toString(ffe.getSmokeDetectorQty()));
+                heatDetectorQtyTextField.setText(JUtils.toString(ffe.getHeatDetectorQty()));
+                fireAlarmQtyTextField.setText(JUtils.toString(ffe.getFireAlarmQty()));
+                generalNoticeQtyTextField.setText(JUtils.toString(ffe.getGeneralNoticeQty()));
+                exitSignQtyTextField.setText(JUtils.toString(ffe.getExitSignQty()));
+                assemblyPointQtyTextField.setText(JUtils.toString(ffe.getAssemblyPointQty()));
+                waterSrcQtyTextField.setText(JUtils.toString(ffe.getWaterSourceQty()));
+                waterSrcTypeTextField.setText(ffe.getWaterSource());
+                dcpInstDateField.setValue(DateUtil.dateToLocalDate(ffe.getDcpInstDate(),Pattern.mmddyyyy));
+                emergencyLightInstDateField.setValue(DateUtil.dateToLocalDate(ffe.getEmergencyLightInstDate(),Pattern.mmddyyyy));
+                smkDetectorInstDateField.setValue(DateUtil.dateToLocalDate(ffe.getSmokeDetectorInstDate(),Pattern.mmddyyyy));
+                heatDetectorInstDateField.setValue(DateUtil.dateToLocalDate(ffe.getHeatDetectorInstDate(),Pattern.mmddyyyy));
+                fireAlarmInstDateField.setValue(DateUtil.dateToLocalDate(ffe.getFireAlarmInstDate(),Pattern.mmddyyyy));
+                dcpServDatefield.setValue(DateUtil.dateToLocalDate(ffe.getDcpServiceDate(),Pattern.mmddyyyy));
+                emergencyLightServDateField.setValue(DateUtil.dateToLocalDate(ffe.getEmergencyLightServiceDate(),Pattern.mmddyyyy));
+                smkDetectorServDateField.setValue(DateUtil.dateToLocalDate(ffe.getSmokeDetectorServiceDate(),Pattern.mmddyyyy));
+                heatDetectorServDateField.setValue(DateUtil.dateToLocalDate(ffe.getHeatDetectorServiceDate(),Pattern.mmddyyyy));
+                fireAlarmServDateField.setValue(DateUtil.dateToLocalDate(ffe.getFireAlarmServiceDate(),Pattern.mmddyyyy));
+                dcpServByTextField.setText(ffe.getDcpServiceby());
+                emergencyLightServByTextField.setText(ffe.getEmergencyLightServiceby());
+                smkDetectorServByTextField.setText(ffe.getSmokeDetectorServiceby());
+                heatDetectorServByTextField.setText(ffe.getHeatDetectorServiceby());
+                fireAlarmServByTextField.setText(ffe.getFireAlarmServiceby());
+            }
             
             SpecialInstallation si = GnfsManager.getSpecialInstallation(pp);
-            textFieldHydrant.setText(si.getHydrant());
-            textFieldSmokeExtractor.setText(si.getSmokeExtractor());
-            textFieldDryRisers.setText(si.getDryRisers());
-            textFieldHeatExtractor.setText(si.getHeatExtractor());
-            textFieldWetRisers.setText(si.getWetRisers());
-            textFieldHoseReel.setText(si.getHoseReel());
+            if(si != null){
+                textFieldHydrant.setText(si.getHydrant());
+                textFieldSmokeExtractor.setText(si.getSmokeExtractor());
+                textFieldDryRisers.setText(si.getDryRisers());
+                textFieldHeatExtractor.setText(si.getHeatExtractor());
+                textFieldWetRisers.setText(si.getWetRisers());
+                textFieldHoseReel.setText(si.getHoseReel());
+            }
             
             CollectionDate cd = GnfsManager.getCollectionDate(pp);
-            collectionDateField.setValue(DateUtil.dateToLocalDate(cd.getDateOfCollection(), Pattern.mmddyyyy));
+            if(cd != null){
+                collectionDateField.setValue(DateUtil.dateToLocalDate(cd.getDateOfCollection(), Pattern.mmddyyyy));
+            }
             
             List<ParticularOwners> particularOwnerList = GnfsManager.getParticularOwners(pp);
             particularOwnerList.forEach(owners -> {
@@ -471,43 +480,44 @@ public class MainController implements Initializable {
         }
     }
     
-    @FXML
-    public void removeOwnerRowAction(ActionEvent event){
+    public void resetPage(){
         System.out.println("ownerMap: "+ownerMap.keySet());
-        LinkedHashSet<TextField> fieldList = new LinkedHashSet<>();
-        boolean fieldEmpty = false;
-        
-                
-        for (Integer key : ownerMap.keySet()) {
-        FxPageLoader.removeRow(ownerGridPane, key);
-//            fieldList = ownerMap.get(key);
-//            for (TextField field : fieldList) {
-//                if (field.getId().equalsIgnoreCase("ownerNameField" + key)) {
-//                    if(field.getText() == null || field.getText().isEmpty()){
-//                        fieldEmpty = true;
-//                    }
-//                } else if (field.getId().equalsIgnoreCase("ownerTeleHandyField" + key)) {
-//                    if(field.getText() == null || field.getText().isEmpty()){
-//                        fieldEmpty = true;
-//                    }
-//                } else if (field.getId().equalsIgnoreCase("ownerTeleOfficeField" + key)) {
-//                    if(field.getText() == null || field.getText().isEmpty()){
-//                        fieldEmpty = true;
-//                    }
-//                } else if (field.getId().equalsIgnoreCase("ownerPurposeField" + key)) {
-//                    if(field.getText() == null || field.getText().isEmpty()){
-//                        fieldEmpty = true;
-//                    }
-//                }
-//            }
-            if(fieldEmpty){
-                ownerMap.remove(key);
-                fieldList = new LinkedHashSet<>(); 
-                createOwners(null);
+//        ownerGridPane.getChildren().retainAll(ownerGridPane.getChildren().get(0));
+//        for (Integer key : ownerMap.keySet()) {
+//            ownerGridPane.getChildren().remove(1, ownerGridPane.getChildren().size());
+//        }
+        List<TextField> removeList = new LinkedList<>();
+        int i = 1;
+        ObservableList<Node> childrens = ownerGridPane.getChildren();
+        for (Node node : childrens) {
+            if (node instanceof TextField && GridPane.getRowIndex(node) == i && GridPane.getColumnIndex(node) == ownerRowIndex) {
+                TextField field = ownerTextField[i];
+//                ownerGridPane.getChildren().remove(field);
+                removeList.add(field);
+                i++;
             }
         }
+//        for (Integer key : ownerMap.keySet()) {
+//            
+//        }
+        
+        ownerTextField = new TextField[20];
+        ownerLabel = new Label[20];
+        occupyTextField = new TextField[20];
+        occupyLabel = new Label[20];
+        staffTextField = new TextField[20];
+        staffDateField = new DatePicker[20];
+        ownerMap = new LinkedHashMap<>();
+        occupyerMap = new LinkedHashMap<>();
+        trainedFireSafetyStaffMap = new LinkedHashMap<>();
+        ownerRowIndex = 1;
+        occupyRowIndex = 1;
+        staffRowIndex = 1;
+        i = 1;
+        j = 1;
+        k = 1;
     }
-    
+ 
     private void createOwners(ParticularOwners owners){
         System.out.println("Adding Owner Row....." + i);
         LinkedHashSet<TextField> fieldList = new LinkedHashSet<>();

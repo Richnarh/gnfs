@@ -28,7 +28,7 @@ public class Main extends Application{
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("GNFS");
+        stage.setTitle("GNFS - LOGIN");
         stage.show();
     }
     

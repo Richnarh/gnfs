@@ -24,12 +24,16 @@ public class SmsService {
         return s != null;
     }
 
-    public static String getSenderId() {
-        String query = "SELECT * FROM settings LIMIT 1";
+    public static Settings findAll() {
+        String query = "SELECT * FROM settings";
         try {
             ResultSet rs = DbUtil.dbExecuteQuery(query);
             if(!rs.next()) return null;
-            return rs.getString("sender_id");
+            Settings settings = new Settings();
+            settings.setId(rs.getString("id"));
+            settings.setSenderId(rs.getString("sender_id"));
+            settings.setExpiryLimit(rs.getString("expiry_limit"));
+            return settings;
         } catch (SQLException e) {
             e.getMessage();
         }

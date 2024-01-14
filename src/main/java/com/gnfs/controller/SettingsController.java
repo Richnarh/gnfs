@@ -36,7 +36,7 @@ public class SettingsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        textFieldSenderId.setText(SmsService.getSenderId());
+        fetchData();
     }    
     
     @FXML
@@ -56,6 +56,15 @@ public class SettingsController implements Initializable {
                Popup.error(owner, "Could not save settings");
         } catch (Exception e) {
             e.getMessage();
+        }
+    }
+    
+    private void fetchData(){
+        Settings s = SmsService.findAll();
+        if(s != null){
+            textFieldSenderId.setText(s.getSenderId());
+            expiredLimitTextField.setText(s.getExpiryLimit());
+            settingsId = s.getId();
         }
     }
     

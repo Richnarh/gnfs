@@ -108,7 +108,7 @@ public class HibernateUtil {
          Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            transaction.commit();
+//            transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();

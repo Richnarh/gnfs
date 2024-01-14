@@ -34,19 +34,18 @@ public class GnfsManager {
     public static List<ParticularOwners> createOwners(LinkedHashMap<Integer, LinkedHashSet<TextField>> fieldMap) {
         List<ParticularOwners> ownerList = new LinkedList<>();
         LinkedHashSet<TextField> fieldList = new LinkedHashSet<>();
-
         for (Integer key : fieldMap.keySet()) {
             fieldList = fieldMap.get(key);
             ParticularOwners owner = new ParticularOwners();
             for (TextField field : fieldList) {
-                if (field.getId().equalsIgnoreCase("ownerNameField" + key)) {
-                    owner.setOwnerName(field.getText());
-                } else if (field.getId().equalsIgnoreCase("ownerTeleHandyField" + key)) {
-                    owner.setTeleHandy(field.getText());
-                } else if (field.getId().equalsIgnoreCase("ownerTeleOfficeField" + key)) {
-                    owner.setTeleOffice(field.getText());
-                } else if (field.getId().equalsIgnoreCase("ownerPurposeField" + key)) {
-                    owner.setPurpose(field.getText());
+                if (field.getId().equalsIgnoreCase("ownerNameField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                    owner.setOwnerName(field.getText().trim());
+                } else if (field.getId().equalsIgnoreCase("ownerTeleHandyField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                    owner.setTeleHandy(field.getText().trim());
+                } else if (field.getId().equalsIgnoreCase("ownerTeleOfficeField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                    owner.setTeleOffice(field.getText().trim());
+                } else if (field.getId().equalsIgnoreCase("ownerPurposeField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                    owner.setPurpose(field.getText().trim());
                 }
             }
             ownerList.add(owner);
@@ -62,7 +61,6 @@ public class GnfsManager {
     public static List<ParticularOccupyers> createOccupyers(LinkedHashMap<Integer, LinkedHashSet<TextField>> occupyerMap) {
         List<ParticularOccupyers> occupyerList = new LinkedList<>();
         LinkedHashSet<TextField> fieldList = new LinkedHashSet<>();
-        
         for (Integer key : occupyerMap.keySet()) {
             fieldList = occupyerMap.get(key);
             ParticularOccupyers occupyers = new ParticularOccupyers();
@@ -89,7 +87,6 @@ public class GnfsManager {
     public static List<TrainedFireSafetyStaff> createTrainedFireSafetyStaff(LinkedHashMap<Integer, LinkedHashSet<TextField>> trainedFireSafetyStaffMap) {
         List<TrainedFireSafetyStaff> trainedFireSafetyStaffList = new LinkedList<>();
         LinkedHashSet<TextField> fieldList = new LinkedHashSet<>();
-        
         for (Integer key : trainedFireSafetyStaffMap.keySet()) {
             fieldList = trainedFireSafetyStaffMap.get(key);
             TrainedFireSafetyStaff safetyStaff = new TrainedFireSafetyStaff();

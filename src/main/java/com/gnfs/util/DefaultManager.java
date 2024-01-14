@@ -12,6 +12,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -19,6 +20,7 @@ import org.hibernate.criterion.Restrictions;
  * @author Richard Narh
  */
 public class DefaultManager {
+    private static Transaction txn;
       
     public static boolean delete(BaseModel model) {
         Session sess = HibernateUtil.open();
@@ -39,20 +41,6 @@ public class DefaultManager {
         }
         return false;
     }
-    
-//    public static <T> T findById(Class<T> t, Object id) {
-//        Session sess = HibernateUtil.open();
-//        if (id == null) {
-//            return null;
-//        }
-//        try {
-//            return (T) sess.load(t, (Serializable) id);
-//        } catch (Exception e) {
-//            e.getMessage();
-//            System.out.println("Error finding " + t.getName() + " with ID " + id);
-//        }
-//        return null;
-//    }
     
     public static <T> T findAll(Class<?> clazz){
         Session s = HibernateUtil.open();
@@ -80,8 +68,9 @@ public class DefaultManager {
                 sess.getTransaction().commit();
             } else {
                 System.out.println("Updating.......");
+                txn = sess.getTransaction();
                 sess.update(model);
-                sess.getTransaction().commit();
+                txn.commit();
             }
             return (T) model;
         } catch (HibernateException e) {

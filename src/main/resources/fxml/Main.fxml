@@ -136,11 +136,6 @@
                            </cursor>
                         </Button>
                         <Separator layoutX="-29.0" layoutY="268.0" prefHeight="3.0" prefWidth="1169.0" />
-                        <Button fx:id="btnOwnerRow" layoutX="933.0" layoutY="236.0" mnemonicParsing="false" onAction="#removeOwnerRowAction" style="-fx-background-color: #D10000;" text="Remove Row" textFill="WHITESMOKE">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Button>
                      </children>
                   </AnchorPane>
               </content>

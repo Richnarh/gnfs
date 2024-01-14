@@ -92,7 +92,8 @@ public class FxPageLoader {
         }
         return a;
     }
-    public static void removeRow(GridPane grid, Integer targetRowIndexIntegerObject) {
+    
+    public static void removeRow(GridPane grid, Integer targetRowIndexIntegerObject){
         final int targetRowIndex = targetRowIndexIntegerObject == null ? 0 : targetRowIndexIntegerObject;
 
         // Remove children from row
