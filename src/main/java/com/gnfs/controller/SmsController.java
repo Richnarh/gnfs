@@ -8,6 +8,7 @@ package com.gnfs.controller;
 import Zenoph.SMSLib.Enums.MSGTYPE;
 import Zenoph.SMSLib.Enums.REQSTATUS;
 import Zenoph.SMSLib.ZenophSMS;
+import com.gnfs.entities.Settings;
 import com.gnfs.model.Sms;
 import com.gnfs.services.SmsService;
 import com.gnfs.util.Popup;
@@ -67,12 +68,13 @@ public class SmsController implements Initializable {
             Popup.error(owner, "Please type a message");
             return;
         }
-        String senderId = SmsService.getSenderId();
-        if(senderId == null){
+        Settings s = SmsService.findAll();
+        
+        if(s.getSenderId() == null){
             Popup.error(owner, "Sender ID not found!");
             return;
         }
-        System.out.println("SenderID: "+senderId);
+        System.out.println("SenderID: "+s.getSenderId());
         System.out.println("Telephone: "+telephone);
         if(telephone == null){
             Popup.error(owner, "Premises telephone empty. SMS uses this number");
@@ -90,7 +92,7 @@ public class SmsController implements Initializable {
             for (String number : numbers) {
                 zsms.addRecipient(number);
             }
-            zsms.setSenderId(senderId);
+            zsms.setSenderId(s.getSenderId());
             Popup.info(owner, "SMS sent successfully to: ");
             List<String[]> response = zsms.submit();
             for (String[] destination : response) {

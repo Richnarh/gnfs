@@ -6,6 +6,7 @@
 package com.gnfs.controller;
 
 import com.gnfs.util.JUtils;
+import com.gnfs.util.Popup;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,13 +21,18 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Window;
 
 /**
  * FXML Controller class
@@ -40,6 +46,13 @@ public class MediaController implements Initializable {
     private ImageView imageView;
     @FXML
     private TreeView<?> mediaTree;
+    @FXML
+    private ScrollPane imageScrollPane;
+    @FXML
+    private Button deleteBtn;
+
+    private File selectedFile;
+    
     /**
      * Initializes the controller class.
      */
@@ -109,7 +122,8 @@ public class MediaController implements Initializable {
                         }
                     }
                     if(filePath.isFile()){
-                        System.out.println("File found");
+                        selectedFile = filePath;
+                        System.out.println("File found: "+filePath.getAbsolutePath());
                         imageView = createImageView(filePath);
                         imageTilePane.getChildren().addAll(imageView);
                     }else{
@@ -141,5 +155,21 @@ public class MediaController implements Initializable {
             ex.getMessage();
         }
         return imageView;
+    }
+
+    @FXML
+    public void deleteAction(ActionEvent event) {
+        Window owner = ((Node) event.getSource()).getScene().getWindow();
+        if(selectedFile != null){
+            try {
+                System.out.println("selectedFile: "+selectedFile.getAbsolutePath());
+                boolean isDeleted = Files.deleteIfExists(Paths.get(selectedFile.getAbsolutePath()));
+                if(isDeleted){
+                    Popup.info(owner, "File deleted.");
+                }
+            } catch (IOException e) {
+                e.getMessage();
+            }
+        }
     }
 }
