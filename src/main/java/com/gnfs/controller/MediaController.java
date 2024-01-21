@@ -93,7 +93,8 @@ public class MediaController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends TreeItem> observable, TreeItem oldValue, TreeItem newValue) {
                 try {
-                    String filename = String.valueOf(newValue.getValue());
+                    if(imageView != null) imageView.setImage(null);
+                    String filename = newValue != null ? String.valueOf(newValue.getValue()) : null;
                     System.out.println("oldValue: " + oldValue);
                     System.out.println("newValue: " + filename);
                     
@@ -162,9 +163,12 @@ public class MediaController implements Initializable {
         Window owner = ((Node) event.getSource()).getScene().getWindow();
         if(selectedFile != null){
             try {
+                imageView.setImage(null);
+                System.gc();
                 System.out.println("selectedFile: "+selectedFile.getAbsolutePath());
                 boolean isDeleted = Files.deleteIfExists(Paths.get(selectedFile.getAbsolutePath()));
                 if(isDeleted){
+                    initTreeView();
                     Popup.info(owner, "File deleted.");
                 }
             } catch (IOException e) {

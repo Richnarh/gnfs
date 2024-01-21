@@ -21,6 +21,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -31,21 +32,32 @@ import org.hibernate.criterion.Restrictions;
  * @author Richard Narh
  */
 public class GnfsManager {
-    public static List<ParticularOwners> createOwners(LinkedHashMap<Integer, LinkedHashSet<TextField>> fieldMap) {
+    public static List<ParticularOwners> createOwners(LinkedHashMap<Integer, LinkedHashSet<Object>> fieldMap) {
         List<ParticularOwners> ownerList = new LinkedList<>();
-        LinkedHashSet<TextField> fieldList = new LinkedHashSet<>();
+        LinkedHashSet<Object> fieldList = new LinkedHashSet<>();
         for (Integer key : fieldMap.keySet()) {
             fieldList = fieldMap.get(key);
             ParticularOwners owner = new ParticularOwners();
-            for (TextField field : fieldList) {
-                if (field.getId().equalsIgnoreCase("ownerNameField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
-                    owner.setOwnerName(field.getText().trim());
-                } else if (field.getId().equalsIgnoreCase("ownerTeleHandyField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
-                    owner.setTeleHandy(field.getText().trim());
-                } else if (field.getId().equalsIgnoreCase("ownerTeleOfficeField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
-                    owner.setTeleOffice(field.getText().trim());
-                } else if (field.getId().equalsIgnoreCase("ownerPurposeField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
-                    owner.setPurpose(field.getText().trim());
+            for (Object obj : fieldList){
+                if (obj instanceof Label) {
+                    Label l = (Label) obj;
+                    if (!l.getId().contains("owner")){
+                        System.out.println("Id: " + l.getId());
+                        owner.setId(l.getId());
+                    }
+                } else {
+                    TextField field = (TextField) obj;
+                    if (field != null) {
+                        if (field.getId().equalsIgnoreCase("ownerNameField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                            owner.setOwnerName(field.getText().trim());
+                        } else if (field.getId().equalsIgnoreCase("ownerTeleHandyField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                            owner.setTeleHandy(field.getText().trim());
+                        } else if (field.getId().equalsIgnoreCase("ownerTeleOfficeField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                            owner.setTeleOffice(field.getText().trim());
+                        } else if (field.getId().equalsIgnoreCase("ownerPurposeField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                            owner.setPurpose(field.getText().trim());
+                        }
+                    }
                 }
             }
             ownerList.add(owner);
@@ -58,21 +70,32 @@ public class GnfsManager {
         return ownerList;
     }
 
-    public static List<ParticularOccupyers> createOccupyers(LinkedHashMap<Integer, LinkedHashSet<TextField>> occupyerMap) {
+    public static List<ParticularOccupyers> createOccupyers(LinkedHashMap<Integer, LinkedHashSet<Object>> occupyerMap) {
         List<ParticularOccupyers> occupyerList = new LinkedList<>();
-        LinkedHashSet<TextField> fieldList = new LinkedHashSet<>();
+        LinkedHashSet<Object> fieldList = new LinkedHashSet<>();
         for (Integer key : occupyerMap.keySet()) {
             fieldList = occupyerMap.get(key);
             ParticularOccupyers occupyers = new ParticularOccupyers();
-            for (TextField field : fieldList) {
-                if (field.getId().equalsIgnoreCase("occupyerNameField" + key)) {
-                    occupyers.setOccupyerName(field.getText());
-                } else if (field.getId().equalsIgnoreCase("occupyerTeleHandyField" + key)) {
-                    occupyers.setTeleHandy(field.getText());
-                } else if (field.getId().equalsIgnoreCase("occupyerTeleOfficeField" + key)) {
-                    occupyers.setTeleOffice(field.getText());
-                } else if (field.getId().equalsIgnoreCase("occupyerPurposeField" + key)) {
-                    occupyers.setUsageActivate(field.getText());
+            for (Object obj : fieldList) {
+                if (obj instanceof Label) {
+                    Label l = (Label) obj;
+                    if (!l.getId().contains("occupyer")) {
+                        System.out.println("Id: " + l.getId());
+                        occupyers.setId(l.getId());
+                    }
+                } else {
+                    TextField field = (TextField) obj;
+                    if (field != null) {
+                        if (field.getId().equalsIgnoreCase("occupyerNameField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                            occupyers.setOccupyerName(field.getText().trim());
+                        } else if (field.getId().equalsIgnoreCase("occupyerTeleHandyField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                            occupyers.setTeleHandy(field.getText().trim());
+                        } else if (field.getId().equalsIgnoreCase("occupyerTeleOfficeField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                            occupyers.setTeleOffice(field.getText().trim());
+                        } else if (field.getId().equalsIgnoreCase("occupyerPurposeField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                            occupyers.setUsageActivate(field.getText().trim());
+                        }
+                    }
                 }
             }
             occupyerList.add(occupyers);
@@ -84,9 +107,9 @@ public class GnfsManager {
         return occupyerList;
     }
 
-    public static List<TrainedFireSafetyStaff> createTrainedFireSafetyStaff(LinkedHashMap<Integer, LinkedHashSet<TextField>> trainedFireSafetyStaffMap) {
+    public static List<TrainedFireSafetyStaff> createTrainedFireSafetyStaff(LinkedHashMap<Integer, LinkedHashSet<Object>> trainedFireSafetyStaffMap) {
         List<TrainedFireSafetyStaff> trainedFireSafetyStaffList = new LinkedList<>();
-        LinkedHashSet<TextField> fieldList = new LinkedHashSet<>();
+        LinkedHashSet<Object> fieldList = new LinkedHashSet<>();
         for (Integer key : trainedFireSafetyStaffMap.keySet()) {
             fieldList = trainedFireSafetyStaffMap.get(key);
             TrainedFireSafetyStaff safetyStaff = new TrainedFireSafetyStaff();
@@ -96,17 +119,23 @@ public class GnfsManager {
                     if (dateField.getId().equalsIgnoreCase("staffDateField" + key)) {
                         safetyStaff.setTrainedDate(DateUtil.localDateToDate(dateField.getValue()));
                     }
+                } else if (obj instanceof Label) {
+                    Label l = (Label) obj;
+                    if (!l.getId().contains("staff")) {
+                        System.out.println("Id: " + l.getId());
+                        safetyStaff.setId(l.getId());
+                    }
                 } else {
                     TextField field = (TextField) obj;
                     if (field != null) {
-                        if (field.getId().equalsIgnoreCase("staffNameField" + key)) {
-                            safetyStaff.setName(field.getText());
-                        } else if (field.getId().equalsIgnoreCase("staffPositionField" + key)) {
-                            safetyStaff.setPosition(field.getText());
-                        } else if (field.getId().equalsIgnoreCase("staffTrainingField" + key)) {
-                            safetyStaff.setTypeOftraining(field.getText());
-                        } else if (field.getId().equalsIgnoreCase("staffTelephoneField" + key)) {
-                            safetyStaff.setTelephoneNo(field.getText());
+                        if (field.getId().equalsIgnoreCase("staffNameField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                            safetyStaff.setName(field.getText().trim());
+                        } else if (field.getId().equalsIgnoreCase("staffPositionField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                            safetyStaff.setPosition(field.getText().trim());
+                        } else if (field.getId().equalsIgnoreCase("staffTrainingField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                            safetyStaff.setTypeOftraining(field.getText().trim());
+                        } else if (field.getId().equalsIgnoreCase("staffTelephoneField" + key) && (field.getText() != null && !field.getText().isEmpty())) {
+                            safetyStaff.setTelephoneNo(field.getText().trim());
                         }
                     }
                 }

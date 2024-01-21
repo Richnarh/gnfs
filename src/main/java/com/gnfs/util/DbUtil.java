@@ -20,7 +20,7 @@ public class DbUtil {
 
     public static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     public static final String DB_URL = "jdbc:mysql://localhost:3306/gnfs?useSSL=false";
-    public static final String DB_USER = "khoders";
+    public static final String DB_USER = "root";
     public static final String DB_PASSWORD = "1234";
     public static final String SHOW_SQL = "true";
     private static Connection conn = null;

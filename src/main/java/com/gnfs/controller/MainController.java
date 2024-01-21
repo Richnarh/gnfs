@@ -50,6 +50,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.Tooltip;
 import javafx.stage.Window;
 import javafx.util.Callback;
@@ -64,6 +65,8 @@ public class MainController implements Initializable {
     private Button btnSettings;
     @FXML
     private Button btnUploadFile;
+    @FXML
+    private MenuButton menuBtn;
     @FXML
     private GridPane ownerGridPane;
     @FXML
@@ -165,7 +168,7 @@ public class MainController implements Initializable {
     @FXML
     private ComboBox<InchargeDto> officerCmb;
 
-    private String receipient,telephone,id = null;
+    private String receipient,telephone,id,premId,fscId,ffeId,siId,cId = null;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -175,6 +178,8 @@ public class MainController implements Initializable {
         
         btnUploadFile.setGraphic(new ImageView(new Image("/icons/upload.png")));
         btnUploadFile.setTooltip(new Tooltip("Upload Images/File"));
+        
+        menuBtn.setGraphic(new ImageView(new Image("/icons/menu.png")));
     }
 
     public void inchargeCmb() {
@@ -201,7 +206,7 @@ public class MainController implements Initializable {
                 if (dto == null) {
                     return null;
                 } else {
-                    return dto.getId();
+                    return dto.getOfficerInCharge();
                 }
             }
 
@@ -230,6 +235,7 @@ public class MainController implements Initializable {
 
     TextField[] staffTextField = new TextField[20];
     DatePicker[] staffDateField = new DatePicker[20];
+    Label[] staffLabel = new Label[20];
 
     int ownerRowIndex = 1;
     int occupyRowIndex = 1;
@@ -238,9 +244,9 @@ public class MainController implements Initializable {
     int j = 1;
     int k = 1;
     
-    LinkedHashMap<Integer, LinkedHashSet<TextField>> ownerMap = new LinkedHashMap<>();
-    LinkedHashMap<Integer, LinkedHashSet<TextField>> occupyerMap = new LinkedHashMap<>();
-    LinkedHashMap<Integer, LinkedHashSet<TextField>> trainedFireSafetyStaffMap = new LinkedHashMap<>();
+    LinkedHashMap<Integer, LinkedHashSet<Object>> ownerMap = new LinkedHashMap<>();
+    LinkedHashMap<Integer, LinkedHashSet<Object>> occupyerMap = new LinkedHashMap<>();
+    LinkedHashMap<Integer, LinkedHashSet<Object>> trainedFireSafetyStaffMap = new LinkedHashMap<>();
     
     @FXML
     public void btnAddOwnerRow(ActionEvent event) {
@@ -301,7 +307,8 @@ public class MainController implements Initializable {
     
     @FXML
     public void resetPageAction(ActionEvent event) {
-        resetPage();
+        Window owner = ((Node)event.getSource()).getScene().getWindow();
+        resetPage(owner);
     }
 
     @FXML
@@ -389,32 +396,35 @@ public class MainController implements Initializable {
         if(sc != null){
             incharge = sc.getIncharge();
             pp = sc.getParticularPremises();
+            fscId = sc.getId();
             textFieldSafetyName.setText(sc.getName());
             textFieldHseNo.setText(sc.getHouseNo());
             textFieldGPRS.setText(sc.getGprs());
             textFieldSafetyLocation.setText(sc.getLocation());
             textFieldRiskType.setText(sc.getTypeOfRisk());
-            issueDateField.setValue(DateUtil.dateToLocalDate(sc.getIssueDate()));
-            expiryDateField.setValue(DateUtil.dateToLocalDate(sc.getExpiryDate()));
+            issueDateField.setValue(DateUtil.dateToLocalDate(sc.getIssueDate(),Pattern.mmddyyyy));
+            expiryDateField.setValue(DateUtil.dateToLocalDate(sc.getExpiryDate(),Pattern.mmddyyyy));
             textFieldCertNo.setText(sc.getCertificateNo());
         }
+        
         if(pp != null){
             incharge = pp.getIncharge();
+            if(incharge != null){
+                officerCmb.setValue(new InchargeDto(incharge.getId(), incharge.getOfficerInCharge()));
+            }
+            premId = pp.getId();
+            id = pp.getId();
             textFieldName.setText(pp.getName());
             textFieldType.setText(pp.getPremType());
             textFieldLocation.setText(pp.getLocation());
             textFieldLandMark.setText(pp.getLandMark());
             textFieldTelephone.setText(pp.getTelephone());
-        }
-        if(incharge != null){
-            officerCmb.setValue(new InchargeDto(incharge.getId(), incharge.getOfficerInCharge()));
-        }
-        if(pp != null){
-            id = pp.getId();
             receipient = pp.getName() +" - "+pp.getTelephone();
             telephone = pp.getTelephone();
+            
             FireFightingEquipment ffe = GnfsManager.getFireFightingEquipment(pp);
             if(ffe != null){
+                ffeId = ffe.getId();
                 dcpQtyTextField.setText(JUtils.toString(ffe.getDcpQty()));
                 emergencyLightQtyTextField.setText(JUtils.toString(ffe.getEmergencyLightQty()));
                 smokeDetectorQtyTextField.setText(JUtils.toString(ffe.getSmokeDetectorQty()));
@@ -444,6 +454,7 @@ public class MainController implements Initializable {
             
             SpecialInstallation si = GnfsManager.getSpecialInstallation(pp);
             if(si != null){
+                siId = si.getId();
                 textFieldHydrant.setText(si.getHydrant());
                 textFieldSmokeExtractor.setText(si.getSmokeExtractor());
                 textFieldDryRisers.setText(si.getDryRisers());
@@ -454,6 +465,7 @@ public class MainController implements Initializable {
             
             CollectionDate cd = GnfsManager.getCollectionDate(pp);
             if(cd != null){
+                cId = cd.getId();
                 collectionDateField.setValue(DateUtil.dateToLocalDate(cd.getDateOfCollection(), Pattern.mmddyyyy));
             }
             
@@ -480,47 +492,49 @@ public class MainController implements Initializable {
         }
     }
     
-    public void resetPage(){
+    public void resetPage(Window owner){
+        System.exit(0);
+        new FxPageLoader(owner).loadFxml("/fxml/Main", "GNFS - FIRE PRECAUTION DATA COLLECTION FORM", Modality.APPLICATION_MODAL, false);
         System.out.println("ownerMap: "+ownerMap.keySet());
 //        ownerGridPane.getChildren().retainAll(ownerGridPane.getChildren().get(0));
 //        for (Integer key : ownerMap.keySet()) {
 //            ownerGridPane.getChildren().remove(1, ownerGridPane.getChildren().size());
 //        }
-        List<TextField> removeList = new LinkedList<>();
-        int i = 1;
-        ObservableList<Node> childrens = ownerGridPane.getChildren();
-        for (Node node : childrens) {
-            if (node instanceof TextField && GridPane.getRowIndex(node) == i && GridPane.getColumnIndex(node) == ownerRowIndex) {
-                TextField field = ownerTextField[i];
-//                ownerGridPane.getChildren().remove(field);
-                removeList.add(field);
-                i++;
-            }
-        }
+//        List<TextField> removeList = new LinkedList<>();
+//        int i = 1;
+//        ObservableList<Node> childrens = ownerGridPane.getChildren();
+//        for (Node node : childrens) {
+//            if (node instanceof TextField && GridPane.getRowIndex(node) == i && GridPane.getColumnIndex(node) == ownerRowIndex) {
+//                TextField field = ownerTextField[i];
+////                ownerGridPane.getChildren().remove(field);
+//                removeList.add(field);
+//                i++;
+//            }
+//        }
 //        for (Integer key : ownerMap.keySet()) {
 //            
 //        }
         
-        ownerTextField = new TextField[20];
-        ownerLabel = new Label[20];
-        occupyTextField = new TextField[20];
-        occupyLabel = new Label[20];
-        staffTextField = new TextField[20];
-        staffDateField = new DatePicker[20];
-        ownerMap = new LinkedHashMap<>();
-        occupyerMap = new LinkedHashMap<>();
-        trainedFireSafetyStaffMap = new LinkedHashMap<>();
-        ownerRowIndex = 1;
-        occupyRowIndex = 1;
-        staffRowIndex = 1;
-        i = 1;
-        j = 1;
-        k = 1;
+//        ownerTextField = new TextField[20];
+//        ownerLabel = new Label[20];
+//        occupyTextField = new TextField[20];
+//        occupyLabel = new Label[20];
+//        staffTextField = new TextField[20];
+//        staffDateField = new DatePicker[20];
+//        ownerMap = new LinkedHashMap<>();
+//        occupyerMap = new LinkedHashMap<>();
+//        trainedFireSafetyStaffMap = new LinkedHashMap<>();
+//        ownerRowIndex = 1;
+//        occupyRowIndex = 1;
+//        staffRowIndex = 1;
+//        i = 1;
+//        j = 1;
+//        k = 1;
     }
  
     private void createOwners(ParticularOwners owners){
         System.out.println("Adding Owner Row....." + i);
-        LinkedHashSet<TextField> fieldList = new LinkedHashSet<>();
+        LinkedHashSet<Object> fieldList = new LinkedHashSet<>();
         ownerTextField[1] = new TextField();
         ownerTextField[1].setLayoutX(340);
         ownerTextField[1].setId("ownerNameField" + i);
@@ -554,8 +568,9 @@ public class MainController implements Initializable {
         fieldList.add(ownerTextField[4]);
 
         ownerLabel[1] = new Label();
-        ownerLabel[1].setId("owner" + String.valueOf(i));
+        ownerLabel[1].setId(owners != null ? owners.getId() : "owner" + String.valueOf(i));
         ownerLabel[1].setText(String.valueOf(i));
+        fieldList.add(ownerLabel[1]);
         
         if (ownerRowIndex > 6) {
             Popup.error("You cannot add more than 6 rows");
@@ -575,7 +590,7 @@ public class MainController implements Initializable {
     }
     private void createOccupyers(ParticularOccupyers occupyers){
         System.out.println("Adding Occupyer Row....." + j);
-        LinkedHashSet<TextField> fieldList = new LinkedHashSet<>();
+        LinkedHashSet<Object> fieldList = new LinkedHashSet<>();
         occupyTextField[1] = new TextField();
         occupyTextField[1].setLayoutX(340);
         occupyTextField[1].setId("occupyerNameField" + j);
@@ -607,10 +622,10 @@ public class MainController implements Initializable {
         occupyTextField[4].setText(occupyers != null ? occupyers.getUsageActivate() : null);
         GridPane.setMargin(occupyTextField[4], new Insets(0, 5, 0, 0));
         fieldList.add(occupyTextField[4]);
-
         occupyLabel[1] = new Label();
-        occupyLabel[1].setId("occupy" + String.valueOf(j));
+        occupyLabel[1].setId(occupyers != null ? occupyers.getId() : "occupyer" + String.valueOf(j));
         occupyLabel[1].setText(String.valueOf(j));
+        fieldList.add(occupyLabel[1]);
         
 
         if (occupyRowIndex > 12) {
@@ -630,7 +645,7 @@ public class MainController implements Initializable {
     }
     private void createTrainedFireSafetyStaff(TrainedFireSafetyStaff staff){
         System.out.println("Adding Staff Row....." + k);
-        LinkedHashSet<TextField> fieldList = new LinkedHashSet<>();
+        LinkedHashSet<Object> fieldList = new LinkedHashSet<>();
         staffTextField[1] = new TextField();
         staffTextField[1].setLayoutX(340);
         staffTextField[1].setId("staffNameField" + k);
@@ -658,10 +673,10 @@ public class MainController implements Initializable {
         staffDateField[4] = new DatePicker();
         staffDateField[4].setLayoutX(340);
         staffDateField[4].setId("staffDateField" + k);
-        staffDateField[4].setPromptText("Date Field - " + k);
+        staffDateField[4].setPromptText("Staff Date Field - " + k);
         staffDateField[4].setValue(staff != null ? DateUtil.dateToLocalDate(staff.getTrainedDate(), Pattern.mmddyyyy) : null);
         GridPane.setMargin(staffDateField[4], new Insets(0, 5, 0, 0));
-        fieldList.add(staffTextField[4]);
+        fieldList.add(staffDateField[4]);
 
         staffTextField[5] = new TextField();
         staffTextField[5].setLayoutX(340);
@@ -670,6 +685,11 @@ public class MainController implements Initializable {
         staffTextField[5].setText(staff != null ? staff.getPosition() : null);
         GridPane.setMargin(staffTextField[5], new Insets(0, 5, 0, 0));
         fieldList.add(staffTextField[5]);
+        
+        staffLabel[6] = new Label();
+        staffLabel[6].setId(staff != null ? staff.getId() : "staff" + String.valueOf(j));
+        staffLabel[6].setText(String.valueOf(j));
+        fieldList.add(staffLabel[6]);
 
         if (staffRowIndex > 5) {
             Popup.error("You cannot add more than 5 rows");
@@ -686,8 +706,10 @@ public class MainController implements Initializable {
         staffRowIndex++;
         k++;
     }
+    
     public CollectionDate collDate(Incharge incharge,ParticularPremises pp){
         CollectionDate cd = new CollectionDate();
+        cd.setId(cId);
         cd.setIncharge(incharge);
         cd.setParticularPremises(pp);
         cd.setDateOfCollection(DateUtil.localDateToDate(collectionDateField.getValue()));
@@ -696,6 +718,7 @@ public class MainController implements Initializable {
     
     public ParticularPremises premisesData(Incharge incharge){
         ParticularPremises premises = new ParticularPremises();
+        premises.setId(premId);
         premises.setName(textFieldName.getText());
         premises.setPremType(textFieldType.getText());
         premises.setLocation(textFieldLocation.getText());
@@ -707,6 +730,7 @@ public class MainController implements Initializable {
         
     public SpecialInstallation specialInst(Incharge incharge,ParticularPremises pp){
         SpecialInstallation si = new SpecialInstallation();
+        si.setId(siId);
         si.setHydrant(textFieldHydrant.getText());
         si.setSmokeExtractor(textFieldSmokeExtractor.getText());
         si.setDryRisers(textFieldDryRisers.getText());
@@ -714,11 +738,13 @@ public class MainController implements Initializable {
         si.setWetRisers(textFieldWetRisers.getText());
         si.setHoseReel(textFieldHoseReel.getText());
         si.setIncharge(incharge);
+        si.setParticularPremises(pp);
         return si;
     }
     
     public SafetyCertificate fireSafetyData(Incharge incharge,ParticularPremises pp){
         SafetyCertificate sc = new SafetyCertificate();
+        sc.setId(fscId);
         sc.setName(textFieldSafetyName.getText());
         sc.setHouseNo(textFieldHseNo.getText());
         sc.setLocation(textFieldSafetyLocation.getText());
@@ -728,11 +754,13 @@ public class MainController implements Initializable {
         sc.setExpiryDate(DateUtil.localDateToDate(expiryDateField.getValue()));
         sc.setCertificateNo(textFieldCertNo.getText());
         sc.setIncharge(incharge);
+        sc.setParticularPremises(pp);
         return sc;
     }
     
     public FireFightingEquipment fireFightingEquipment(Incharge incharge,ParticularPremises pp){
         FireFightingEquipment ffe = new FireFightingEquipment();
+        ffe.setId(ffeId);
         ffe.setDcpQty(JUtils.toInteger(dcpQtyTextField.getText()));
         ffe.setEmergencyLightQty(JUtils.toInteger(emergencyLightQtyTextField.getText()));
         ffe.setSmokeDetectorQty(JUtils.toInteger(smokeDetectorQtyTextField.getText()));
@@ -759,6 +787,7 @@ public class MainController implements Initializable {
         ffe.setHeatDetectorServiceby(heatDetectorServByTextField.getText());
         ffe.setFireAlarmServiceby(fireAlarmServByTextField.getText());
         ffe.setIncharge(incharge);
+        ffe.setParticularPremises(pp);
         return ffe;
     }
 }
