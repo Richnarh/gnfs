@@ -45,7 +45,7 @@
               </content>
             </TitledPane>
             <TextField fx:id="gloabelSearchTextField" layoutX="427.0" layoutY="10.0" prefHeight="25.0" prefWidth="500.0" promptText="Search by Certificate No. / House No. / Premises Telephone (Type in full)" />
-            <Button fx:id="searchAction" layoutX="935.0" layoutY="10.0" mnemonicParsing="false" onAction="#searchAction" prefHeight="25.0" prefWidth="101.0" text="SEARCH">
+            <Button fx:id="searchAction" layoutX="936.0" layoutY="10.0" mnemonicParsing="false" onAction="#searchAction" prefHeight="25.0" prefWidth="96.0" text="SEARCH">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
