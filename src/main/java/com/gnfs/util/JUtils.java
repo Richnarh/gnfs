@@ -21,14 +21,15 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.logging.Level;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author khoders
  */
 public class JUtils {
-
-    static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JUtils.class.getName());
+    static final Logger log = LoggerFactory.getLogger(JUtils.class.getName());
 
     public static String genId() {
         try {
@@ -104,10 +105,10 @@ public class JUtils {
     public static String serverIP() {
         try {
             InetAddress IP = InetAddress.getLocalHost();
-            logger.log(Level.INFO, "IP : {0}", IP.getHostAddress());
+            log.debug("IP : {0}", IP.getHostAddress());
             return IP.getHostAddress();
         } catch (UnknownHostException e) {
-            logger.info(e.getMessage());
+            log.info(e.getMessage());
         }
         return null;
     }
@@ -238,12 +239,12 @@ public class JUtils {
 
     public Path getRootPath(String folderName) {
         Path rootPath = Paths.get(System.getProperty("user.dir") + File.separator + "gnfs_storage" + File.separator + folderName);
-        System.out.println("rootPath: " + rootPath);
+        log.debug("rootPath: {}", rootPath);
         return rootPath;
     }
     public Path getRootPath() {
         Path rootPath = Paths.get(System.getProperty("user.dir") + File.separator + "gnfs_storage");
-        System.out.println("rootPath: " + rootPath);
+        log.debug("rootPath: {}", rootPath);
         return rootPath;
     }
 

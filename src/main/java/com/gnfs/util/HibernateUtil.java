@@ -44,7 +44,7 @@ public class HibernateUtil {
                 settings.put(Environment.URL, DbUtil.DB_URL);
                 settings.put(Environment.USER, DbUtil.DB_USER);
                 settings.put(Environment.PASS, DbUtil.DB_PASSWORD);
-                settings.put(Environment.SHOW_SQL, DbUtil.SHOW_SQL);
+//                settings.put(Environment.SHOW_SQL, DbUtil.SHOW_SQL);
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
                 settings.put(Environment.AUTOCOMMIT, true);
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");

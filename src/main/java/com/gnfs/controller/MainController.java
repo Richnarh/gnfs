@@ -20,6 +20,8 @@ import com.gnfs.model.Sms;
 import com.gnfs.services.GnfsManager;
 import com.gnfs.util.DateUtil;
 import com.gnfs.util.DefaultManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -31,9 +33,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -50,8 +50,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.Tooltip;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -61,12 +61,12 @@ import javafx.util.StringConverter;
  * @author Richard Narh
  */
 public class MainController implements Initializable {
+    private static final Logger log = LoggerFactory.getLogger(MainController.class);
+    
     @FXML
     private Button btnSettings;
     @FXML
     private Button btnUploadFile;
-    @FXML
-    private MenuButton menuBtn;
     @FXML
     private GridPane ownerGridPane;
     @FXML
@@ -178,8 +178,7 @@ public class MainController implements Initializable {
         
         btnUploadFile.setGraphic(new ImageView(new Image("/icons/upload.png")));
         btnUploadFile.setTooltip(new Tooltip("Upload Images/File"));
-        
-        menuBtn.setGraphic(new ImageView(new Image("/icons/menu.png")));
+        log.info("Login successful.");
     }
 
     public void inchargeCmb() {
@@ -374,7 +373,7 @@ public class MainController implements Initializable {
     @FXML
     public void searchAction(ActionEvent event) {
         Window owner = ((Node) event.getSource()).getScene().getWindow();
-        System.out.println("Search: "+gloabelSearchTextField.getText());
+        log.debug("Search: {}",gloabelSearchTextField.getText());
         if(gloabelSearchTextField.getText() == null || gloabelSearchTextField.getText().isEmpty()){
             Popup.error(owner, "No search entry entered.");
             return;
@@ -483,57 +482,22 @@ public class MainController implements Initializable {
             });
         }
     }
-
-    @FXML
-    public void closeAction(ActionEvent event) {
-        Alert alert = Popup.confirm("Do you want to exit app ?", "Exiting...");
-        if(alert.getResult() == ButtonType.YES){
-            System.exit(0);
-        }
-    }
     
     public void resetPage(Window owner){
-        System.exit(0);
-        new FxPageLoader(owner).loadFxml("/fxml/Main", "GNFS - FIRE PRECAUTION DATA COLLECTION FORM", Modality.APPLICATION_MODAL, false);
-        System.out.println("ownerMap: "+ownerMap.keySet());
-//        ownerGridPane.getChildren().retainAll(ownerGridPane.getChildren().get(0));
-//        for (Integer key : ownerMap.keySet()) {
-//            ownerGridPane.getChildren().remove(1, ownerGridPane.getChildren().size());
-//        }
-//        List<TextField> removeList = new LinkedList<>();
-//        int i = 1;
-//        ObservableList<Node> childrens = ownerGridPane.getChildren();
-//        for (Node node : childrens) {
-//            if (node instanceof TextField && GridPane.getRowIndex(node) == i && GridPane.getColumnIndex(node) == ownerRowIndex) {
-//                TextField field = ownerTextField[i];
-////                ownerGridPane.getChildren().remove(field);
-//                removeList.add(field);
-//                i++;
-//            }
-//        }
-//        for (Integer key : ownerMap.keySet()) {
-//            
-//        }
-        
-//        ownerTextField = new TextField[20];
-//        ownerLabel = new Label[20];
-//        occupyTextField = new TextField[20];
-//        occupyLabel = new Label[20];
-//        staffTextField = new TextField[20];
-//        staffDateField = new DatePicker[20];
-//        ownerMap = new LinkedHashMap<>();
-//        occupyerMap = new LinkedHashMap<>();
-//        trainedFireSafetyStaffMap = new LinkedHashMap<>();
-//        ownerRowIndex = 1;
-//        occupyRowIndex = 1;
-//        staffRowIndex = 1;
-//        i = 1;
-//        j = 1;
-//        k = 1;
+        owner.hide();
+        FxPageLoader fxPageLoader = new FxPageLoader(owner);
+        Stage stage = fxPageLoader.loadFxml("/fxml/Main", "GNFS - FIRE PRECAUTION DATA COLLECTION FORM", Modality.WINDOW_MODAL);
+        stage.setHeight(680);
+        stage.setResizable(false);
+        stage.show();
+        stage.setX(stage.getX() + stage.getWidth() / 2 - stage.getWidth() / 2);
+        stage.setY(stage.getY() + stage.getHeight() / 2 - stage.getHeight() / 2);
+//        System.out.println("Reset successful");
+        log.info("Reset successful");
     }
  
     private void createOwners(ParticularOwners owners){
-        System.out.println("Adding Owner Row....." + i);
+        log.debug("Adding Owner Row..... {}", i);
         LinkedHashSet<Object> fieldList = new LinkedHashSet<>();
         ownerTextField[1] = new TextField();
         ownerTextField[1].setLayoutX(340);
@@ -589,7 +553,7 @@ public class MainController implements Initializable {
         i++;
     }
     private void createOccupyers(ParticularOccupyers occupyers){
-        System.out.println("Adding Occupyer Row....." + j);
+        log.debug("Adding Occupyer Row..... {}", j);
         LinkedHashSet<Object> fieldList = new LinkedHashSet<>();
         occupyTextField[1] = new TextField();
         occupyTextField[1].setLayoutX(340);
@@ -626,8 +590,7 @@ public class MainController implements Initializable {
         occupyLabel[1].setId(occupyers != null ? occupyers.getId() : "occupyer" + String.valueOf(j));
         occupyLabel[1].setText(String.valueOf(j));
         fieldList.add(occupyLabel[1]);
-        
-
+       
         if (occupyRowIndex > 12) {
             Popup.error("You cannot add more than 12 rows");
             return;
@@ -644,7 +607,7 @@ public class MainController implements Initializable {
         j++;
     }
     private void createTrainedFireSafetyStaff(TrainedFireSafetyStaff staff){
-        System.out.println("Adding Staff Row....." + k);
+        log.debug("Adding Staff Row..... {}", k);
         LinkedHashSet<Object> fieldList = new LinkedHashSet<>();
         staffTextField[1] = new TextField();
         staffTextField[1].setLayoutX(340);

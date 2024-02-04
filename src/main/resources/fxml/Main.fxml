@@ -407,12 +407,7 @@
             <Label layoutX="749.0" layoutY="1864.0" text="Collection Date" />
             <Button fx:id="btnMedia" layoutX="238.0" layoutY="10.0" mnemonicParsing="false" onAction="#mediaAction" prefHeight="25.0" prefWidth="62.0" style="-fx-background-color: #333; -fx-font-weight: bold;" text="Media" textFill="#f5ec0a" />
             <Button fx:id="btnUploadFile" layoutX="308.0" layoutY="10.0" mnemonicParsing="false" onAction="#uploadAction" text="Upload" />
-            <MenuButton fx:id="menuBtn" cache="true" layoutX="5.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0">
-              <items>
-                <MenuItem fx:id="menuBtnResetPage" mnemonicParsing="false" onAction="#resetPageAction" text="Reset Page" />
-                <MenuItem fx:id="menuBtnClose" mnemonicParsing="false" onAction="#closeAction" text="Close App" />
-              </items>
-            </MenuButton>
+            <Button fx:id="btnPageReset" layoutX="3.0" layoutY="10.0" mnemonicParsing="false" onAction="#resetPageAction" prefHeight="25.0" prefWidth="53.0" style="-fx-background-color: red;" text="Reset" textFill="WHITE" />
          </children>
       </AnchorPane>
    </content>

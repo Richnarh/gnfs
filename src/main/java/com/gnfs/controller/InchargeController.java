@@ -34,6 +34,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Window;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * FXML Controller class
@@ -41,6 +43,7 @@ import javafx.stage.Window;
  * @author Richard Narh
  */
 public class InchargeController implements Initializable {
+    private static final Logger log = LoggerFactory.getLogger(InchargeController.class);
     @FXML
     private TextField searchTextField;
     @FXML
@@ -68,7 +71,7 @@ public class InchargeController implements Initializable {
     }    
     
     public void fetchIncharge(){
-        System.out.println("Initialising table data.......");
+        log.debug("Initialising table data.......");
         List<Incharge> inchargeList = DefaultManager.findAll(Incharge.class);
         List<InchargeDto> dtoList = new LinkedList<>();
         for (Incharge incharge : inchargeList) {

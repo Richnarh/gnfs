@@ -49,7 +49,7 @@ public class DbUtil {
             if(conn == null){
                 conn =  dbConnect();
             }
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.getMessage();
         }
         return conn;
@@ -60,7 +60,7 @@ public class DbUtil {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw e;
         }
     }

@@ -25,14 +25,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Window;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * FXML Controller class
@@ -40,16 +40,14 @@ import javafx.stage.Window;
  * @author Richard Narh
  */
 public class MediaController implements Initializable {
+    private static final Logger log = LoggerFactory.getLogger(MediaController.class);
+    
     @FXML
     private TilePane imageTilePane;
     @FXML
     private ImageView imageView;
     @FXML
     private TreeView<?> mediaTree;
-    @FXML
-    private ScrollPane imageScrollPane;
-    @FXML
-    private Button deleteBtn;
 
     private File selectedFile;
     
@@ -69,7 +67,7 @@ public class MediaController implements Initializable {
             List<TreeItem> childItemList = new LinkedList<>();
             List<Path> directories = Files.walk(parentRoot).filter(Files::isDirectory).collect(Collectors.toList());
             directories.remove(parentRoot);
-            System.out.println("directories: "+directories.toString());
+            log.debug("directories: {}",directories.toString());
             for (Path path : directories) {
                 childItem = new TreeItem(path.getFileName());
                 childItemList.add(childItem);
@@ -95,13 +93,13 @@ public class MediaController implements Initializable {
                 try {
                     if(imageView != null) imageView.setImage(null);
                     String filename = newValue != null ? String.valueOf(newValue.getValue()) : null;
-                    System.out.println("oldValue: " + oldValue);
-                    System.out.println("newValue: " + filename);
+                    log.debug("oldValue: {}", oldValue);
+                    log.debug("newValue: {}", filename);
                     
                     File filePath = Paths.get(parentRoot + File.separator + filename).toFile();
-                    System.out.println("newpath: "+filePath.toString());
+                    log.debug("newpath: {}",filePath.toString());
                     if(filePath.isDirectory()){
-                        System.out.println("Hello Directory");
+                        log.debug("Hello Directory");
                     }else{
                         System.out.println("Not Directory");
                         List<Path> directories = Files.walk(parentRoot).filter(Files::isDirectory).collect(Collectors.toList());
@@ -112,7 +110,7 @@ public class MediaController implements Initializable {
                                 List<String> files = JUtils.listFiles(path.toString(), true);
                                 for (String file : files) {
                                     File f = new File(file);
-                                    System.out.println("File: " + f.getAbsolutePath());
+                                    log.debug("File: {}", f.getAbsolutePath());
                                     if (f.getName().equalsIgnoreCase(filename)) {
                                         filePath = f;
                                         break;
@@ -124,13 +122,13 @@ public class MediaController implements Initializable {
                     }
                     if(filePath.isFile()){
                         selectedFile = filePath;
-                        System.out.println("File found: "+filePath.getAbsolutePath());
+                        log.debug("File found: {}",filePath.getAbsolutePath());
                         imageView = createImageView(filePath);
                         imageTilePane.getChildren().addAll(imageView);
                     }else{
                         String[] files = filePath.list();
                         for (int i = 0; i < files.length; i++) {
-                            System.out.println("files: "+filePath + File.separator + files[i]);
+                            log.debug("files: {}"+filePath + File.separator + files[i]);
                             String file = filePath + File.separator + files[i];
                             imageView = createImageView(new File(file));
                             imageTilePane.getChildren().addAll(imageView);
@@ -165,7 +163,7 @@ public class MediaController implements Initializable {
             try {
                 imageView.setImage(null);
                 System.gc();
-                System.out.println("selectedFile: "+selectedFile.getAbsolutePath());
+                log.debug("selectedFile: {}",selectedFile.getAbsolutePath());
                 boolean isDeleted = Files.deleteIfExists(Paths.get(selectedFile.getAbsolutePath()));
                 if(isDeleted){
                     initTreeView();

@@ -70,14 +70,13 @@ public class SmsController implements Initializable {
         }
         Settings s = SmsService.findAll();
         
-        if(s.getSenderId() == null){
+        if(s == null || s.getSenderId() == null){
             Popup.error(owner, "Sender ID not found!");
             return;
         }
-        System.out.println("SenderID: "+s.getSenderId());
         System.out.println("Telephone: "+telephone);
         if(telephone == null){
-            Popup.error(owner, "Premises telephone empty. SMS uses this number");
+            Popup.error(owner, "Premises telephone number is empty");
             return;
         }
         try { 

@@ -66,6 +66,7 @@ public class FxPageLoader {
             Parent root = FXMLLoader.load(getClass().getResource(fxml+".fxml"));
             stage.initModality(modality);
             stage.setTitle(title);
+            stage.initOwner(owner);
             stage.setScene(new Scene(root));
         } catch (IOException e) {
             e.getMessage();
@@ -80,7 +81,7 @@ public class FxPageLoader {
         startStage(stage);
     }
     
-    private Stage startStage(Stage s){
+    public Stage startStage(Stage s){
         s.show();
         return s;
     }

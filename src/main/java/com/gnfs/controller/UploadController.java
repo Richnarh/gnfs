@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -21,15 +20,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * FXML Controller class
@@ -37,16 +36,12 @@ import org.apache.commons.io.FileUtils;
  * @author Richard Narh
  */
 public class UploadController implements Initializable {
+   private static final Logger log = LoggerFactory.getLogger(MediaController.class);
+    
    @FXML
    private ListView fileListView;
    @FXML
-   private Button btnChoosFile;
-   @FXML
    private Text fileCount;
-   @FXML
-   private AnchorPane filePane;
-   @FXML
-   private Button btnSaveFiles;
 
    private String receiptText;
    private List<File> fileList = new LinkedList<>();
@@ -54,7 +49,7 @@ public class UploadController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         receiptText = Params.newInstance().getData().toString();
-        System.out.println("receiptText: "+receiptText);
+        log.debug("receiptText: {}",receiptText);
     }    
     
     @FXML

@@ -14,12 +14,16 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Richard Narh
  */
 public class DefaultManager {
+    private static final Logger log = LoggerFactory.getLogger(DefaultManager.class);
+    
     private static Transaction txn;
       
     public static boolean delete(BaseModel model) {
@@ -30,7 +34,7 @@ public class DefaultManager {
         try {
             sess.delete(model);
             sess.getTransaction().commit();
-            System.out.println("Deleted....");
+            log.debug("Deleted....");
             return true;
         } catch (Exception e) {
             e.getMessage();
@@ -63,18 +67,18 @@ public class DefaultManager {
             }
             if (model.getId() == null) {
                 model.setId(JUtils.genId());
-                System.out.println("saving.......");
+                log.debug("saving.......");
                 sess.save(model);
                 sess.getTransaction().commit();
             } else {
-                System.out.println("Updating.......");
+                log.debug("Updating.......");
                 txn = sess.getTransaction();
                 sess.update(model);
                 txn.commit();
             }
             return (T) model;
         } catch (HibernateException e) {
-            System.out.println("Error.....");
+            log.error("Error.....");
             e.getMessage();
         }finally{
             if(sess != null){

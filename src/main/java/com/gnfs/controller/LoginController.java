@@ -23,6 +23,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * FXML Controller class
@@ -30,6 +32,8 @@ import javafx.stage.Window;
  * @author Pascal
  */
 public class LoginController implements Initializable {
+    private static final Logger log = LoggerFactory.getLogger(LoginController.class);
+    
     @FXML
     private PasswordField textFieldPassword;
 
@@ -48,8 +52,8 @@ public class LoginController implements Initializable {
     public void doLoginAction(ActionEvent event){
         Window owner = ((Node) event.getSource()).getScene().getWindow();
 
-        System.out.println(textFieldUsername.getText());
-        System.out.println(textFieldPassword.getText());
+        log.debug("username: {}",textFieldUsername.getText());
+        log.debug("password: {}",textFieldPassword.getText());
 
         if (textFieldUsername.getText().isEmpty()) {
             Popup.error(owner, "Form Error", "Please enter your login number");
@@ -81,18 +85,16 @@ public class LoginController implements Initializable {
         } catch (IOException ex) {
             ex.getMessage();
         }
-        Scene scene = new Scene(root);
         stage.initOwner(window);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.setTitle("GNFS - FIRE PRECAUTION DATA COLLECTION FORM");
-//        stage.sizeToScene();
-
-        
-        stage.setScene(scene);
+ 
+        stage.setScene(new Scene(root));
         stage.setHeight(680);
         stage.setResizable(false);
         stage.show();
         stage.setX(stage.getX() + stage.getWidth() / 2 - stage.getWidth() / 2);
         stage.setY(stage.getY() + stage.getHeight() / 2 - stage.getHeight() / 2);
+        
     }
 }
