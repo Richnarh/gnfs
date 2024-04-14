@@ -5,7 +5,6 @@
  */
 package com.gnfs.model;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -246,29 +245,4 @@ public class FireFightingEquipmentDto extends BasePojo{
     public void setWaterSourceQty(Integer waterSourceQty) {
         this.waterSourceQty = waterSourceQty;
     }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getInchargeId() {
-        return inchargeId;
-    }
-
-    public void setInchargeId(String inchargeId) {
-        this.inchargeId = inchargeId;
-    }
-
-    public LocalDate getValueDate() {
-        return valueDate;
-    }
-
-    public void setValueDate(LocalDate valueDate) {
-        this.valueDate = valueDate;
-    }
-    
 }

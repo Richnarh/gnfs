@@ -1,149 +1,51 @@
-2024-02-04 18:24:29,580 INFO o.h.Version [JavaFX Application Thread] HHH000412: Hibernate Core {5.1.13.Final}
-2024-02-04 18:24:29,583 INFO o.h.c.Environment [JavaFX Application Thread] HHH000206: hibernate.properties not found
-2024-02-04 18:24:29,584 INFO o.h.c.Environment [JavaFX Application Thread] HHH000021: Bytecode provider name : javassist
-2024-02-04 18:24:29,608 INFO o.h.a.c.r.j.JavaReflectionManager [JavaFX Application Thread] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-2024-02-04 18:24:29,648 WARN o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2024-02-04 18:24:29,652 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/gnfs?useSSL=false]
-2024-02-04 18:24:29,654 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001001: Connection properties: {user=root, password=****}
-2024-02-04 18:24:29,654 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001003: Autocommit mode: true
-2024-02-04 18:24:29,656 INFO o.h.e.j.c.i.PooledConnections [JavaFX Application Thread] HHH000115: Hibernate connection pool size: 3 (min=1)
-2024-02-04 18:24:29,793 INFO o.h.d.Dialect [JavaFX Application Thread] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-2024-02-04 18:24:30,776 INFO o.h.h.i.QueryTranslatorFactoryInitiator [JavaFX Application Thread] HHH000397: Using ASTQueryTranslatorFactory
-2024-02-04 18:24:35,252 INFO c.g.c.MainController [JavaFX Application Thread] Reset successful
-2024-02-04 18:24:42,270 INFO c.g.c.MainController [JavaFX Application Thread] Reset successful
-2024-02-04 18:28:46,189 INFO c.g.c.MainController [JavaFX Application Thread] Reset successful
-2024-02-04 18:58:25,449 INFO o.h.Version [JavaFX Application Thread] HHH000412: Hibernate Core {5.1.13.Final}
-2024-02-04 18:58:25,451 INFO o.h.c.Environment [JavaFX Application Thread] HHH000206: hibernate.properties not found
-2024-02-04 18:58:25,452 INFO o.h.c.Environment [JavaFX Application Thread] HHH000021: Bytecode provider name : javassist
-2024-02-04 18:58:25,479 INFO o.h.a.c.r.j.JavaReflectionManager [JavaFX Application Thread] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-2024-02-04 18:58:25,518 WARN o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2024-02-04 18:58:25,522 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/gnfs?useSSL=false]
-2024-02-04 18:58:25,522 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001001: Connection properties: {user=root, password=****}
-2024-02-04 18:58:25,522 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001003: Autocommit mode: true
-2024-02-04 18:58:25,524 INFO o.h.e.j.c.i.PooledConnections [JavaFX Application Thread] HHH000115: Hibernate connection pool size: 3 (min=1)
-2024-02-04 18:58:25,659 INFO o.h.d.Dialect [JavaFX Application Thread] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-2024-02-04 18:58:26,537 INFO o.h.h.i.QueryTranslatorFactoryInitiator [JavaFX Application Thread] HHH000397: Using ASTQueryTranslatorFactory
-2024-02-04 18:58:26,651 INFO c.g.c.MainController [JavaFX Application Thread] Login successful.
-2024-02-04 19:00:10,476 INFO o.h.Version [JavaFX Application Thread] HHH000412: Hibernate Core {5.1.13.Final}
-2024-02-04 19:00:10,479 INFO o.h.c.Environment [JavaFX Application Thread] HHH000206: hibernate.properties not found
-2024-02-04 19:00:10,480 INFO o.h.c.Environment [JavaFX Application Thread] HHH000021: Bytecode provider name : javassist
-2024-02-04 19:00:10,507 INFO o.h.a.c.r.j.JavaReflectionManager [JavaFX Application Thread] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-2024-02-04 19:00:10,547 WARN o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2024-02-04 19:00:10,552 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/gnfs?useSSL=false]
-2024-02-04 19:00:10,553 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001001: Connection properties: {user=root, password=****}
-2024-02-04 19:00:10,553 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001003: Autocommit mode: true
-2024-02-04 19:00:10,555 INFO o.h.e.j.c.i.PooledConnections [JavaFX Application Thread] HHH000115: Hibernate connection pool size: 3 (min=1)
-2024-02-04 19:00:10,698 INFO o.h.d.Dialect [JavaFX Application Thread] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-2024-02-04 19:00:11,716 INFO o.h.h.i.QueryTranslatorFactoryInitiator [JavaFX Application Thread] HHH000397: Using ASTQueryTranslatorFactory
-2024-02-04 19:00:11,859 INFO c.g.c.MainController [JavaFX Application Thread] Login successful.
-2024-02-04 19:00:17,562 INFO c.g.c.MainController [JavaFX Application Thread] Login successful.
-2024-02-04 19:00:17,739 INFO c.g.c.MainController [JavaFX Application Thread] Reset successful
-2024-02-04 19:03:04,712 INFO o.h.Version [JavaFX Application Thread] HHH000412: Hibernate Core {5.1.13.Final}
-2024-02-04 19:03:04,715 INFO o.h.c.Environment [JavaFX Application Thread] HHH000206: hibernate.properties not found
-2024-02-04 19:03:04,716 INFO o.h.c.Environment [JavaFX Application Thread] HHH000021: Bytecode provider name : javassist
-2024-02-04 19:03:04,746 INFO o.h.a.c.r.j.JavaReflectionManager [JavaFX Application Thread] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-2024-02-04 19:03:04,794 WARN o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2024-02-04 19:03:04,800 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/gnfs?useSSL=false]
-2024-02-04 19:03:04,800 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001001: Connection properties: {user=root, password=****}
-2024-02-04 19:03:04,800 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001003: Autocommit mode: true
-2024-02-04 19:03:04,803 INFO o.h.e.j.c.i.PooledConnections [JavaFX Application Thread] HHH000115: Hibernate connection pool size: 3 (min=1)
-2024-02-04 19:03:04,952 INFO o.h.d.Dialect [JavaFX Application Thread] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-2024-02-04 19:03:05,983 INFO o.h.h.i.QueryTranslatorFactoryInitiator [JavaFX Application Thread] HHH000397: Using ASTQueryTranslatorFactory
-2024-02-04 19:03:06,127 INFO c.g.c.MainController [JavaFX Application Thread] Login successful.
-2024-02-04 19:23:13,304 INFO o.h.Version [JavaFX Application Thread] HHH000412: Hibernate Core {5.1.13.Final}
-2024-02-04 19:23:13,307 INFO o.h.c.Environment [JavaFX Application Thread] HHH000206: hibernate.properties not found
-2024-02-04 19:23:13,308 INFO o.h.c.Environment [JavaFX Application Thread] HHH000021: Bytecode provider name : javassist
-2024-02-04 19:23:13,333 INFO o.h.a.c.r.j.JavaReflectionManager [JavaFX Application Thread] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-2024-02-04 19:23:13,372 WARN o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2024-02-04 19:23:13,376 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/gnfs?useSSL=false]
-2024-02-04 19:23:13,377 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001001: Connection properties: {user=root, password=****}
-2024-02-04 19:23:13,377 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001003: Autocommit mode: true
-2024-02-04 19:23:13,378 INFO o.h.e.j.c.i.PooledConnections [JavaFX Application Thread] HHH000115: Hibernate connection pool size: 3 (min=1)
-2024-02-04 19:23:13,505 INFO o.h.d.Dialect [JavaFX Application Thread] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-2024-02-04 19:23:14,381 INFO o.h.h.i.QueryTranslatorFactoryInitiator [JavaFX Application Thread] HHH000397: Using ASTQueryTranslatorFactory
-2024-02-04 19:23:14,500 INFO c.g.c.MainController [JavaFX Application Thread] Login successful.
-2024-02-04 19:27:02,319 INFO o.h.Version [JavaFX Application Thread] HHH000412: Hibernate Core {5.1.13.Final}
-2024-02-04 19:27:02,323 INFO o.h.c.Environment [JavaFX Application Thread] HHH000206: hibernate.properties not found
-2024-02-04 19:27:02,324 INFO o.h.c.Environment [JavaFX Application Thread] HHH000021: Bytecode provider name : javassist
-2024-02-04 19:27:02,351 INFO o.h.a.c.r.j.JavaReflectionManager [JavaFX Application Thread] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-2024-02-04 19:27:02,395 WARN o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2024-02-04 19:27:02,400 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/gnfs?useSSL=false]
-2024-02-04 19:27:02,401 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001001: Connection properties: {user=root, password=****}
-2024-02-04 19:27:02,401 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001003: Autocommit mode: true
-2024-02-04 19:27:02,403 INFO o.h.e.j.c.i.PooledConnections [JavaFX Application Thread] HHH000115: Hibernate connection pool size: 3 (min=1)
-2024-02-04 19:27:02,555 INFO o.h.d.Dialect [JavaFX Application Thread] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-2024-02-04 19:27:03,522 INFO o.h.h.i.QueryTranslatorFactoryInitiator [JavaFX Application Thread] HHH000397: Using ASTQueryTranslatorFactory
-2024-02-04 19:27:03,659 INFO c.g.c.MainController [JavaFX Application Thread] Login successful.
-2024-02-04 19:27:28,934 INFO c.g.c.LoginController [JavaFX Application Thread] username: x
-2024-02-04 19:27:28,936 INFO c.g.c.LoginController [JavaFX Application Thread] password: x
-2024-02-04 19:27:29,033 INFO o.h.Version [JavaFX Application Thread] HHH000412: Hibernate Core {5.1.13.Final}
-2024-02-04 19:27:29,034 INFO o.h.c.Environment [JavaFX Application Thread] HHH000206: hibernate.properties not found
-2024-02-04 19:27:29,035 INFO o.h.c.Environment [JavaFX Application Thread] HHH000021: Bytecode provider name : javassist
-2024-02-04 19:27:29,060 INFO o.h.a.c.r.j.JavaReflectionManager [JavaFX Application Thread] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-2024-02-04 19:27:29,097 WARN o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2024-02-04 19:27:29,101 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/gnfs?useSSL=false]
-2024-02-04 19:27:29,102 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001001: Connection properties: {user=root, password=****}
-2024-02-04 19:27:29,102 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001003: Autocommit mode: true
-2024-02-04 19:27:29,104 INFO o.h.e.j.c.i.PooledConnections [JavaFX Application Thread] HHH000115: Hibernate connection pool size: 3 (min=1)
-2024-02-04 19:27:29,232 INFO o.h.d.Dialect [JavaFX Application Thread] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-2024-02-04 19:27:30,170 INFO o.h.h.i.QueryTranslatorFactoryInitiator [JavaFX Application Thread] HHH000397: Using ASTQueryTranslatorFactory
-2024-02-04 19:27:30,291 INFO c.g.c.MainController [JavaFX Application Thread] Login successful.
-2024-02-04 19:34:46,079 INFO c.g.c.LoginController [JavaFX Application Thread] username: x
-2024-02-04 19:34:46,082 INFO c.g.c.LoginController [JavaFX Application Thread] password: x
-2024-02-04 19:34:46,177 INFO o.h.Version [JavaFX Application Thread] HHH000412: Hibernate Core {5.1.13.Final}
-2024-02-04 19:34:46,178 INFO o.h.c.Environment [JavaFX Application Thread] HHH000206: hibernate.properties not found
-2024-02-04 19:34:46,179 INFO o.h.c.Environment [JavaFX Application Thread] HHH000021: Bytecode provider name : javassist
-2024-02-04 19:34:46,204 INFO o.h.a.c.r.j.JavaReflectionManager [JavaFX Application Thread] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-2024-02-04 19:34:46,242 WARN o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2024-02-04 19:34:46,245 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/gnfs?useSSL=false]
-2024-02-04 19:34:46,246 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001001: Connection properties: {user=root, password=****}
-2024-02-04 19:34:46,246 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001003: Autocommit mode: true
-2024-02-04 19:34:46,248 INFO o.h.e.j.c.i.PooledConnections [JavaFX Application Thread] HHH000115: Hibernate connection pool size: 3 (min=1)
-2024-02-04 19:34:46,378 INFO o.h.d.Dialect [JavaFX Application Thread] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-2024-02-04 19:34:47,227 INFO o.h.h.i.QueryTranslatorFactoryInitiator [JavaFX Application Thread] HHH000397: Using ASTQueryTranslatorFactory
-2024-02-04 19:34:47,347 INFO c.g.c.MainController [JavaFX Application Thread] Login successful.
-2024-02-04 19:34:51,055 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Owner Row..... 1
-2024-02-04 19:35:18,512 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Owner Row..... 2
-2024-02-04 19:35:20,547 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Occupyer Row..... 1
-2024-02-04 19:35:24,304 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Occupyer Row..... 2
-2024-02-04 19:35:29,856 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Staff Row..... 1
-2024-02-04 19:35:31,181 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Staff Row..... 2
-2024-02-04 19:36:14,958 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Staff Row..... 3
-2024-02-04 19:36:20,021 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Occupyer Row..... 3
-2024-02-04 19:36:23,241 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Occupyer Row..... 4
-2024-02-04 19:36:26,247 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Owner Row..... 3
-2024-02-04 19:37:50,835 DEBUG c.g.c.LoginController [JavaFX Application Thread] username: x
-2024-02-04 19:37:50,837 DEBUG c.g.c.LoginController [JavaFX Application Thread] password: x
-2024-02-04 19:37:50,934 INFO o.h.Version [JavaFX Application Thread] HHH000412: Hibernate Core {5.1.13.Final}
-2024-02-04 19:37:50,936 INFO o.h.c.Environment [JavaFX Application Thread] HHH000206: hibernate.properties not found
-2024-02-04 19:37:50,937 INFO o.h.c.Environment [JavaFX Application Thread] HHH000021: Bytecode provider name : javassist
-2024-02-04 19:37:50,964 INFO o.h.a.c.r.j.JavaReflectionManager [JavaFX Application Thread] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-2024-02-04 19:37:51,001 WARN o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2024-02-04 19:37:51,005 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/gnfs?useSSL=false]
-2024-02-04 19:37:51,006 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001001: Connection properties: {user=root, password=****}
-2024-02-04 19:37:51,006 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001003: Autocommit mode: true
-2024-02-04 19:37:51,008 INFO o.h.e.j.c.i.PooledConnections [JavaFX Application Thread] HHH000115: Hibernate connection pool size: 3 (min=1)
-2024-02-04 19:37:51,142 INFO o.h.d.Dialect [JavaFX Application Thread] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-2024-02-04 19:37:52,114 INFO o.h.h.i.QueryTranslatorFactoryInitiator [JavaFX Application Thread] HHH000397: Using ASTQueryTranslatorFactory
-2024-02-04 19:37:52,241 INFO c.g.c.MainController [JavaFX Application Thread] Login successful.
-2024-02-04 23:50:21,856 DEBUG c.g.c.LoginController [JavaFX Application Thread] username: x
-2024-02-04 23:50:21,858 DEBUG c.g.c.LoginController [JavaFX Application Thread] password: x
-2024-02-04 23:50:21,976 INFO o.h.Version [JavaFX Application Thread] HHH000412: Hibernate Core {5.1.13.Final}
-2024-02-04 23:50:21,977 INFO o.h.c.Environment [JavaFX Application Thread] HHH000206: hibernate.properties not found
-2024-02-04 23:50:21,979 INFO o.h.c.Environment [JavaFX Application Thread] HHH000021: Bytecode provider name : javassist
-2024-02-04 23:50:22,007 INFO o.h.a.c.r.j.JavaReflectionManager [JavaFX Application Thread] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-2024-02-04 23:50:22,043 WARN o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2024-02-04 23:50:22,047 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/gnfs?useSSL=false]
-2024-02-04 23:50:22,048 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001001: Connection properties: {user=root, password=****}
-2024-02-04 23:50:22,048 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001003: Autocommit mode: true
-2024-02-04 23:50:22,050 INFO o.h.e.j.c.i.PooledConnections [JavaFX Application Thread] HHH000115: Hibernate connection pool size: 3 (min=1)
-2024-02-04 23:50:22,209 INFO o.h.d.Dialect [JavaFX Application Thread] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-2024-02-04 23:50:23,336 INFO o.h.h.i.QueryTranslatorFactoryInitiator [JavaFX Application Thread] HHH000397: Using ASTQueryTranslatorFactory
-2024-02-04 23:50:23,514 INFO c.g.c.MainController [JavaFX Application Thread] Login successful.
-2024-02-04 23:50:34,553 DEBUG c.g.c.MainController [JavaFX Application Thread] Search: 
-2024-02-04 23:50:45,575 DEBUG c.g.c.MainController [JavaFX Application Thread] Search: GC4839
-2024-02-04 23:50:45,618 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Owner Row..... 1
-2024-02-04 23:50:45,619 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Owner Row..... 2
-2024-02-04 23:50:45,624 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Occupyer Row..... 1
-2024-02-04 23:50:45,625 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Occupyer Row..... 2
-2024-02-04 23:50:45,630 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Staff Row..... 1
+2024-03-31 16:36:25,033 DEBUG c.g.c.LoginController [JavaFX Application Thread] username: x
+2024-03-31 16:36:25,037 DEBUG c.g.c.LoginController [JavaFX Application Thread] password: x
+2024-03-31 16:36:25,213 INFO o.h.Version [JavaFX Application Thread] HHH000412: Hibernate Core {5.1.13.Final}
+2024-03-31 16:36:25,214 INFO o.h.c.Environment [JavaFX Application Thread] HHH000206: hibernate.properties not found
+2024-03-31 16:36:25,215 INFO o.h.c.Environment [JavaFX Application Thread] HHH000021: Bytecode provider name : javassist
+2024-03-31 16:36:25,288 INFO o.h.a.c.r.j.JavaReflectionManager [JavaFX Application Thread] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2024-03-31 16:36:25,366 WARN o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2024-03-31 16:36:25,379 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/gnfs?useSSL=false]
+2024-03-31 16:36:25,379 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001001: Connection properties: {user=root, password=****}
+2024-03-31 16:36:25,380 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [JavaFX Application Thread] HHH10001003: Autocommit mode: true
+2024-03-31 16:36:25,383 INFO o.h.e.j.c.i.PooledConnections [JavaFX Application Thread] HHH000115: Hibernate connection pool size: 3 (min=1)
+2024-03-31 16:36:25,591 INFO o.h.d.Dialect [JavaFX Application Thread] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2024-03-31 16:36:26,917 INFO o.h.h.i.QueryTranslatorFactoryInitiator [JavaFX Application Thread] HHH000397: Using ASTQueryTranslatorFactory
+2024-03-31 16:36:27,045 INFO c.g.c.MainController [JavaFX Application Thread] Login successful.
+2024-03-31 16:36:37,466 INFO c.g.c.MainController [JavaFX Application Thread] Login successful.
+2024-03-31 16:36:37,637 INFO c.g.c.MainController [JavaFX Application Thread] Reset successful
+2024-03-31 16:36:38,992 INFO c.g.c.MainController [JavaFX Application Thread] Login successful.
+2024-03-31 16:36:39,127 INFO c.g.c.MainController [JavaFX Application Thread] Reset successful
+2024-03-31 16:36:45,521 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Owner Row..... 1
+2024-03-31 16:36:46,799 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Owner Row..... 2
+2024-03-31 16:36:47,473 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Owner Row..... 3
+2024-03-31 16:36:48,417 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Occupyer Row..... 1
+2024-03-31 16:36:48,635 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Occupyer Row..... 2
+2024-03-31 16:36:49,910 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Occupyer Row..... 3
+2024-03-31 16:36:50,590 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Occupyer Row..... 4
+2024-03-31 16:36:56,540 DEBUG c.g.c.InchargeController [JavaFX Application Thread] Initialising table data.......
+2024-03-31 16:36:57,988 DEBUG c.g.u.DefaultManager [JavaFX Application Thread] saving.......
+2024-03-31 16:36:58,156 DEBUG c.g.c.InchargeController [JavaFX Application Thread] Initialising table data.......
+2024-03-31 16:37:04,310 DEBUG c.g.u.DefaultManager [JavaFX Application Thread] saving.......
+2024-03-31 16:37:04,370 DEBUG c.g.c.InchargeController [JavaFX Application Thread] Initialising table data.......
+2024-03-31 16:37:10,809 DEBUG c.g.u.DefaultManager [JavaFX Application Thread] Deleted....
+2024-03-31 16:37:10,871 DEBUG c.g.c.InchargeController [JavaFX Application Thread] Initialising table data.......
+2024-03-31 16:37:18,655 DEBUG c.g.u.DefaultManager [JavaFX Application Thread] Deleted....
+2024-03-31 16:37:18,696 DEBUG c.g.c.InchargeController [JavaFX Application Thread] Initialising table data.......
+2024-03-31 16:37:26,872 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Owner Row..... 4
+2024-03-31 16:37:27,346 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Owner Row..... 5
+2024-03-31 16:37:27,720 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Owner Row..... 6
+2024-03-31 16:37:28,234 DEBUG c.g.c.MainController [JavaFX Application Thread] Adding Owner Row..... 7
+2024-03-31 16:37:50,616 DEBUG c.g.u.JUtils [JavaFX Application Thread] rootPath: C:\development\java-web\gnfs\gnfs_storage
+2024-03-31 16:37:50,619 DEBUG c.g.c.MediaController [JavaFX Application Thread] directories: [C:\development\java-web\gnfs\gnfs_storage\Jacob Adom - 0574417585]
+2024-03-31 16:37:55,706 DEBUG c.g.c.MediaController$1 [JavaFX Application Thread] oldValue: null
+2024-03-31 16:37:55,707 DEBUG c.g.c.MediaController$1 [JavaFX Application Thread] newValue: Screenshot 2023-09-25 083545.png
+2024-03-31 16:37:55,707 DEBUG c.g.c.MediaController$1 [JavaFX Application Thread] newpath: C:\development\java-web\gnfs\gnfs_storage\Screenshot 2023-09-25 083545.png
+2024-03-31 16:37:55,710 DEBUG c.g.c.MediaController$1 [JavaFX Application Thread] File: C:\development\java-web\gnfs\gnfs_storage\Jacob Adom - 0574417585\Screenshot 2023-09-25 083545.png
+2024-03-31 16:37:55,710 DEBUG c.g.c.MediaController$1 [JavaFX Application Thread] File found: C:\development\java-web\gnfs\gnfs_storage\Jacob Adom - 0574417585\Screenshot 2023-09-25 083545.png
+2024-03-31 16:38:01,651 DEBUG c.g.c.MediaController$1 [JavaFX Application Thread] oldValue: TreeItem [ value: Screenshot 2023-09-25 083545.png ]
+2024-03-31 16:38:01,652 DEBUG c.g.c.MediaController$1 [JavaFX Application Thread] newValue: Jacob Adom - 0574417585
+2024-03-31 16:38:01,652 DEBUG c.g.c.MediaController$1 [JavaFX Application Thread] newpath: C:\development\java-web\gnfs\gnfs_storage\Jacob Adom - 0574417585
+2024-03-31 16:38:01,653 DEBUG c.g.c.MediaController$1 [JavaFX Application Thread] Hello Directory
+2024-03-31 16:38:01,653 DEBUG c.g.c.MediaController$1 [JavaFX Application Thread] files: {}C:\development\java-web\gnfs\gnfs_storage\Jacob Adom - 0574417585\Screenshot 2023-09-25 083545.png
+2024-03-31 16:38:07,378 DEBUG c.g.c.MainController [JavaFX Application Thread] Search: 
